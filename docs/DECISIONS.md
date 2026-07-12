@@ -36,7 +36,7 @@ Sources being reconciled:
 **Answer:** Frontier-hard. → **D-007 ✅** Questions where today's best models score low. Explicitly NOT competing with MILU/BhashaBench broad coverage.
 
 **Q3. Language strategy for v1?** Options: ~10-12 langs + code-mixed (recommended) / Hindi+English first / all 22 scheduled.
-**Answer:** ~10-12 languages + code-mixed. → **D-008 ✅** ~10–12 major languages plus code-mixed (Hinglish/Tanglish); schema designed to extend to all 22 scheduled languages. *(The specific list — Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam, Gujarati, Punjabi, Odia + English-about-India — comes from the selected option's description; final list and whether English-about-India counts inside or on top of the 10–12 to be confirmed in a later batch.)*
+**Answer:** ~10-12 languages + code-mixed. → **D-008 ✅** ~10–12 major languages plus code-mixed (Hinglish/Tanglish); schema designed to extend to all 22 scheduled languages. *(The specific list — Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam, Gujarati, Punjabi, Odia + English-about-India — comes from the selected option's description; final list and whether English-about-India counts inside or on top of the 10–12 to be confirmed in a later batch. Resolved → D-031: 12 tracks; English-about-India counts as the 11th, code-mixed the 12th.)*
 
 **Q4. Question/task sourcing?** Options: expert+exam hybrid (recommended) / expert-only / exam-harvested / synthetic+human-verified.
 **Answer (owner's own wording):** "Synthetic: LLM Sourced and Then Frontier LLM only create it." → **D-009 ✅** Sourcing is synthetic: source material mined/curated by LLMs, questions authored by frontier LLMs. ⚠️ Tension with D-007 (frontier-hard) noted — resolution asked in Batch 2 (how do frontier models author questions frontier models fail?).
@@ -66,7 +66,7 @@ Sources being reconciled:
 | # | Decision | Status |
 |---|----------|--------|
 | D-014 | Development runs like a dev team on https://github.com/pukrvi/indibench: feature branches, PRs, sub-agent self-review before merge. | ✅ |
-| D-015 | Repo hygiene per goals.md: canary strings in datasets, eval scripts easy to run locally on Ubuntu (incl. small local models), clear open licensing. Consistent with D-013. *(goals.md names MIT / CC-BY-4.0 as examples; the exact code/data license split is still open — Batch 3/4.)* | ✅ (licenses ⏳) |
+| D-015 | Repo hygiene per goals.md: canary strings in datasets, eval scripts easy to run locally on Ubuntu (incl. small local models), clear open licensing. Consistent with D-013. *(goals.md names MIT / CC-BY-4.0 as examples; the exact code/data license split was still open at recording time — resolved → D-022.)* | ✅ (licenses resolved → D-022) |
 | C-001 | **CONFLICT:** goals.md adds Vision/Multimodal and Speech (TTS/STT) tracks; Batch 1 locked a dual-track scope (knowledge + agentic). Reconcile: are these v1 tracks, later phases, or aspirational? | ⏳ Batch 3 |
 | C-002 | **CONFLICT:** goals.md says "material from regional and state-level examinations" and MILU-style "all 22 scheduled languages"; D-009 locked synthetic sourcing, D-008 locked 10–12 langs for v1. Reconcile: exams as *grounding source docs* for synthesis (compatible) vs harvested questions (contradicts D-009)? 22 languages as end-goal (compatible) vs v1 (contradicts D-008)? | ⏳ Batch 3 |
 
@@ -127,4 +127,36 @@ Sources being reconciled:
 accuracy (rubric? VLM-judge? human panel?) — Phase 3 design question, to be
 asked when Phase 3 design starts (noted, not urgent for Phase 1).
 
-### Batch 5 — (pending)
+### Batch 5 — 2026-07-13 — Thesis confirmation, governance, panel, domains
+
+**Q17. Historical accuracy as scored dimension across ALL phases (THESIS.md interpretation)?** Options: yes all phases (recommended) / images only / per-phase at design time.
+**Answer:** Yes — all phases. → **D-027 ✅** Historical/factual accuracy about India is a tagged, reportable dimension suite-wide: Phase 1 historical domain slice, Phase 3 period/cultural correctness of generated images, Phase 2 spoken answers. THESIS.md interpretation flag resolved.
+
+**Q18. Governance?** Options: personal → org later (recommended) / dedicated org now / institutional home first.
+**Answer:** Personal → org later. → **D-028 ✅** v1 ships from pukrvi/indibench; on traction (paper + leaderboard) migrate to a dedicated GitHub org and invite 2–3 co-maintainers.
+
+**Q19. Adversarial panel + threshold?** Options: 3 labs + 1 Indian model, keep if ≥2/4 fail (recommended) / all-fail / majority of 6–8.
+**Answer:** 3 labs + 1 Indian model; keep if ≥2 fail. → **D-029 ✅** Panel: one frontier model each from OpenAI, Anthropic, Google + best Indian model (e.g., Sarvam). Keep questions ≥2 of 4 fail. Dual-judge from two labs with third-judge tiebreak. Panel composition published.
+
+**Q20. Phase 1 domain taxonomy?** Options: 10-domain balanced grid (recommended) / professional-heavy / culture-heavy / data-decides.
+**Answer:** 10-domain balanced grid. → **D-030 ✅** Domains: law & constitution · governance & administration · STEM-in-India · medicine incl. Ayush · finance & taxation · agriculture · history & heritage · regional literature & arts · geography & environment · society & daily life. Roughly equal per-language quotas; grid published.
+
+### Batch 6 — 2026-07-13 — Languages final, refresh, budget, human baseline
+
+**Q21. Final v1 language list + English counting?** Options: 12 = 10 Indic + en-IN + code-mixed (recommended) / add Urdu+Assamese (14) / trim to 8.
+**Answer:** 12 tracks. → **D-031 ✅** Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam, Gujarati, Punjabi, Odia + English-about-India (11th track) + code-mixed Hinglish & Tanglish (12th track). Native authoring only. Urdu/Assamese/others in refresh waves toward all 22. Closes D-008's open note.
+
+**Q22. Refresh cadence + private split?** Options: 6-monthly/~20% (recommended) / quarterly/~15% / annual/~25%.
+**Answer:** 6-monthly; ~20% private. → **D-032 ✅** Two waves/year replacing ~1/3 of public items (oldest/easiest first), stable anchor subset; private held-out ≈500 questions, never released.
+
+**Q23. Budget envelope?** Options: bootstrap <$5k + volunteers / seed $5–25k (recommended) / wait for funding.
+**Answer:** Bootstrap: <$5k API + volunteer experts. → **D-033 ✅** Efficient generation models, aggressive caching, panel calls only on pre-screened candidates; experts recruited for co-authorship credit (HLE-style academic incentive), not pay. Pipeline design must be cost-aware end-to-end.
+
+**Q24. Human baseline for the paper?** Options: small calibration baseline (recommended) / full study / skip for v1.
+**Answer:** Skip for v1. → **D-034 ✅** v1 ships model scores only; human baseline added in a later refresh wave. "Frontier-hard" claim rests on adversarial-filter construction (D-029). Consistent with D-033 volunteer-budget reality.
+
+---
+
+**Work interleave 3 (after Q24):** record batch; propagate locked parameters into the Phase 1 design doc (panel, domains, tracks, refresh, cost-aware pipeline); prune resolved open items from PROJECT_MAP; PR #4 with sub-agent review.
+
+### Batch 7 — (pending)

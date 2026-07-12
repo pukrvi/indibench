@@ -28,7 +28,7 @@ every use case at frontier difficulty; broad-coverage MCQ stays out of scope).
 
 | Phase | Artifact | Status | v1 target |
 |---|---|---|---|
-| 1 | **IndiBench-Text** — frontier knowledge/reasoning, 10–12 langs + code-mixed (Hinglish/Tanglish) | 🟡 Design doc in progress | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
+| 1 | **IndiBench-Text** — frontier knowledge/reasoning, 12 language tracks (D-031: 10 Indic + en-IN + code-mixed) | 🟢 Design v0.2 — core parameters locked | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
 | 2 | **IndiBench-Speech** — STT **and TTS/spoken interaction** (D-024), dialect + acoustic diversity | 🔬 Landscape research partial (agent died mid-run; IndicSUPERB/Voice-of-India findings in audit) | TBD (design after Phase 1 ships) |
 | 3 | **IndiBench-Vision** — culturally grounded multimodal, BOTH directions: understanding India in images AND historically/contextually accurate image GENERATION (D-024) | ⏳ Roadmap | TBD |
 | 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational; real-web in scope per D-011, risk review pending) | ⏳ Designed-on-paper from day one; ships last | TBD |
@@ -74,7 +74,7 @@ require a schema break.
 
 | Workstream | Status |
 |---|---|
-| Alignment loop | 🟡 16 questions asked (Batches 1–4); Batch 5 next (governance, domains, judge panel, refresh cadence, budget) |
+| Alignment loop | 🟡 24 questions asked (Batches 1–6); core Phase 1 parameters locked; Batch 7 = judge/leaderboard/contribution details |
 | Reference-repo study | ✅ Done |
 | Landscape research (text) | ✅ docs/research/2026-07-12-indic-landscape.md |
 | Harness research | ✅ docs/research/2026-07-12-harness-and-arena.md |
@@ -83,24 +83,21 @@ require a schema break.
 | Speech landscape research | 🟠 Partial — research agent killed by API spend limit; core findings captured in audit §12/§19; full sweep to redo before Phase 2 design |
 | CLAUDE.md + maps | ✅ Current |
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
-| Phase 1 design doc | 🟡 Drafting |
-| Repo scaffold for benchmark code | ⏳ After Phase 1 design locks |
+| Phase 1 design doc | 🟢 v0.2 — core parameters locked (languages, domains, panel, refresh, budget); implementation-blocking items down to judge IDs + source licensing |
+| Repo scaffold for benchmark code | ⏳ Next — design is close to buildable |
 
-## Known open questions (feeding Batch 5+)
+## Known open questions (feeding Batch 7+)
 
-- Governance/org: who maintains IndiBench long-term? (personal / org / consortium)
-- Phase 1 domain list (which subjects, how many per language?)
-- Adversarial panel composition (which models, how many must fail a question?)
-- Judge model + protocol for scoring (LLM-judge lab-neutrality!)
+Resolved in Batches 5–6: governance (D-028), domains (D-030), panel (D-029),
+languages incl. English counting (D-031), refresh + private split (D-032),
+budget (D-033), human baseline — skipped v1 (D-034), historical accuracy
+suite-wide (D-027).
+
+- Concrete judge model choices (dual-judge, lab-neutral) + exact panel model IDs
 - Leaderboard submission verification (self-reported predictions are fabricable — maintainer-run? logs? private-split spot-reruns?)
-- Refresh cadence + versioning policy specifics; private held-out split size
 - Source-document licensing rules for the grounding corpus (S0)
 - Real-website agent tasks: risk decision pending (D-011 ⏳ — reproducibility/legal)
-- Budget: API costs for generation/filtering; paid expert spot-checks
-- Human baseline collection?
 - Safety/bias track: out of scope (Indic-Bias exists) or later phase?
 - Role of langfuse (infra intent?) — still unasked
-- English-about-India counting inside/on top of 10–12 languages
 - Community contributions of questions: accepted? bounty?
 - Image-generation accuracy scoring methodology (rubric? VLM-judge? human panel?) — Phase 3, not urgent (D-024 ⏳)
-- Historical accuracy as a scored dimension across ALL phases — interpretation in THESIS.md pending owner confirmation
