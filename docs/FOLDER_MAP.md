@@ -29,7 +29,7 @@ IndiBench/
     │                              #   The "MMLU of India" — what we must NOT duplicate.
     ├── indic-gen-bench-main/      # Google: generation tasks, 29 langs. COPY: canary-GUID-per-file JSON
     │                              #   wrapper {canary, examples}; per-source license separation.
-    ├── indic-bias-master/         # AI4Bharat: bias/fairness across 94 Indian identity groups. COPY:
+    ├── indic-bias-master/         # AI4Bharat: bias/fairness across 85 Indian identity groups. COPY:
     │                              #   synth_data_gen/ vs evaluations/ separation; taxonomy-driven synthesis.
     ├── Indic-llm-main/            # CognitiveLab training toolkit (not a benchmark; eval is a stub). Low value here.
     ├── indicnlp_catalog-master/   # Awesome-list of Indic NLP resources. Use as discovery index for source data.
@@ -40,6 +40,21 @@ IndiBench/
     ├── lm-evaluation-harness-main/# EleutherAI harness. Target for contributing our knowledge-track task config.
     └── langfuse-main/             # LLM observability/eval platform. Candidate infra for tracing pipeline runs,
                                    #   storing eval scores/datasets. Role not yet decided (ask owner).
+```
+
+## Reproducing `benchmarks/` (gitignored — clone these to study them)
+
+```
+git clone https://github.com/BharatGen-IITB-TIH/BhashaBench          benchmarks/BhashaBench-main
+git clone https://github.com/AI4Bharat/MILU                          benchmarks/MILU-master
+git clone https://github.com/google-research-datasets/indic-gen-bench benchmarks/indic-gen-bench-main
+git clone https://github.com/AI4Bharat/indic-bias                    benchmarks/indic-bias-master
+git clone https://github.com/adithya-s-k/Indic-llm                   benchmarks/Indic-llm-main
+git clone https://github.com/AI4Bharat/indicnlp_catalog              benchmarks/indicnlp_catalog-master
+git clone https://github.com/centerforaisafety/hle                   benchmarks/hle-main
+git clone https://github.com/swe-bench/SWE-bench                     benchmarks/SWE-bench-main
+git clone https://github.com/EleutherAI/lm-evaluation-harness        benchmarks/lm-evaluation-harness-main
+git clone https://github.com/langfuse/langfuse                       benchmarks/langfuse-main
 ```
 
 ## Planned additions (once alignment closes)

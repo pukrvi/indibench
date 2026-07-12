@@ -3,6 +3,9 @@
 This file preserves the original, verbatim inputs from the project owner so the
 original intent can always be consulted directly, rather than reconstructed.
 Newest entries at the bottom. Never paraphrase into this file — quote exactly.
+Owner answers to alignment-loop question batches are ALSO recorded here
+verbatim (the exact option label or free-text the owner selected/typed);
+the full question context lives in `DECISIONS.md`.
 
 ---
 
@@ -48,21 +51,27 @@ Newest entries at the bottom. Never paraphrase into this file — quote exactly.
 
 ---
 
+## Input 001a — 2026-07-12 — Batch 1 answers (verbatim selections)
+
+> Q1 (primary artifact): "Dual-track, phased (Recommended)"
+> Q2 (difficulty): "Frontier-hard (Recommended)"
+> Q3 (languages): "~10-12 langs + code-mixed (Recommended)"
+> Q4 (sourcing, owner's own text): "Synthetic: LLM Sourced and Then Frontier
+> LLM only create it."
+
+## Input 001b — 2026-07-12 — Batch 2 answers (verbatim selections)
+
+> Q5 (hard-synthetic mechanics): "Grounded + adversarial filter (Recommended)"
+> Q6 (agent-track shape, multi-select): "All of the above"
+> Q7 (harness, owner's own text): "Inspect AI, HLE, Lm Arena"
+> Q8 (contamination): "Canary + private held-out + refresh (Recommended)"
+
+---
+
 ## Input 002 — 2026-07-12 — goals.md + GitHub repo + dev workflow
 
-Owner shared `goals.md` (committed at repo root — that file IS the verbatim
-input; summary of its five sections: (1) Language & Text Understanding —
-multilingual coverage à la MILU/22 scheduled languages, complex reasoning in
-native scripts, generation tasks à la IndicGenBench; (2) Vision & Multimodal —
-culturally grounded image+text pairs (arts, festivals, attire, architecture,
-cuisine across states/UTs), captioning, scene text, charts/tables in Indian
-scripts; (3) Speech TTS/STT — spontaneous real-world audio, demographic/dialect
-spread across districts; (4) Cultural/Legal/Factual Knowledge — regional &
-state-exam material, domains: Social Sciences, STEM, Business, Governance;
-(5) Repo & paper structure — canary strings, easy-to-run eval scripts (Ubuntu,
-local small models), open licensing MIT/CC-BY-4.0.)
-
-And said (verbatim):
+Owner shared `goals.md` — that file, committed at the repo root, IS the
+verbatim input; consult it directly. And said (verbatim):
 
 > Understand the goals and here's the repo for the same so start maintaining
 > it yourself like a dev team. proper branching, PRs and Self-Review by

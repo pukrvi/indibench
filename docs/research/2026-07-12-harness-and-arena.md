@@ -25,7 +25,7 @@ Date: 2026-07-12 · Work interleave 1 (after question Batch 2) · Web research, 
 4. **HLE recipe has NOT been replicated for any language/region** as of mid-2026 —
    the "frontier-hard Indic" niche is open. HLE's ops model is copyable: bug-bounty
    window, rolling-corrections fork (`hle-rolling`), private held-out split,
-   official leaderboard hosted at Scale Labs. Cautionary tale: FutureHouse audit
+   official leaderboard hosted by Scale AI (SEAL leaderboards). Cautionary tale: FutureHouse audit
    found high wrong-answer rates in parts of HLE → answer-key QA is existential.
 5. **Renewable-benchmark versioning pattern to copy (LiveBench et al.):**
    date-stamped releases (`v2026.07`), partial refresh with a stable anchor subset,

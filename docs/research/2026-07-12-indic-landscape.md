@@ -30,7 +30,7 @@ Date: 2026-07-12 · Work interleave 1 (after question Batch 2) · Web research, 
 | Benchmark | Date | Scope | Why it doesn't occupy our niche |
 |---|---|---|---|
 | IndQA (OpenAI) | 2025-11 | 2,278 Q, 12 langs, culture | Closed data, OpenAI-only filtering, no STEM |
-| MILU (AI4Bharat) | 2024-11 | ~85k MCQ, 11 langs | GPT-4o ~72-74% — saturating |
+| MILU (AI4Bharat) | 2024-11 | ~80k MCQ, 11 langs | GPT-4o ~72-74% — saturating |
 | BhashaBench (BharatGen) | 2025-10 | 74k QA, En+Hi, 4 domains | GPT-4o 60-77%, bilingual only |
 | ParamBench | 2025-08 | 17k+ grad-exam Q, Hindi only | Hindi-only MCQ, mid-hard |
 | IndicParam | 2025-12 | 13k+ Q, 11 low-resource langs | Low-resource focus, not frontier positioning |
@@ -56,6 +56,8 @@ IndiBench's tracks map onto (c)+(a) and (f).
 - **IndiaAI/AIKosh** hosts benchmark datasets (MILU is on it) — distribution channel.
 - **New Delhi Frontier AI Commitments** (Feb 2026 summit): labs committed to
   supporting under-represented-language benchmarks — partnership/funding hook.
-- **Sarvam/Krutrim** are customers (need independent hard evals), not competitors.
-- **Watch-item:** AI4Bharat/BharatGen likeliest to launch frontier or agentic
-  Indic benchmarks next. Speed matters.
+- **Sarvam/Krutrim** are prospective users (Indian model builders need
+  independent hard evals), not competitors.
+- **Watch-item:** AI4Bharat/BharatGen are the likeliest next entrants into
+  frontier-difficulty or agentic Indic benchmarks — and also our most natural
+  partners. Timing matters either way.

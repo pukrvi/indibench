@@ -21,9 +21,10 @@ broad-coverage MMLU clone.
 ## What we are building (locked so far — see DECISIONS.md for full log)
 
 - **Track 1 — Knowledge/Reasoning (ships first):** frontier-difficulty
-  questions in ~10–12 major Indian languages + code-mixed (Hinglish/Tanglish),
-  positioned like HLE: today's best models should score LOW. Not competing
-  with MILU/BhashaBench on breadth — competing on difficulty and Indian depth.
+  questions in ~10–12 major Indian languages (final list pending; includes
+  English-about-India) + code-mixed (Hinglish/Tanglish), positioned like HLE:
+  today's best models should score LOW. Not competing with MILU/BhashaBench
+  on breadth — competing on difficulty and Indian depth.
 - **Track 2 — Agentic:** agent tasks on Indian use cases (simulated
   environments like UPI/IRCTC/gov portals, tool-use scenarios, multilingual
   conversational agents; real-web under review). Designed from day one,

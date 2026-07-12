@@ -1,3 +1,9 @@
+> **Note:** This file is a raw, unedited reference dump provided by the project
+> owner (an exported LLM-chat research note). It is preserved verbatim as an
+> original input — links are unverified, some may be dead or redirected, and
+> the trailing code/CSV block is an artifact of the original export. For
+> curated, verified research see `docs/research/`.
+
 To build a high-quality benchmark for Indian languages and localized use cases, you need to test more than just literal translation. A strong Indic benchmark evaluates deep contextual understanding, reasoning within complex cultural/legal/administrative frameworks, and handling code-switching (Hinglish/Tanglish).
 
 The following open-source projects on GitHub serve as excellent structural and architectural examples to study when designing your benchmark.

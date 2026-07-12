@@ -36,7 +36,7 @@ Sources being reconciled:
 **Answer:** Frontier-hard. → **D-007 ✅** Questions where today's best models score low. Explicitly NOT competing with MILU/BhashaBench broad coverage.
 
 **Q3. Language strategy for v1?** Options: ~10-12 langs + code-mixed (recommended) / Hindi+English first / all 22 scheduled.
-**Answer:** ~10-12 languages + code-mixed. → **D-008 ✅** Major languages (Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam, Gujarati, Punjabi, Odia + English-about-India) plus code-mixed (Hinglish/Tanglish). Schema designed to extend to all 22 scheduled languages.
+**Answer:** ~10-12 languages + code-mixed. → **D-008 ✅** ~10–12 major languages plus code-mixed (Hinglish/Tanglish); schema designed to extend to all 22 scheduled languages. *(The specific list — Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam, Gujarati, Punjabi, Odia + English-about-India — comes from the selected option's description; final list and whether English-about-India counts inside or on top of the 10–12 to be confirmed in a later batch.)*
 
 **Q4. Question/task sourcing?** Options: expert+exam hybrid (recommended) / expert-only / exam-harvested / synthetic+human-verified.
 **Answer (owner's own wording):** "Synthetic: LLM Sourced and Then Frontier LLM only create it." → **D-009 ✅** Sourcing is synthetic: source material mined/curated by LLMs, questions authored by frontier LLMs. ⚠️ Tension with D-007 (frontier-hard) noted — resolution asked in Batch 2 (how do frontier models author questions frontier models fail?).
@@ -44,7 +44,7 @@ Sources being reconciled:
 ### Batch 2 — 2026-07-12 — Difficulty mechanics, agent shape, harness, contamination
 
 **Q5. How can frontier-LLM-authored questions stay frontier-hard with trustworthy answer keys?** Options: grounded+adversarial filter (recommended) / multi-model cross-verification only / full human verification / composition-based difficulty.
-**Answer:** Grounded + adversarial filter. → **D-010 ✅** Questions generated grounded in hard source documents (regional-language textbooks, state gazettes, case law, local records) so the answer key comes from the source, not the model's parametric memory. Adversarial filtering keeps only items multiple frontier models fail. Human experts spot-check a sample (~10%). This resolves the D-007/D-009 tension.
+**Answer:** Grounded + adversarial filter. → **D-010 ✅** Questions generated grounded in hard source documents (regional-language textbooks, state gazettes, case law, local records) so the answer key comes from the source, not the model's parametric memory. Adversarial filtering keeps only items multiple frontier models fail. Human experts spot-check a sample. *(The ~10% spot-check ratio comes from the selected option's description — treat as a Claude-proposed default, tunable later.)* This resolves the D-007/D-009 tension.
 
 **Q6. Agent-track shape? (multi-select)** Options: simulated Indian environments / tool-use scenarios / multilingual conversational agents / real-website tasks.
 **Answer:** All of the above. → **D-011 ✅** Agent track will eventually span all four modalities. ⏳ Phasing order to be proposed by Claude and confirmed (real-website tasks carry reproducibility/legal risks — flagged, not yet resolved).
@@ -66,7 +66,7 @@ Sources being reconciled:
 | # | Decision | Status |
 |---|----------|--------|
 | D-014 | Development runs like a dev team on https://github.com/pukrvi/indibench: feature branches, PRs, sub-agent self-review before merge. | ✅ |
-| D-015 | Repo hygiene per goals.md: canary strings in datasets, eval scripts easy to run locally on Ubuntu (incl. small local models), open licenses (MIT code / CC-BY-4.0 data). Consistent with D-013. | ✅ |
+| D-015 | Repo hygiene per goals.md: canary strings in datasets, eval scripts easy to run locally on Ubuntu (incl. small local models), clear open licensing. Consistent with D-013. *(goals.md names MIT / CC-BY-4.0 as examples; the exact code/data license split is still open — Batch 3/4.)* | ✅ (licenses ⏳) |
 | C-001 | **CONFLICT:** goals.md adds Vision/Multimodal and Speech (TTS/STT) tracks; Batch 1 locked a dual-track scope (knowledge + agentic). Reconcile: are these v1 tracks, later phases, or aspirational? | ⏳ Batch 3 |
 | C-002 | **CONFLICT:** goals.md says "material from regional and state-level examinations" and MILU-style "all 22 scheduled languages"; D-009 locked synthetic sourcing, D-008 locked 10–12 langs for v1. Reconcile: exams as *grounding source docs* for synthesis (compatible) vs harvested questions (contradicts D-009)? 22 languages as end-goal (compatible) vs v1 (contradicts D-008)? | ⏳ Batch 3 |
 

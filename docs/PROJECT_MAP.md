@@ -17,7 +17,7 @@ first serious agentic benchmark for Indian digital life.
 | Difficulty | Broad coverage, models score high | Frontier-hard — models score LOW (D-007) |
 | Peer group | MMLU, IndicGLUE | HLE, SWE-bench-class suite (D-003) |
 | Agents | None | Core track (D-006) |
-| Sourcing | Harvested past exams (contaminated) | Synthetic, grounded, adversarially filtered (D-009/D-010) |
+| Sourcing | Public exam data (contamination-prone) | Synthetic, grounded, adversarially filtered (D-009/D-010) |
 | Lifespan | Static | Renewable via regeneration (D-013) |
 
 ## Tracks
@@ -43,8 +43,9 @@ first serious agentic benchmark for Indian digital life.
   Hinglish, GPT-5 ≈ 35%) — but closed-data, culture-only, OpenAI-filtered.
   Our open differentiators: open data+harness, cross-lab adversarial filtering,
   document-grounded synthesis at scale, STEM/professional depth, Tanglish.
-- **Track 2: no incumbent anywhere.** Closest are MASSIVE-Agents (function
-  calling, no environments/Indian services) and Ticket-Bench (zero Indic).
+- **Track 2: no incumbent yet.** Closest are MASSIVE-Agents (function
+  calling, no environments/Indian services) and Ticket-Bench (zero Indic);
+  AI4Bharat's Indic LLM-Arena Phase 3 (agentic) is the announced closest entrant.
 - **Harness verdict:** Inspect AI primary (HLE already in inspect_evals);
   tau2-bench-style mock domains for UPI/IRCTC/gov-portal agent tasks;
   LM Arena proper has no third-party path — AI4Bharat's Indic LLM-Arena
@@ -78,7 +79,7 @@ first serious agentic benchmark for Indian digital life.
 - Agent-track phasing order + real-web risk decision (D-011 ⏳)
 - IndQA differentiation emphasis (which of the five differentiators leads?)
 - Name confirmation ("IndiBench"?), org/governance, data license (CC-BY-4.0?)
-- English-about-India: separate language track or folded in?
+- Final v1 language list; whether English-about-India counts inside or on top of the 10–12 (D-008 note).
 - Safety/bias: in scope or leave to Indic-Bias?
 - v1 size targets, human baseline collection, budget/timeline
 - Role of langfuse (it's in the folder — infra intent?)
