@@ -146,3 +146,19 @@ verbatim input; consult it directly. And said (verbatim):
   locked decision → to be asked in a coming batch. *(Resolved → D-024: the
   owner's "indibench should definitely do that" locks it into Phase 3 scope;
   scoring methodology remains an open Phase 3 design question.)*
+
+---
+
+## Input 003a — 2026-07-13 — Batch 5 answers (verbatim selections)
+
+> Q17 (historical accuracy across all phases): "Yes — all phases (Recommended)"
+> Q18 (governance): "Personal → org later (Recommended)"
+> Q19 (adversarial panel): "3 labs + 1 Indian model; keep if ≥2 fail (Recommended)"
+> Q20 (Phase 1 domains): "10-domain balanced grid (Recommended)"
+
+## Input 003b — 2026-07-13 — Batch 6 answers (verbatim selections)
+
+> Q21 (final language list): "12 = 10 Indic + en-IN + code-mixed (Recommended)"
+> Q22 (refresh + private split): "6-monthly refresh; ~20% private (Recommended)"
+> Q23 (budget): "Bootstrap: <$5k API + volunteer experts"
+> Q24 (human baseline): "Skip for v1"
