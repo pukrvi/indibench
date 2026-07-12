@@ -54,7 +54,6 @@ on:
   image output). *(Image-output evaluation methodology is an open design
   question — flagged for the alignment loop.)*
 - Historical accuracy is a scored dimension wherever it applies (text claims,
-  image content, spoken answers). *(Interpretation extending the owner's
-  statement to all phases — flagged for confirmation in the alignment loop.)*
+  image content, spoken answers). *(Confirmed by owner — D-027.)*
 - Phase 1's schema reserves the `image` field from day one so the suite
   converges rather than fragments.

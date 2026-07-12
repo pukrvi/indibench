@@ -28,7 +28,7 @@ every use case at frontier difficulty; broad-coverage MCQ stays out of scope).
 
 | Phase | Artifact | Status | v1 target |
 |---|---|---|---|
-| 1 | **IndiBench-Text** — frontier knowledge/reasoning, 10–12 langs + code-mixed (Hinglish/Tanglish) | 🟡 Design doc in progress | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
+| 1 | **IndiBench-Text** — frontier knowledge/reasoning, 12 language tracks (D-031: 10 Indic + en-IN + code-mixed) | 🟢 Design v0.2 — core parameters locked | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
 | 2 | **IndiBench-Speech** — STT **and TTS/spoken interaction** (D-024), dialect + acoustic diversity | 🔬 Landscape research partial (agent died mid-run; IndicSUPERB/Voice-of-India findings in audit) | TBD (design after Phase 1 ships) |
 | 3 | **IndiBench-Vision** — culturally grounded multimodal, BOTH directions: understanding India in images AND historically/contextually accurate image GENERATION (D-024) | ⏳ Roadmap | TBD |
 | 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational; real-web in scope per D-011, risk review pending) | ⏳ Designed-on-paper from day one; ships last | TBD |

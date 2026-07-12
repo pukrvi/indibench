@@ -31,9 +31,10 @@ historical accuracy a scored dimension throughout. The 20-benchmark audit
 (`docs/research/2026-07-13-benchmark-audit.md`, D-025) is binding design
 guidance: its Part D lists what we build upon and what we must fix.
 
-- **Phase 1 — IndiBench-Text:** frontier-difficulty questions in ~10–12 major
-  Indian languages (final list pending; includes English-about-India) +
-  code-mixed (Hinglish/Tanglish), positioned like HLE: today's best models
+- **Phase 1 — IndiBench-Text:** frontier-difficulty questions in 12 language
+  tracks (D-031): Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam,
+  Gujarati, Punjabi, Odia, English-about-India, and code-mixed
+  (Hinglish/Tanglish), positioned like HLE: today's best models
   should score LOW. v1 = ~2,500 adversarially-filtered questions + leaderboard
   + paper + inspect_evals registration (D-023). Closest competitor is OpenAI's
   IndQA — we differentiate on open data/harness/pipeline and cross-lab
