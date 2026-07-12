@@ -113,4 +113,18 @@ Sources being reconciled:
 
 **Work interleave 2 (after Q16):** record batch; update maps/CLAUDE.md; speech-landscape research (Phase 2 due diligence); draft Phase 1 (IndiBench-Text) design doc; PR #2 with sub-agent review.
 
+---
+
+## Input 003 (audit directive + multimodal thesis) — new decisions
+
+| # | Decision | Status |
+|---|----------|--------|
+| D-024 | **The IndiBench thesis** (owner, Input 003): multimodality is disproportionately important for India — visual understanding of India, contextually/historically **accurate image output**, language understanding, voice-to-text, voice-to-speech. Adopted as `docs/THESIS.md`; underwrites the four-phase suite (D-020). Phase 3 scope now explicitly includes image-GENERATION evaluation, Phase 2 includes both STT and TTS directions. *(Resolves the image-generation scope flag raised in USER_INPUTS Input 003 interpretation.)* | ✅ |
+| D-025 | Benchmark audit delivered: `docs/research/2026-07-13-benchmark-audit.md` — 20 benchmarks audited (right/wrong per benchmark); Part D build-upon/improve synthesis is binding design guidance. Four trusted references cloned into `benchmarks/` (IndicXTREME via IndicBERT, IndicSUPERB, MASSIVE, COMI-LINGUA stub). | ✅ |
+| D-026 | "Only benchmark somebody needs in India for any use case" (owner vision, Input 003) = every use case covered at frontier difficulty across the four phases — NOT duplicating broad-coverage MCQ (D-003/D-007 unchanged). | ✅ |
+
+⏳ New open item from D-024: how to *score* image-generation cultural/historical
+accuracy (rubric? VLM-judge? human panel?) — Phase 3 design question, to be
+asked when Phase 3 design starts (noted, not urgent for Phase 1).
+
 ### Batch 5 — (pending)

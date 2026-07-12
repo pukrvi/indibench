@@ -1,6 +1,6 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-12 (alignment phase, after question Batch 4 / work interleave 2).
+Last updated: 2026-07-13 (alignment phase, after Input 003 — benchmark audit + thesis).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
@@ -9,6 +9,10 @@ Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/D
 Add India to the frontier benchmark suite: **IndiBench** — open, lab-neutral
 benchmarks hard enough that today's best models fail them, in Indian languages
 and on Indian use cases, across text, speech, vision, and agents.
+
+Thesis: India is a multimodal evaluation problem — see `docs/THESIS.md` (D-024).
+Vision: the only benchmark somebody needs in India for any use case (D-026 —
+every use case at frontier difficulty; broad-coverage MCQ stays out of scope).
 
 ## Identity (D-019, D-021)
 
@@ -25,8 +29,8 @@ and on Indian use cases, across text, speech, vision, and agents.
 | Phase | Artifact | Status | v1 target |
 |---|---|---|---|
 | 1 | **IndiBench-Text** — frontier knowledge/reasoning, 10–12 langs + code-mixed (Hinglish/Tanglish) | 🟡 Design doc in progress | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
-| 2 | **IndiBench-Speech** — TTS/STT/spoken interaction, dialect + acoustic diversity | 🔬 Landscape research running | TBD (design after Phase 1 ships) |
-| 3 | **IndiBench-Vision** — culturally grounded multimodal (arts, festivals, scene text, charts in Indian scripts) | ⏳ Roadmap | TBD |
+| 2 | **IndiBench-Speech** — STT **and TTS/spoken interaction** (D-024), dialect + acoustic diversity | 🔬 Landscape research partial (agent died mid-run; IndicSUPERB/Voice-of-India findings in audit) | TBD (design after Phase 1 ships) |
+| 3 | **IndiBench-Vision** — culturally grounded multimodal, BOTH directions: understanding India in images AND historically/contextually accurate image GENERATION (D-024) | ⏳ Roadmap | TBD |
 | 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational; real-web in scope per D-011, risk review pending) | ⏳ Designed-on-paper from day one; ships last | TBD |
 
 Note: Phase order text > speech > vision > agent was set by the owner in Batch 3
@@ -74,7 +78,9 @@ require a schema break.
 | Reference-repo study | ✅ Done |
 | Landscape research (text) | ✅ docs/research/2026-07-12-indic-landscape.md |
 | Harness research | ✅ docs/research/2026-07-12-harness-and-arena.md |
-| Speech landscape research | 🟡 Running |
+| **Benchmark audit (Input 003)** | ✅ docs/research/2026-07-13-benchmark-audit.md (20 benchmarks; build-upon/improve synthesis) |
+| Thesis | ✅ docs/THESIS.md (D-024) |
+| Speech landscape research | 🟠 Partial — research agent killed by API spend limit; core findings captured in audit §12/§19; full sweep to redo before Phase 2 design |
 | CLAUDE.md + maps | ✅ Current |
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
 | Phase 1 design doc | 🟡 Drafting |
@@ -96,3 +102,5 @@ require a schema break.
 - Role of langfuse (infra intent?) — still unasked
 - English-about-India counting inside/on top of 10–12 languages
 - Community contributions of questions: accepted? bounty?
+- Image-generation accuracy scoring methodology (rubric? VLM-judge? human panel?) — Phase 3, not urgent (D-024 ⏳)
+- Historical accuracy as a scored dimension across ALL phases — interpretation in THESIS.md pending owner confirmation
