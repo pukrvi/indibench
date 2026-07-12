@@ -1,6 +1,6 @@
 # Folder Map — /IndiBench
 
-Last updated: 2026-07-12 (alignment phase). Update whenever files/folders change.
+Last updated: 2026-07-13 (alignment phase). Update whenever files/folders change.
 
 Git: this folder is the working copy of https://github.com/pukrvi/indibench
 (MIT). `benchmarks/` and `.claude/` are gitignored. Workflow: feature branches

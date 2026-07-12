@@ -119,7 +119,7 @@ Sources being reconciled:
 
 | # | Decision | Status |
 |---|----------|--------|
-| D-024 | **The IndiBench thesis** (owner, Input 003): multimodality is disproportionately important for India — visual understanding of India, contextually/historically **accurate image output**, language understanding, voice-to-text, voice-to-speech. Adopted as `docs/THESIS.md`; underwrites the four-phase suite (D-020). Phase 3 scope now explicitly includes image-GENERATION evaluation, Phase 2 includes both STT and TTS directions. | ✅ |
+| D-024 | **The IndiBench thesis** (owner, Input 003): multimodality is disproportionately important for India — visual understanding of India, contextually/historically **accurate image output**, language understanding, voice-to-text, voice-to-speech. Adopted as `docs/THESIS.md`; underwrites the four-phase suite (D-020). Phase 3 scope now explicitly includes image-GENERATION evaluation, Phase 2 includes both STT and TTS directions. *(Resolves the image-generation scope flag raised in USER_INPUTS Input 003 interpretation.)* | ✅ |
 | D-025 | Benchmark audit delivered: `docs/research/2026-07-13-benchmark-audit.md` — 20 benchmarks audited (right/wrong per benchmark); Part D build-upon/improve synthesis is binding design guidance. Four trusted references cloned into `benchmarks/` (IndicXTREME via IndicBERT, IndicSUPERB, MASSIVE, COMI-LINGUA stub). | ✅ |
 | D-026 | "Only benchmark somebody needs in India for any use case" (owner vision, Input 003) = every use case covered at frontier difficulty across the four phases — NOT duplicating broad-coverage MCQ (D-003/D-007 unchanged). | ✅ |
 

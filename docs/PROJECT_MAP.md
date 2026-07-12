@@ -1,6 +1,6 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-12 (alignment phase, after question Batch 4 / work interleave 2).
+Last updated: 2026-07-13 (alignment phase, after Input 003 — benchmark audit + thesis).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
@@ -11,7 +11,8 @@ benchmarks hard enough that today's best models fail them, in Indian languages
 and on Indian use cases, across text, speech, vision, and agents.
 
 Thesis: India is a multimodal evaluation problem — see `docs/THESIS.md` (D-024).
-Vision: the only benchmark somebody needs in India for any use case (D-026).
+Vision: the only benchmark somebody needs in India for any use case (D-026 —
+every use case at frontier difficulty; broad-coverage MCQ stays out of scope).
 
 ## Identity (D-019, D-021)
 
@@ -101,3 +102,5 @@ require a schema break.
 - Role of langfuse (infra intent?) — still unasked
 - English-about-India counting inside/on top of 10–12 languages
 - Community contributions of questions: accepted? bounty?
+- Image-generation accuracy scoring methodology (rubric? VLM-judge? human panel?) — Phase 3, not urgent (D-024 ⏳)
+- Historical accuracy as a scored dimension across ALL phases — interpretation in THESIS.md pending owner confirmation

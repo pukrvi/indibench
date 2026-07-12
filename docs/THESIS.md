@@ -37,10 +37,11 @@ on:
   HinTel-AlignBench shows frontier VQA drops measurably in Hindi/Telugu.
 - **Image generation misrepresents India:** cultural- and historical-accuracy
   evaluation of image *output* for India barely exists; errors are visible to
-  any Indian user and corrosive to trust (and no benchmark measures them
-  systematically — see audit §17–18).
-- **Text-only Indian benchmarks saturated** at 56–77% for frontier models
-  while the multimodal/speech/agentic surface went unmeasured (audit Part D).
+  any Indian user and corrosive to trust, and no benchmark measures them
+  systematically (audit Part D, improve item 6).
+- **Open text-only Indian benchmarks score 56–77%** for frontier models —
+  nowhere near HLE-style frontier positioning — while the multimodal, speech,
+  and agentic surfaces went unmeasured entirely (audit Part D).
 
 ## What it commits IndiBench to
 
@@ -53,6 +54,7 @@ on:
   image output). *(Image-output evaluation methodology is an open design
   question — flagged for the alignment loop.)*
 - Historical accuracy is a scored dimension wherever it applies (text claims,
-  image content, spoken answers).
+  image content, spoken answers). *(Interpretation extending the owner's
+  statement to all phases — flagged for confirmation in the alignment loop.)*
 - Phase 1's schema reserves the `image` field from day one so the suite
   converges rather than fragments.

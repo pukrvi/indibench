@@ -19,7 +19,7 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 - Per-language × per-domain reporting surface; group roll-ups weighted by size — the right way to report a multilingual benchmark.
 - lm-eval-harness task packaging (`_default_template_yaml` + per-language YAMLs) — anyone can run it in one command.
 - Separate validation split for few-shot exemplars (5-shot, `first_n` sampler) — no test leakage into prompts.
-- ~25% human-translated items to fill low-resource gaps, transparently tagged per language.
+- ~25% translated items to fill low-resource gaps, transparently tagged per language.
 - Gated HF distribution (friction against training-data scraping) + CC-BY-4.0.
 **Did wrong / limits:**
 - Harvested from published exams → the questions (and answer keys) are on the public internet → contaminated for any model trained on Indian web data. No canary, no private split, no refresh plan.
@@ -35,10 +35,12 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 - Difficulty + question-type + subdomain metadata per item enables sliced analysis.
 - Clean fork-of-MILU repo pattern — proves the packaging is replicable per domain.
 **Did wrong / limits:**
-- Only English + Hindi — "Bhasha"Bench without 20 of the 22 scheduled languages.
+- Only English + Hindi at launch (more languages stated as planned) — narrow
+  coverage for a benchmark series positioned as multilingual.
 - Same exam-harvest contamination exposure as MILU; gated HF but no canary/private split.
 - 0-shot MCQ log-likelihood only; scores already 60–77% for GPT-4o → not frontier.
-- Code license is a leftover EleutherAI MIT header — sloppy provenance hygiene.
+- Repo retains only upstream EleutherAI's MIT notice, with no license/copyright
+  statement covering BharatGen's own additions — provenance worth stating clearly.
 **IndiBench takes:** professional-domain axis for our domain taxonomy (build upon); language breadth + difficulty positioning (improve).
 
 ### 3. IndicGenBench (Google Research, 2024) — `indic-gen-bench-main`
@@ -66,13 +68,13 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 **IndiBench takes:** taxonomy-driven synthesis + pipeline/eval separation (build upon); grounding + adversarial filtering + canary (improve). Safety/bias itself stays their lane (pending owner call).
 
 ### 5. Indic-LLM (CognitiveLab) — `Indic-llm-main`
-**Not a benchmark** (training toolkit; eval scripts are empty stubs, `docs/6_Eval.md` is 0 bytes). Audit lesson: shipping "evaluation" as a TODO is how credibility dies — IndiBench must never release a phase without its runnable eval. GPL-3 license would also be incompatible with our MIT code (reference-only).
+**Not a benchmark** (training toolkit, self-identified as work-in-progress; eval scripts are empty stubs, `docs/6_Eval.md` is 0 bytes). The lesson for IndiBench: never release a phase without its runnable eval. GPL-3 license would also be incompatible with our MIT code (reference-only).
 
 ### 6. Indic NLP Catalog — `indicnlp_catalog-master`
 **Not a benchmark** (awesome-list). Audit lesson: the ecosystem's discovery layer is a README — useful as a source-document discovery index for our S0 corpus stage, and evidence that a maintained, runnable, versioned suite (not a link list) is the actual gap.
 
 ### 7–10. Non-Indian references in folder (context only)
-- **HLE** (`hle-main`): did right — expert sourcing with incentives, tiny runnable eval, confidence+calibration reporting, multimodal schema, private held-out split, post-release corrections (HLE-Rolling). Did wrong — answer-key error rate (~18–29% in audited bio/chem slices) from weak source-grounding of keys; our S2 source-verification stage exists precisely because of this.
+- **HLE** (`hle-main`): did right — expert sourcing with incentives, tiny runnable eval, confidence+calibration reporting, multimodal schema, private held-out split, post-release corrections (HLE-Rolling). Did wrong — answer-key error rate in audited bio/chem slices (per the 2025 FutureHouse external audit, up to ~29%; Scale's own estimate ~18% — see docs/research/2026-07-12-harness-and-arena.md §4) from weak source-grounding of keys; our S2 source-verification stage exists precisely because of this.
 - **SWE-bench** (`SWE-bench-main`): did right — verifiable execution-based grading; τ²-Verified-style lesson: task/verification misalignment is the agentic failure mode. Out of scope otherwise (D-002).
 - **lm-evaluation-harness**: the distribution standard for text tasks; we contribute a task config there even though Inspect AI is primary (D-012).
 - **langfuse**: observability/eval-infra candidate for pipeline tracing; role still an open owner question.
@@ -82,8 +84,8 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 ## Part B — Trusted major benchmarks added for this audit (new clones, *-ref*)
 
 ### 11. IndicXTREME (AI4Bharat, ACL 2023) — `IndicBERT-IndicXTREME-ref`
-**What:** 9-task NLU benchmark (COPA/QA/paraphrase/sentiment/NLI/NER/intent/retrieval), up to 18 Indic languages, paired with IndicCorp v2.
-**Did right:** benchmark + corpus + model released as one reproducible unit; manual translation of test sets (quality floor); broadest task-type diversity of the AI4Bharat line.
+**What:** 9-task NLU benchmark (COPA/QA/paraphrase/sentiment/NLI/NER/intent/retrieval) covering 20 languages (up to 18 per task), paired with IndicCorp v2.
+**Did right:** benchmark + corpus + model released as one reproducible unit; manually translated test sets for several tasks (IndicXNLI is auto-translated); broadest task-type diversity of the AI4Bharat line.
 **Did wrong / limits:** classic NLU tasks are pre-LLM framing (classification heads, not generation/reasoning); several tasks are translations of Western datasets (COPA, XNLI) → same translationese ceiling; saturated by modern LLMs.
 **IndiBench takes:** release-everything-together reproducibility (build upon); task framing must be generative/reasoning-native (improve).
 
@@ -136,7 +138,7 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 
 ### 20. Indic LLM-Arena (AI4Bharat, Nov 2025)
 **Did right:** human-preference modality for Indic + code-mixed prompts; open model onboarding.
-**Did wrong / limits:** preference ≠ correctness (popularity contest can't anchor factuality); vote volume for low-resource languages will be thin; Phase 3 (agentic) still unshipped.
+**Did wrong / limits:** human preference ≠ correctness — preference voting cannot anchor factual accuracy; vote volume for low-resource languages will be thin; Phase 3 (agentic) still unshipped.
 **IndiBench takes:** complementary partner (D-018), not a model to copy; static verifiable scoring remains our core.
 
 ---

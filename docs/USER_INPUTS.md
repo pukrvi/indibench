@@ -143,4 +143,6 @@ verbatim input; consult it directly. And said (verbatim):
   image OUTPUT, language understanding, voice-to-text, voice-to-speech.
   Reinforces phases 2–3 (D-016/D-020). ⚠️ New scope element spotted:
   evaluating image GENERATION (not just understanding) — not covered by any
-  locked decision → to be asked in a coming batch.
+  locked decision → to be asked in a coming batch. *(Resolved → D-024: the
+  owner's "indibench should definitely do that" locks it into Phase 3 scope;
+  scoring methodology remains an open Phase 3 design question.)*
