@@ -36,8 +36,9 @@ broad-coverage MMLU clone.
   festivals, scene text, charts in Indian scripts). Phase 1 schema carries an
   optional image field from day one.
 - **Phase 4 — IndiBench-Agent:** Indian-use-case agents (tau2-style UPI/IRCTC/
-  gov-portal domains, tool use, conversational). Designed on paper from day
-  one; ships last.
+  gov-portal domains, tool use, conversational; real-website tasks locked into
+  scope by D-011 but under risk review). Designed on paper from day one;
+  ships last.
 - **Sourcing (all phases):** synthetic — questions authored by frontier LLMs,
   **grounded in hard Indian source documents** (regional-language textbooks,
   state gazettes, case law; exam syllabi as grounding only, never harvested

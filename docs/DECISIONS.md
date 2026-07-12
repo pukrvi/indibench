@@ -30,7 +30,7 @@ Sources being reconciled:
 ### Batch 1 — 2026-07-12 — Keystone scope decisions
 
 **Q1. Primary artifact shape?** Options: dual-track phased (recommended) / knowledge-only / agentic-only / both at equal priority.
-**Answer:** Dual-track, phased. → **D-006 ✅** Track 1 = frontier-difficulty knowledge/reasoning in Indian languages (HLE-style); Track 2 = agentic tasks on Indian use cases. Track 1 ships first; both designed from day one.
+**Answer:** Dual-track, phased. → **D-006 ✅** Track 1 = frontier-difficulty knowledge/reasoning in Indian languages (HLE-style); Track 2 = agentic tasks on Indian use cases. Track 1 ships first; both designed from day one. *(Ordering half superseded by D-020: agents now Phase 4, after speech and vision.)*
 
 **Q2. Difficulty positioning of the knowledge track?** Options: frontier-hard (recommended) / broad-moderate / tiered.
 **Answer:** Frontier-hard. → **D-007 ✅** Questions where today's best models score low. Explicitly NOT competing with MILU/BhashaBench broad coverage.
@@ -47,10 +47,10 @@ Sources being reconciled:
 **Answer:** Grounded + adversarial filter. → **D-010 ✅** Questions generated grounded in hard source documents (regional-language textbooks, state gazettes, case law, local records) so the answer key comes from the source, not the model's parametric memory. Adversarial filtering keeps only items multiple frontier models fail. Human experts spot-check a sample. *(The ~10% spot-check ratio comes from the selected option's description — treat as a Claude-proposed default, tunable later.)* This resolves the D-007/D-009 tension.
 
 **Q6. Agent-track shape? (multi-select)** Options: simulated Indian environments / tool-use scenarios / multilingual conversational agents / real-website tasks.
-**Answer:** All of the above. → **D-011 ✅** Agent track will eventually span all four modalities. ⏳ Phasing order to be proposed by Claude and confirmed (real-website tasks carry reproducibility/legal risks — flagged, not yet resolved).
+**Answer:** All of the above. → **D-011 ✅** Agent track will eventually span all four modalities. ⏳ Phasing order to be proposed by Claude and confirmed *(resolved: agent track is Phase 4 per D-020)*; real-website tasks carry reproducibility/legal risks — flagged, still ⏳.
 
 **Q7. Evaluation harness?** Options: Inspect AI primary (recommended) / lm-eval-harness / HLE-style custom scripts / custom + langfuse.
-**Answer (owner's own wording):** "Inspect AI, HLE, Lm Arena". → **D-012 ✅ (partial)** Inspect AI as primary framework + HLE-style lightweight standalone scripts. ⏳ "LM Arena" needs clarification — arena-style human-preference evaluation is a different modality; researching what LM Arena integration means before asking follow-up (Batch 3).
+**Answer (owner's own wording):** "Inspect AI, HLE, Lm Arena". → **D-012 ✅ (partial)** Inspect AI as primary framework + HLE-style lightweight standalone scripts. ⏳ "LM Arena" needs clarification — arena-style human-preference evaluation is a different modality; researching what LM Arena integration means before asking follow-up (Batch 3). *(LM-Arena part resolved by D-018.)*
 
 **Q8. Contamination strategy?** Options: canary+private+refresh (recommended) / canary only / fully private submission-based.
 **Answer:** Canary + private held-out + refresh. → **D-013 ✅** Three layers: canary GUID in every public file; private held-out split for memorization detection; periodic synthetic regeneration ("renewable benchmark") as a differentiator.

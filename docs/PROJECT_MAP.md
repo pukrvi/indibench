@@ -27,11 +27,11 @@ and on Indian use cases, across text, speech, vision, and agents.
 | 1 | **IndiBench-Text** — frontier knowledge/reasoning, 10–12 langs + code-mixed (Hinglish/Tanglish) | 🟡 Design doc in progress | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
 | 2 | **IndiBench-Speech** — TTS/STT/spoken interaction, dialect + acoustic diversity | 🔬 Landscape research running | TBD (design after Phase 1 ships) |
 | 3 | **IndiBench-Vision** — culturally grounded multimodal (arts, festivals, scene text, charts in Indian scripts) | ⏳ Roadmap | TBD |
-| 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational) | ⏳ Designed-on-paper from day one; ships last | TBD |
+| 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational; real-web in scope per D-011, risk review pending) | ⏳ Designed-on-paper from day one; ships last | TBD |
 
 Note: Phase order text > speech > vision > agent was set by the owner in Batch 3
 and confirmed in Batch 4 (D-020), superseding the Batch 1 ordering (agents second).
-Track 1 schema carries an optional image field from day one so Phase 3 doesn't
+Phase 1 schema carries an optional image field from day one so Phase 3 doesn't
 require a schema break.
 
 ## Core design (Phase 1)
@@ -86,7 +86,10 @@ require a schema break.
 - Phase 1 domain list (which subjects, how many per language?)
 - Adversarial panel composition (which models, how many must fail a question?)
 - Judge model + protocol for scoring (LLM-judge lab-neutrality!)
-- Refresh cadence + versioning policy specifics
+- Leaderboard submission verification (self-reported predictions are fabricable — maintainer-run? logs? private-split spot-reruns?)
+- Refresh cadence + versioning policy specifics; private held-out split size
+- Source-document licensing rules for the grounding corpus (S0)
+- Real-website agent tasks: risk decision pending (D-011 ⏳ — reproducibility/legal)
 - Budget: API costs for generation/filtering; paid expert spot-checks
 - Human baseline collection?
 - Safety/bias track: out of scope (Indic-Bias exists) or later phase?
