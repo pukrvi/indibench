@@ -1,0 +1,8 @@
+# Reference benchmark repos — study material only, never committed (see docs/FOLDER_MAP.md)
+benchmarks/
+
+# OS / editor noise
+.DS_Store
+
+# Local Claude session state (commit .claude/settings.json explicitly if ever needed)
+.claude/

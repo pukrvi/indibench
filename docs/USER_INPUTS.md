@@ -1,0 +1,91 @@
+# User Inputs — Verbatim Record
+
+This file preserves the original, verbatim inputs from the project owner so the
+original intent can always be consulted directly, rather than reconstructed.
+Newest entries at the bottom. Never paraphrase into this file — quote exactly.
+Owner answers to alignment-loop question batches are ALSO recorded here
+verbatim (the exact option label or free-text the owner selected/typed);
+the full question context lives in `DECISIONS.md`.
+
+---
+
+## Input 001 — 2026-07-12 — Project kickoff
+
+> I want to create an LLM AI and Agent Benchmark for Indian Languages and Use
+> Cases. The folder contains a bunch of open-source repos of popular LLM
+> benchmarks and some Indian benchmarks which we already have. I want you to
+> first figure out what we want to do because we are going to open-source this
+> project. We should not be getting into regular coding benchmarks like that.
+> We should just focus on adding to the current suite of benchmarks, like
+> Humanities Last Exam or SWE Bench. We have to then just keep focused on that.
+>
+> We will run the alignment loop to figure out what needs to be done. You can
+> ask me as many questions as you want. Ask it:
+> 1. When you have first read the folder, ask me questions.
+> 2. Think on those questions.
+> 3. Work some more.
+> 4. Search on the internet.
+> 5. Come back to me and ask more questions.
+> Don't just ask questions upfront. Do some work every time you have asked me
+> 8 questions.
+>
+> Write a claude.md, folder map and structure and all the decisions which you
+> ask me through the alignment loop: every time you ask me a question, record
+> that. Create a bunch of these files and mention that in Claude.md:
+> 1. These files are updated, which is a folder map and the project map.
+> 2. All the inputs which I have provided, so the original intention of my
+>    inputs can always be looked at rather than you trying to figure out what
+>    needs to be done.
+
+**Working interpretation (not verbatim — see quote above for source of truth):**
+- Build an open-source LLM + Agent benchmark for Indian languages and Indian
+  use cases.
+- Do NOT build a coding benchmark (SWE-bench-style coding is out of scope);
+  the goal is to ADD an Indian benchmark to the frontier suite alongside
+  benchmarks like Humanity's Last Exam and SWE-bench.
+- Process: alignment loop — read folder → ask questions in batches → work →
+  internet research → more questions. Do real work between every ~8 questions.
+- Deliverables of the alignment phase: CLAUDE.md, folder map / project map
+  (kept updated), decisions log (every question + answer recorded), and this
+  verbatim inputs file.
+
+---
+
+## Input 001a — 2026-07-12 — Batch 1 answers (verbatim selections)
+
+> Q1 (primary artifact): "Dual-track, phased (Recommended)"
+> Q2 (difficulty): "Frontier-hard (Recommended)"
+> Q3 (languages): "~10-12 langs + code-mixed (Recommended)"
+> Q4 (sourcing, owner's own text): "Synthetic: LLM Sourced and Then Frontier
+> LLM only create it."
+
+## Input 001b — 2026-07-12 — Batch 2 answers (verbatim selections)
+
+> Q5 (hard-synthetic mechanics): "Grounded + adversarial filter (Recommended)"
+> Q6 (agent-track shape, multi-select): "All of the above"
+> Q7 (harness, owner's own text): "Inspect AI, HLE, Lm Arena"
+> Q8 (contamination): "Canary + private held-out + refresh (Recommended)"
+
+---
+
+## Input 002 — 2026-07-12 — goals.md + GitHub repo + dev workflow
+
+Owner shared `goals.md` — that file, committed at the repo root, IS the
+verbatim input; consult it directly. And said (verbatim):
+
+> Understand the goals and here's the repo for the same so start maintaining
+> it yourself like a dev team. proper branching, PRs and Self-Review by
+> Sub-Agent.
+> https://github.com/pukrvi/indibench
+
+**Working interpretation:**
+- `goals.md` broadens candidate scope with vision/multimodal + speech tracks —
+  needs reconciliation with the locked dual-track decision (D-006) → to be
+  asked in the next batch, not silently adopted.
+- goals.md's "material from regional and state-level examinations" and "all 22
+  scheduled languages" sit in tension with D-009 (synthetic sourcing) and
+  D-008 (10–12 languages in v1) → flagged for reconciliation.
+- Repo-structure requirements (canary, runnable-on-Ubuntu eval scripts, MIT /
+  CC-BY-4.0) are consistent with D-013 and prior direction — treat as locked.
+- Development workflow from now on: git with feature branches, PRs on
+  https://github.com/pukrvi/indibench, and sub-agent self-review before merge.
