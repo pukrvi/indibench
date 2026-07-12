@@ -17,13 +17,15 @@ IndiBench/
 ├── docs/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)
+│   ├── THESIS.md              # The India-is-multimodal thesis (D-024, from Input 003)
 │   ├── FOLDER_MAP.md          # This file
 │   ├── PROJECT_MAP.md         # What we're building: phases, workstream status
 │   ├── design/
 │   │   └── phase1-indibench-text.md         # Phase 1 design doc (DRAFT — open items feed Batch 5+)
 │   └── research/              # Dated research reports from work interleaves
 │       ├── 2026-07-12-indic-landscape.md    # Competitive landscape; IndQA analysis; niche verdict
-│       └── 2026-07-12-harness-and-arena.md  # Inspect AI / LM Arena / renewable benchmarks / tau2
+│       ├── 2026-07-12-harness-and-arena.md  # Inspect AI / LM Arena / renewable benchmarks / tau2
+│       └── 2026-07-13-benchmark-audit.md    # 20-benchmark audit (Input 003): right/wrong + synthesis
 └── benchmarks/                # REFERENCE REPOS (gitignored) — read-only study material, not our code
     ├── BhashaBench-main/          # BharatGen: ~74k domain MCQs (agri/finance/legal/ayur), En+Hi.
     │                              #   lm-eval-harness fork. Pattern: _default_template_yaml + per-lang YAMLs.
@@ -40,8 +42,16 @@ IndiBench/
     ├── SWE-bench-main/            # Reference for how a frontier benchmark defines/validates tasks.
     │                              #   Coding benchmarks are OUT OF SCOPE (D-002) — structural study only.
     ├── lm-evaluation-harness-main/# EleutherAI harness. Target for contributing our knowledge-track task config.
-    └── langfuse-main/             # LLM observability/eval platform. Candidate infra for tracing pipeline runs,
-                                   #   storing eval scores/datasets. Role not yet decided (ask owner).
+    ├── langfuse-main/             # LLM observability/eval platform. Candidate infra for tracing pipeline runs,
+    │                              #   storing eval scores/datasets. Role not yet decided (ask owner).
+    │   # ---- Added 2026-07-13 for the Input 003 audit (shallow clones): ----
+    ├── IndicBERT-IndicXTREME-ref/ # AI4Bharat IndicXTREME: 9-task NLU benchmark, up to 18 langs (ACL 2023)
+    ├── IndicSUPERB-ref/           # AI4Bharat speech benchmark: 6 SLU tasks, 12 langs; Kathbath 1,684h.
+    │                              #   COPY: clean/noisy + known/unknown-speaker split design (Phase 2)
+    ├── massive-ref/               # Amazon MASSIVE: 1M+ utterances, 52 langs parallel, intent+slots.
+    │                              #   COPY: cross-language parallel item design
+    └── COMI-LINGUA-ref/           # IIT-GN Hinglish benchmark — repo is a license stub; data on HF
+                                   #   (LingoIITGN/COMI-LINGUA). Dual-script code-mix reference.
 ```
 
 ## Reproducing `benchmarks/` (gitignored — clone these to study them)
@@ -57,6 +67,11 @@ git clone https://github.com/centerforaisafety/hle                   benchmarks/
 git clone https://github.com/swe-bench/SWE-bench                     benchmarks/SWE-bench-main
 git clone https://github.com/EleutherAI/lm-evaluation-harness        benchmarks/lm-evaluation-harness-main
 git clone https://github.com/langfuse/langfuse                       benchmarks/langfuse-main
+# Audit additions (2026-07-13):
+git clone --depth 1 https://github.com/AI4Bharat/IndicBERT           benchmarks/IndicBERT-IndicXTREME-ref
+git clone --depth 1 https://github.com/AI4Bharat/IndicSUPERB         benchmarks/IndicSUPERB-ref
+git clone --depth 1 https://github.com/alexa/massive                 benchmarks/massive-ref
+git clone --depth 1 https://github.com/lingo-iitgn/COMI-LINGUA       benchmarks/COMI-LINGUA-ref
 ```
 
 ## Planned additions (once alignment closes)

@@ -21,7 +21,15 @@ broad-coverage MMLU clone.
 ## What we are building (locked so far — see DECISIONS.md for full log)
 
 **IndiBench** (D-021) — "the open, lab-neutral frontier benchmark for India"
-(D-019). Four phases, order locked (D-020): **text > speech > vision > agent**.
+(D-019), aiming to be the only benchmark somebody needs in India for any use
+case (D-026) — every use case at frontier difficulty, never duplicating
+broad-coverage MCQ. Four phases, order locked (D-020): **text > speech >
+vision > agent**. Governing thesis: India is a multimodal evaluation problem —
+`docs/THESIS.md` (D-024): both directions of voice (STT+TTS) and of vision
+(understanding AND historically-accurate image generation) are core, with
+historical accuracy a scored dimension throughout. The 20-benchmark audit
+(`docs/research/2026-07-13-benchmark-audit.md`, D-025) is binding design
+guidance: its Part D lists what we build upon and what we must fix.
 
 - **Phase 1 — IndiBench-Text:** frontier-difficulty questions in ~10–12 major
   Indian languages (final list pending; includes English-about-India) +
