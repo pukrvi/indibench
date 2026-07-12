@@ -18,7 +18,9 @@ IndiBench/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)
 │   ├── FOLDER_MAP.md          # This file
-│   ├── PROJECT_MAP.md         # What we're building: tracks, phases, workstream status
+│   ├── PROJECT_MAP.md         # What we're building: phases, workstream status
+│   ├── design/
+│   │   └── phase1-indibench-text.md         # Phase 1 design doc (DRAFT — open items feed Batch 5+)
 │   └── research/              # Dated research reports from work interleaves
 │       ├── 2026-07-12-indic-landscape.md    # Competitive landscape; IndQA analysis; niche verdict
 │       └── 2026-07-12-harness-and-arena.md  # Inspect AI / LM Arena / renewable benchmarks / tau2
