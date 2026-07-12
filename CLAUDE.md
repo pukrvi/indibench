@@ -20,24 +20,36 @@ broad-coverage MMLU clone.
 
 ## What we are building (locked so far — see DECISIONS.md for full log)
 
-- **Track 1 — Knowledge/Reasoning (ships first):** frontier-difficulty
-  questions in ~10–12 major Indian languages (final list pending; includes
-  English-about-India) + code-mixed (Hinglish/Tanglish), positioned like HLE:
-  today's best models should score LOW. Not competing with MILU/BhashaBench
-  on breadth — competing on difficulty and Indian depth.
-- **Track 2 — Agentic:** agent tasks on Indian use cases (simulated
-  environments like UPI/IRCTC/gov portals, tool-use scenarios, multilingual
-  conversational agents; real-web under review). Designed from day one,
-  shipped after Track 1.
-- **Sourcing:** synthetic — source material mined/curated by LLMs, questions
-  authored by frontier LLMs, **grounded in hard Indian source documents**
-  (regional-language textbooks, state gazettes, case law) so answer keys come
-  from sources, not model memory. **Adversarial filtering** keeps only items
-  multiple frontier models fail; human experts spot-check a sample.
+**IndiBench** (D-021) — "the open, lab-neutral frontier benchmark for India"
+(D-019). Four phases, order locked (D-020): **text > speech > vision > agent**.
+
+- **Phase 1 — IndiBench-Text:** frontier-difficulty questions in ~10–12 major
+  Indian languages (final list pending; includes English-about-India) +
+  code-mixed (Hinglish/Tanglish), positioned like HLE: today's best models
+  should score LOW. v1 = ~2,500 adversarially-filtered questions + leaderboard
+  + paper + inspect_evals registration (D-023). Closest competitor is OpenAI's
+  IndQA — we differentiate on open data/harness/pipeline and cross-lab
+  adversarial filtering.
+- **Phase 2 — IndiBench-Speech:** TTS/STT/spoken interaction with dialect and
+  acoustic diversity. Landscape research in docs/research/.
+- **Phase 3 — IndiBench-Vision:** culturally grounded multimodal (arts,
+  festivals, scene text, charts in Indian scripts). Phase 1 schema carries an
+  optional image field from day one.
+- **Phase 4 — IndiBench-Agent:** Indian-use-case agents (tau2-style UPI/IRCTC/
+  gov-portal domains, tool use, conversational). Designed on paper from day
+  one; ships last.
+- **Sourcing (all phases):** synthetic — questions authored by frontier LLMs,
+  **grounded in hard Indian source documents** (regional-language textbooks,
+  state gazettes, case law; exam syllabi as grounding only, never harvested
+  questions — D-017). Answer keys come from sources, not model memory.
+  **Cross-lab adversarial filtering** keeps only items multiple frontier
+  models fail; human experts spot-check a sample.
 - **Contamination defense:** canary GUID in every public file + private
   held-out split + periodic synthetic regeneration (a "renewable benchmark").
-- **Harness:** Inspect AI primary + HLE-style lightweight scripts; LM Arena
-  involvement under research (see DECISIONS.md D-012).
+- **Harness:** Inspect AI primary + HLE-style lightweight scripts, easy to run
+  locally on Ubuntu. Own leaderboard from day one; AI4Bharat Indic LLM-Arena
+  partnership courted (D-018).
+- **Licenses:** MIT code, CC-BY-4.0 public data (D-022).
 
 ## Out of scope (locked)
 

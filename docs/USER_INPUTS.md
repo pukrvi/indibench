@@ -82,6 +82,22 @@ verbatim input; consult it directly. And said (verbatim):
 - `goals.md` broadens candidate scope with vision/multimodal + speech tracks —
   needs reconciliation with the locked dual-track decision (D-006) → to be
   asked in the next batch, not silently adopted.
+
+---
+
+## Input 002a — 2026-07-12 — Batch 3 answers (verbatim selections)
+
+> Q9 (modalities vs C-001, owner's own text): "phased: text > speech > vision > agent"
+> Q10 (goals.md vs locked decisions, C-002): "Exams as grounding docs; 22 as end-goal (Recommended)"
+> Q11 (arena strategy): "Own leaderboard + court AI4Bharat (Recommended)"
+> Q12 (lead differentiator vs IndQA): "Open + cross-lab (Recommended)"
+
+## Input 002b — 2026-07-12 — Batch 4 answers (verbatim selections)
+
+> Q13 (confirm phasing, supersedes D-006 ordering): "Yes — text > speech > vision > agent"
+> Q14 (name): "IndiBench (Recommended)"
+> Q15 (licenses): "MIT code + CC-BY-4.0 data (Recommended)"
+> Q16 (Phase 1 v1 target): "~2,500 filtered Qs, leaderboard, paper (Recommended)"
 - goals.md's "material from regional and state-level examinations" and "all 22
   scheduled languages" sit in tension with D-009 (synthetic sourcing) and
   D-008 (10–12 languages in v1) → flagged for reconciliation.

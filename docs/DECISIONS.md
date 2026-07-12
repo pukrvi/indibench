@@ -81,4 +81,36 @@ Sources being reconciled:
   **LM Arena has no third-party contribution path** — realistic option is
   partnering with AI4Bharat's Indic LLM-Arena (Nov 2025; Phase 3 = agentic).
 
-### Batch 3 — (pending)
+### Batch 3 — 2026-07-12 — goals.md reconciliation, arena strategy, IndQA positioning
+
+**Q9. Modalities: reconcile goals.md's vision+speech with locked dual-track (C-001)?** Options: phased text→agent→vision→speech (recommended) / vision in v1 / all four in v1 / text-only.
+**Answer (owner's own wording):** "phased: text > speech > vision > agent". → **D-016 ✅ (pending confirmation of one consequence)** Four phases: Phase 1 text (frontier knowledge/reasoning), Phase 2 speech (TTS/STT), Phase 3 vision/multimodal, Phase 4 agentic. ⚠️ **Supersedes the ordering half of D-006** (which had agentic shipping second): the agent track moves to Phase 4. C-001 resolved (all goals.md modalities are in, phased). Confirmation of the agent-track deferral asked in Batch 4.
+
+**Q10. goals.md exam material + 22 languages vs D-008/D-009 (C-002)?** Options: exams-as-grounding-docs + 22-as-end-goal (recommended) / goals.md wins (reversal) / hybrid tagged exam subset.
+**Answer:** Exams as grounding docs; 22 as end-goal. → **D-017 ✅** Exam syllabi/materials are GROUNDING DOCUMENTS for the synthetic pipeline, never harvested questions (D-009 intact). "All 22 scheduled languages" is the roadmap end-state; v1 ships 10–12 (D-008 intact). C-002 resolved.
+
+**Q11. Arena/leaderboard strategy?** Options: own leaderboard + court AI4Bharat (recommended) / leaderboard only / partnership-first.
+**Answer:** Own leaderboard + court AI4Bharat. → **D-018 ✅** Ship our own leaderboard (GitHub Pages / HF Space) from day one; approach AI4Bharat about contributing frontier-hard prompts to Indic LLM-Arena and aligning the agentic phase with their Phase 3. arena.ai is BD aspiration only, not a milestone. Resolves the LM-Arena part of D-012.
+
+**Q12. Lead differentiator vs IndQA?** Options: open + cross-lab (recommended) / STEM-professional depth / code-mixed frontier / synthetic scale.
+**Answer:** Open + cross-lab. → **D-019 ✅** Identity: "the open, lab-neutral frontier benchmark for India" — public data+harness+pipeline; adversarial filtering against ALL frontier labs' models incl. Indian models. Balanced domain mix (culture AND STEM/professional). Other differentiators (Tanglish, scale) are supporting, not headline.
+
+### Batch 4 — 2026-07-12 — Phasing confirmation, name, licenses, v1 target
+
+**Q13. Confirm agent-track deferral to Phase 4 (supersedes D-006 ordering)?** Options: yes text>speech>vision>agent / restore text>agent / parallel middle path.
+**Answer:** Yes — text > speech > vision > agent. → **D-020 ✅** Phase order LOCKED: 1 Text, 2 Speech, 3 Vision, 4 Agent. D-006's ordering is formally superseded (recorded here, not silently). Agent track remains designed-on-paper from day one (schema + domain list) so Phase 4 starts warm. Speech overlap noted: Voice of India (2026) is ASR-only; TTS + spoken-reasoning remain open.
+
+**Q14. Final name?** Options: IndiBench (recommended) / different name / decide at launch.
+**Answer:** IndiBench. → **D-021 ✅** Suite name: **IndiBench**; per-phase artifacts: IndiBench-Text, IndiBench-Speech, IndiBench-Vision, IndiBench-Agent.
+
+**Q15. Licensing?** Options: MIT code + CC-BY-4.0 data (recommended) / MIT + CC-BY-SA / all MIT.
+**Answer:** MIT code + CC-BY-4.0 data. → **D-022 ✅** Code MIT (already in repo); public datasets CC-BY-4.0; private held-out split unpublished/unlicensed. Closes the license part of D-015.
+
+**Q16. Phase 1 v1 target?** Options: ~2,500 filtered Qs + leaderboard + paper (recommended) / ~1,000 fast v0.5 / 5,000+.
+**Answer:** ~2,500 filtered Qs, leaderboard, paper. → **D-023 ✅** v1 = ~2,500 questions surviving cross-lab adversarial filtering, across 10–12 languages + code-mixed; public leaderboard; arXiv paper; inspect_evals registration.
+
+---
+
+**Work interleave 2 (after Q16):** record batch; update maps/CLAUDE.md; speech-landscape research (Phase 2 due diligence); draft Phase 1 (IndiBench-Text) design doc; PR #2 with sub-agent review.
+
+### Batch 5 — (pending)

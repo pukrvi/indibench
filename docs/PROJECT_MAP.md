@@ -1,85 +1,95 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-12 (alignment phase, after Input 002 — goals.md + GitHub repo — and work interleave 1).
+Last updated: 2026-07-12 (alignment phase, after question Batch 4 / work interleave 2).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
 ## Mission (one line)
 
-Add India to the frontier benchmark suite: a benchmark hard enough that today's
-best models fail it, in Indian languages and on Indian use cases — plus the
-first serious agentic benchmark for Indian digital life.
+Add India to the frontier benchmark suite: **IndiBench** — open, lab-neutral
+benchmarks hard enough that today's best models fail them, in Indian languages
+and on Indian use cases, across text, speech, vision, and agents.
 
-## Positioning
+## Identity (D-019, D-021)
 
-| | Existing (MILU, BhashaBench, IndicGenBench) | IndiBench |
-|---|---|---|
-| Difficulty | Broad coverage, models score high | Frontier-hard — models score LOW (D-007) |
-| Peer group | MMLU, IndicGLUE | HLE, SWE-bench-class suite (D-003) |
-| Agents | None | Core track (D-006) |
-| Sourcing | Public exam data (contamination-prone) | Synthetic, grounded, adversarially filtered (D-009/D-010) |
-| Lifespan | Static | Renewable via regeneration (D-013) |
+**"The open, lab-neutral frontier benchmark for India."**
+- Fully public data + harness + generation pipeline (vs IndQA: closed, OpenAI-graded).
+- Adversarial filtering against ALL frontier labs' models (OpenAI, Anthropic,
+  Google, + Indian models), not one lab's.
+- Suite name **IndiBench**; per-phase artifacts IndiBench-Text / -Speech /
+  -Vision / -Agent.
+- Licenses: MIT (code), CC-BY-4.0 (public data); private held-out split unpublished (D-022).
 
-## Tracks
+## Phases (D-016, D-020 — order locked)
 
-### Track 1 — Frontier Knowledge & Reasoning (ships first)
-- ~10–12 major Indian languages + English-about-India + code-mixed
-  Hinglish/Tanglish (D-008). Schema extensible to all 22 scheduled languages.
-- Synthetic pipeline: LLM-mined source docs → frontier-LLM-authored questions
-  grounded in those docs → adversarial filter (keep only what multiple frontier
-  models fail) → ~10% human expert spot-check (D-010).
-- Contamination: canary GUID + private held-out split + periodic regeneration (D-013).
-- Harness: Inspect AI task + HLE-style standalone scripts (D-012, partially open).
+| Phase | Artifact | Status | v1 target |
+|---|---|---|---|
+| 1 | **IndiBench-Text** — frontier knowledge/reasoning, 10–12 langs + code-mixed (Hinglish/Tanglish) | 🟡 Design doc in progress | ~2,500 adversarially-filtered Qs, leaderboard, arXiv paper, inspect_evals registration (D-023) |
+| 2 | **IndiBench-Speech** — TTS/STT/spoken interaction, dialect + acoustic diversity | 🔬 Landscape research running | TBD (design after Phase 1 ships) |
+| 3 | **IndiBench-Vision** — culturally grounded multimodal (arts, festivals, scene text, charts in Indian scripts) | ⏳ Roadmap | TBD |
+| 4 | **IndiBench-Agent** — Indian-use-case agents (UPI/IRCTC/gov-portal tau2-style domains, tool use, conversational) | ⏳ Designed-on-paper from day one; ships last | TBD |
 
-### Track 2 — Indian Agentic Tasks (designed now, ships second)
-- All four modalities eventually (D-011): simulated Indian environments
-  (UPI/IRCTC/gov portals), tool-use/function-calling scenarios, multilingual
-  conversational agents, real-website tasks (⚠️ reproducibility/legal concerns
-  flagged; phasing order not yet confirmed).
+Note: Phase order text > speech > vision > agent was set by the owner in Batch 3
+and confirmed in Batch 4 (D-020), superseding the Batch 1 ordering (agents second).
+Track 1 schema carries an optional image field from day one so Phase 3 doesn't
+require a schema break.
+
+## Core design (Phase 1)
+
+- **Sourcing (D-009/D-010/D-017):** synthetic — LLM-curated grounding corpus of
+  hard Indian source documents (regional-language textbooks, state gazettes,
+  case law, exam syllabi as grounding only — never harvested questions) →
+  frontier-LLM-authored questions with source-derived answer keys →
+  cross-lab adversarial filter (keep only what multiple frontier models fail) →
+  human expert spot-check.
+- **Contamination (D-013/D-015):** canary GUID per file + private held-out split
+  + periodic regeneration (renewable benchmark), LiveBench-style versioning.
+- **Harness (D-012):** Inspect AI primary (clone inspect_evals/hle pattern) +
+  HLE-style lightweight standalone scripts; easy local runs on Ubuntu.
+- **Leaderboard (D-018):** own static leaderboard from day one; court AI4Bharat's
+  Indic LLM-Arena for prompt contribution + Phase-4 alignment; arena.ai = BD
+  aspiration only.
 
 ## Competitive picture (researched 2026-07-12, see docs/research/)
 
-- **Track 1 closest competitor: OpenAI IndQA** (Nov 2025; 2,278 Q, 12 langs incl.
-  Hinglish, GPT-5 ≈ 35%) — but closed-data, culture-only, OpenAI-filtered.
-  Our open differentiators: open data+harness, cross-lab adversarial filtering,
-  document-grounded synthesis at scale, STEM/professional depth, Tanglish.
-- **Track 2: no incumbent yet.** Closest are MASSIVE-Agents (function
-  calling, no environments/Indian services) and Ticket-Bench (zero Indic);
-  AI4Bharat's Indic LLM-Arena Phase 3 (agentic) is the announced closest entrant.
-- **Harness verdict:** Inspect AI primary (HLE already in inspect_evals);
-  tau2-bench-style mock domains for UPI/IRCTC/gov-portal agent tasks;
-  LM Arena proper has no third-party path — AI4Bharat's Indic LLM-Arena
-  (Phase 3 = agentic) is the realistic partner/watch-item.
+- **Text:** closest competitor OpenAI IndQA (closed-data, culture-only,
+  OpenAI-filtered). Our lane: open + cross-lab + STEM/professional depth + Tanglish.
+- **Speech:** Voice of India (ASR-only) is a partial incumbent; TTS + spoken
+  reasoning appear open — research in flight.
+- **Vision:** DRISHTIKON / HinTel-AlignBench exist but not frontier-positioned.
+- **Agent:** no incumbent yet; AI4Bharat Indic LLM-Arena Phase 3 is the
+  announced closest entrant.
 
-## Development workflow (Input 002)
+## Development workflow (Input 002, D-014)
 
-- GitHub: https://github.com/pukrvi/indibench (MIT license, main branch).
-- Feature branches + PRs + sub-agent self-review before merge (D-014).
-- `benchmarks/` reference repos are gitignored — never committed.
+- GitHub: https://github.com/pukrvi/indibench (MIT, main protected by convention).
+- Feature branches + PRs + sub-agent self-review before merge.
+- `benchmarks/` reference repos are gitignored — never committed (clone list in FOLDER_MAP.md).
 
 ## Workstream status
 
 | Workstream | Status |
 |---|---|
-| Alignment loop | 🟡 In progress — 8 questions asked (Batches 1–2); Batch 3 next (goals.md conflicts C-001/C-002, arena strategy, naming/governance) |
+| Alignment loop | 🟡 16 questions asked (Batches 1–4); Batch 5 next (governance, domains, judge panel, refresh cadence, budget) |
 | Reference-repo study | ✅ Done |
-| Landscape research (is the niche open?) | ✅ Done — docs/research/2026-07-12-indic-landscape.md |
-| Harness research (Inspect AI / LM Arena / renewable precedents) | ✅ Done — docs/research/2026-07-12-harness-and-arena.md |
-| CLAUDE.md + maps | ✅ Created, kept current |
-| Git/GitHub dev workflow | 🟡 Being set up (first PR in flight) |
-| Benchmark naming, org, license, governance | ⏳ Batch 3/4 |
-| Pipeline design doc | ⏳ Blocked on remaining alignment answers |
-| Repo scaffold for our own code | ⏳ Blocked on alignment close |
+| Landscape research (text) | ✅ docs/research/2026-07-12-indic-landscape.md |
+| Harness research | ✅ docs/research/2026-07-12-harness-and-arena.md |
+| Speech landscape research | 🟡 Running |
+| CLAUDE.md + maps | ✅ Current |
+| Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
+| Phase 1 design doc | 🟡 Drafting |
+| Repo scaffold for benchmark code | ⏳ After Phase 1 design locks |
 
-## Known open questions (feeding future batches)
+## Known open questions (feeding Batch 5+)
 
-- C-001: goals.md multimodal + speech tracks vs locked dual-track scope — v1, phased, or aspirational?
-- C-002: goals.md exam material + 22 languages vs locked synthetic sourcing + 10–12 langs.
-- Arena strategy: partner with AI4Bharat Indic LLM-Arena? own leaderboard?
-- Agent-track phasing order + real-web risk decision (D-011 ⏳)
-- IndQA differentiation emphasis (which of the five differentiators leads?)
-- Name confirmation ("IndiBench"?), org/governance, data license (CC-BY-4.0?)
-- Final v1 language list; whether English-about-India counts inside or on top of the 10–12 (D-008 note).
-- Safety/bias: in scope or leave to Indic-Bias?
-- v1 size targets, human baseline collection, budget/timeline
-- Role of langfuse (it's in the folder — infra intent?)
+- Governance/org: who maintains IndiBench long-term? (personal / org / consortium)
+- Phase 1 domain list (which subjects, how many per language?)
+- Adversarial panel composition (which models, how many must fail a question?)
+- Judge model + protocol for scoring (LLM-judge lab-neutrality!)
+- Refresh cadence + versioning policy specifics
+- Budget: API costs for generation/filtering; paid expert spot-checks
+- Human baseline collection?
+- Safety/bias track: out of scope (Indic-Bias exists) or later phase?
+- Role of langfuse (infra intent?) — still unasked
+- English-about-India counting inside/on top of 10–12 languages
+- Community contributions of questions: accepted? bounty?
