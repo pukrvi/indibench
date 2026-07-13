@@ -1,8 +1,9 @@
 # IndiBench-Text — Phase 1 Design Doc
 
-Status: **DRAFT v0.2** (2026-07-13) — reflects decisions D-001..D-034; core
-parameters (languages, domains, panel, refresh, budget) now locked via
-Batches 5–6. Remaining ⏳ items listed in §7.
+Status: **DRAFT v0.3** (2026-07-13) — reflects decisions D-001..D-038; all
+core parameters (languages, domains, panel + model families, refresh, budget,
+leaderboard, community policy, safety slice) locked via Batches 5–7.
+Remaining ⏳ items listed in §7.
 
 ## 1. Goal
 
@@ -100,9 +101,13 @@ both aiding contamination tracking).
   95% CI, **calibration error** (HLE's RMS method). Code-mixed subsets
   reported separately.
 - **Judge lab-neutrality (D-029/D-035):** dual-judge = one Anthropic + one
-  Google model (OpenAI excluded from judging — IndQA comparisons will be
-  scrutinized), disagreement ⇒ third-judge tiebreak; publish judge-agreement
-  stats. Versions pinned at run time.
+  Google model, disagreement ⇒ third-judge tiebreak. No OpenAI judge:
+  IndiBench results will inevitably be compared against OpenAI's IndQA, so
+  grading stays with labs that don't maintain a competing India benchmark — a
+  conflict-of-interest safeguard, not a quality judgment. Self-preference risk
+  (judges scoring their own lab's models) is monitored via published
+  judge-agreement stats and the cross-lab third-judge tiebreak. Versions
+  pinned at run time.
 - **Leaderboard (D-018/D-036):** static site (GitHub Pages or HF Space)
   rebuilt per release. Submission integrity LOCKED for v1: maintainer-run
   evaluations only (labs can request runs), raw model logs published;
@@ -126,8 +131,7 @@ both aiding contamination tracking).
   grid (e.g., medical misinformation in Indic languages under medicine_ayush,
   financial-scam patterns under finance_tax) — reported as its own slice like
   the code-mixed subsets. Safety-tagged items get mandatory (not sampled)
-  expert spot-check in S4. Schema: add `"tags": ["safety", "historical", …]`
-  array to the item schema (§2).
+  expert spot-check in S4. Schema: carried in the `tags` array (§2).
 - Rough shape: 2,500 ÷ 12 tracks ≈ 200 per language track ÷ 10 domains ≈ 20
   per cell (exact quotas to be tuned by filter yield per cell).
 
@@ -135,7 +139,7 @@ both aiding contamination tracking).
 
 | Risk | Mitigation |
 |---|---|
-| Wrong answer keys (the HLE failure mode) | S2 source-grounded verification + S4 expert audit + public bug-bounty window + IndiBench-Rolling corrections fork |
+| Wrong answer keys (the HLE failure mode) | S2 source-grounded verification + S4 expert audit + public bug-report window (D-037: recognition credit, no cash bounty) + IndiBench-Rolling corrections fork |
 | Synthetic questions feel artificial / trivia-like | Grounding in real documents; domain quotas; expert review of style; code-mixed items authored by prompted native-speaker personas then human-checked |
 | Adversarial filter overfits to today's models | Renewable refresh waves; private held-out split; report scores per version |
 | Panel-model score deflation looks lab-biased (filter keeps what panel models fail) | Publish panel composition + panel-vs-non-panel score-bias analysis in the paper; evaluate panel models on refresh waves generated after their inclusion |
@@ -143,14 +147,13 @@ both aiding contamination tracking).
 | AI4Bharat/BharatGen ship first | Speed (v1 target), partnership track (D-018), differentiation is open+cross-lab (hard to copy quickly for a single lab) |
 | Volunteer-expert recruiting shortfall across up to 120 language×domain cells; filter-yield-driven budget overrun (≥2-of-4 filters discard most candidates on a <$5k budget, D-033) | Recruit via co-authorship early, before generation starts; per-cell yield tracking with a degrade-gracefully rule: shrink cells or ship fewer tracks in v1 rather than blow budget or skip spot-checks |
 
-## 7. Open items (remaining after Batches 5–6)
+## 7. Open items (remaining after Batch 7)
 
 Resolved since v0.1: panel + threshold (D-029), domains (D-030), languages
 (D-031), refresh + private split (D-032), budget (D-033), human baseline —
-skipped for v1 (D-034), governance shape (D-028).
-
-Resolved since v0.2: judge/panel model families (D-035), leaderboard
-verification (D-036), community policy (D-037), safety slice (D-038).
+skipped for v1 (D-034), governance shape (D-028), judge/panel model families
+(D-035), leaderboard verification (D-036), community policy (D-037), safety
+slice (D-038).
 
 Still open:
 1. Source-document licensing rules for the S0 grounding corpus.

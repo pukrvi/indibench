@@ -162,7 +162,7 @@ asked when Phase 3 design starts (noted, not urgent for Phase 1).
 ### Batch 7 — 2026-07-13 — Model IDs, leaderboard verification, community policy, safety
 
 **Q25. Concrete panel + judge models?** Options: GPT-5/Claude/Gemini/Sarvam panel with Claude+Gemini judges (recommended) / open-weights judges / decide at build time.
-**Answer:** GPT-5 + Claude Opus/Fable + Gemini Pro + Sarvam; judges Claude+Gemini. → **D-035 ✅** Panel: latest GPT-5-class (OpenAI), Claude Opus 4.8/Fable 5 (Anthropic), Gemini 2.5-Pro-class (Google), Sarvam's best. Judges: one Anthropic + one Google (OpenAI excluded from judging because IndQA comparisons will be scrutinized). Exact versions pinned at pipeline-run time and published.
+**Answer:** GPT-5 + Claude Opus/Fable + Gemini Pro + Sarvam; judges Claude+Gemini. → **D-035 ✅** Panel: latest GPT-5-class (OpenAI), Claude Opus 4.8/Fable 5 (Anthropic), Gemini 2.5-Pro-class (Google), Sarvam's best. Judges: one Anthropic + one Google (no OpenAI judge, to avoid conflict-of-interest in IndQA comparisons). Exact versions pinned at pipeline-run time and published.
 
 **Q26. Leaderboard verification?** Options: maintainer-run only v1 (recommended) / self-serve + logs / HF Space auto-evaluator.
 **Answer:** Maintainer-run only for v1. → **D-036 ✅** We run every evaluated model and publish raw logs; labs can request runs; no self-serve submissions until a verification story exists. Resolves design doc §4 ⏳.

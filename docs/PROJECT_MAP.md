@@ -1,6 +1,6 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-13 (alignment phase, after Input 003 — benchmark audit + thesis).
+Last updated: 2026-07-13 (alignment phase, after Batch 7 / Input 003c — Phase 1 alignment converged).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
@@ -83,7 +83,7 @@ require a schema break.
 | Speech landscape research | 🟠 Partial — research agent killed by API spend limit; core findings captured in audit §12/§19; full sweep to redo before Phase 2 design |
 | CLAUDE.md + maps | ✅ Current |
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
-| Phase 1 design doc | 🟢 v0.2 — core parameters locked (languages, domains, panel, refresh, budget); implementation-blocking items down to judge IDs + source licensing |
+| Phase 1 design doc | 🟢 v0.3 — all core parameters locked; implementation-blocking items down to source licensing (S0) |
 | Repo scaffold for benchmark code | ⏳ Next — design is close to buildable |
 
 ## Known open questions (feeding Batch 8+)
