@@ -11,8 +11,9 @@ Last updated: 2026-07-13, after the pre-keys readiness audit.
 | Full offline dry-run of the filter orchestration (`--mock`) over all 240 items: S3 panel → judging → survival rule → yield report → promotion → public/private split → versioned release files | ✅ |
 | Resumability (re-run skips processed ids; no double API spend) | ✅ tested |
 | Inspect AI harness end-to-end (loader + canary check + generation + model-graded scoring) with scripted mock model: GRADE: C → 1.0, GRADE: I → 0.0 | ✅ |
-| Standalone `predict.py` / `judge.py` CLIs + calibration/CI math | ✅ |
+| Standalone `predict.py` / `judge.py` CLI smoke + calibration math unit-tested (full CLI flows need a live endpoint) | ✅ |
 | Providers fail loudly and helpfully without keys (key check before SDK import) | ✅ tested |
+| Keys-day guardrails: errored candidates retry by default, consecutive-error abort, corrupt-tail tolerance, partial-promotion refusal, run-config sidecar mismatch check | ✅ tested |
 | Lint (ruff) | ✅ clean |
 
 Known limits before keys: S2/S3 quality outcomes are unmeasurable offline (mock
@@ -37,9 +38,19 @@ yield numbers are plumbing checks, not difficulty data), and Indic-script
 4. Inspect the yield report + `data/filter_results.jsonl`; then drop `--limit`
    for the full 240. Re-runs resume automatically.
 5. Promote survivors to a versioned release:
-   `--promote-to data/releases --version v2026.XX` — the `private/` output
-   directory must NEVER be committed (D-032); add it to .gitignore before running.
-6. Record the pinned model IDs + yield stats in `docs/DECISIONS.md`.
+   `--promote-to data/releases --version v2026.XX` (both flags required;
+   refuses if candidates remain unprocessed unless `--force-partial-promotion`).
+   The `private/` output directory must NEVER be committed (D-032) — verify
+   the `data/releases/private/` entry still exists in `.gitignore`.
+6. Record the pinned model IDs + yield stats in `docs/DECISIONS.md`. The
+   results file's `.meta.json` sidecar pins the run config; changing model
+   pins requires a fresh `--results` path.
+
+Operational notes: errored candidates (rate limits, bad pins) are retried
+automatically on re-run; the run aborts after 5 consecutive errors. The
+standalone `judge.py` reaches non-OpenAI judges via `--base-url` pointing at
+an OpenAI-compatible gateway; the Inspect harness needs no gateway
+(`--model` handles all providers natively).
 
 ## Evaluating a model (after a release exists)
 

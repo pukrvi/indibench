@@ -71,9 +71,11 @@ def test_promote_end_to_end_offline(tmp_path):
                  for d in drafts[::2]]
     assert all(item.id.startswith("ibt-") for item in survivors)
     assert all(len(item.difficulty_evidence.models_failed) == 2 for item in survivors)
-    # provenance must NOT leak the grounding note
-    notes = {d.grounding_note for d in drafts}
-    assert all(item.provenance.source_ref not in notes for item in survivors)
+    # provenance must be EXACTLY the coarse hash — never grounding-note text
+    import hashlib
+    for draft, item in zip(drafts[::2], survivors):
+        assert item.provenance.source_ref == hashlib.sha256(
+            draft.grounding_note.encode()).hexdigest()[:12]
 
     public, private = split_public_private(survivors, seed=7)
     written = write_release(public, tmp_path, "vTEST",
@@ -111,22 +113,42 @@ def test_standalone_judge_metrics():
 def test_run_filter_mock_dry_run(tmp_path):
     """The orchestration script must run end-to-end offline in --mock mode."""
     results = tmp_path / "results.jsonl"
+    base = [sys.executable, str(ROOT / "scripts" / "run_filter.py"),
+            "--mock", "--skip-s2", "--results", str(results)]
     proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "run_filter.py"),
-         "--mock", "--skip-s2", "--limit", "30",
-         "--results", str(results),
-         "--promote-to", str(tmp_path / "rel"), "--version", "vTEST"],
-        capture_output=True, text=True, timeout=120,
+        base + ["--limit", "30",
+                "--promote-to", str(tmp_path / "rel"), "--version", "vTEST",
+                "--force-partial-promotion"],
+        capture_output=True, text=True, timeout=180,
     )
     assert proc.returncode == 0, proc.stderr
     assert "MOCK MODE" in proc.stdout and "Yield report" in proc.stdout
     lines = [json.loads(line) for line in results.read_text().splitlines()]
     assert len(lines) == 30
     assert all("survived" in r for r in lines)
+    # promotion must actually write release files (public AND private dirs)
+    assert list((tmp_path / "rel" / "public" / "vTEST").glob("*.json"))
+    assert list((tmp_path / "rel" / "private" / "vTEST").glob("*.json"))
     # resumability: second run must skip everything already processed
-    proc2 = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "run_filter.py"),
-         "--mock", "--skip-s2", "--limit", "30", "--results", str(results)],
-        capture_output=True, text=True, timeout=120,
-    )
+    proc2 = subprocess.run(base + ["--limit", "30"],
+                           capture_output=True, text=True, timeout=180)
     assert "30 already processed" in proc2.stdout
+    # corruption tolerance: truncated final line is dropped, not fatal
+    with results.open("a") as f:
+        f.write('{"id": "ibc-truncat')
+    proc3 = subprocess.run(base + ["--limit", "2"],
+                           capture_output=True, text=True, timeout=180)
+    assert proc3.returncode == 0, proc3.stderr
+    assert "truncated final line" in proc3.stdout
+    # guardrails: promotion without full processing refuses; flags must pair
+    proc4 = subprocess.run(
+        base + ["--limit", "1", "--promote-to", str(tmp_path / "rel2"), "--version", "vX"],
+        capture_output=True, text=True, timeout=180)
+    assert proc4.returncode != 0 and "REFUSING to promote" in (proc4.stdout + proc4.stderr)
+    proc5 = subprocess.run(base + ["--promote-to", str(tmp_path / "rel3")],
+                           capture_output=True, text=True, timeout=180)
+    assert proc5.returncode != 0
+    # config mismatch: different panel pin against same results file must error
+    proc6 = subprocess.run(base + ["--limit", "1", "--tiebreak", "openai/other-model"],
+                           capture_output=True, text=True, timeout=180)
+    assert proc6.returncode != 0 and "run config" in (proc6.stdout + proc6.stderr)

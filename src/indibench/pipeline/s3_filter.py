@@ -76,7 +76,12 @@ def run_panel(
     reference = mcq_reference(answer, choices)
     results: list[PanelResult] = []
     for model_id in panel_model_ids:
-        raw = providers.complete(model_id, system=PANEL_SYSTEM, user=rendered, max_tokens=1024)
+        raw = providers.complete(model_id, system=PANEL_SYSTEM, user=rendered, max_tokens=4096)
+        if not raw.strip():
+            # Empty output (e.g. thinking tokens exhausting the cap) is an
+            # ERROR, not a wrong answer — treating it as failure would let
+            # items falsely survive the filter.
+            raise RuntimeError(f"panel model {model_id} returned an empty response")
         if "AMBIGUOUS" in raw.upper():
             results.append(PanelResult(model_id=model_id, answered_correctly=False,
                                        judged_ambiguous=True))

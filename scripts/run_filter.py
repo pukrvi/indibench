@@ -63,21 +63,66 @@ def main() -> None:
     parser.add_argument("--mock", action="store_true",
                         help="no API keys needed: deterministic mock provider")
     parser.add_argument("--limit", type=int, default=None, help="max candidates this run")
+    parser.add_argument("--no-retry-errors", action="store_true",
+                        help="do NOT re-attempt candidates whose previous run errored")
+    parser.add_argument("--max-consecutive-errors", type=int, default=5,
+                        help="abort the run after this many errors in a row (bad key/model id)")
     parser.add_argument("--promote-to", type=Path, default=None,
                         help="write survivors as a versioned release under this dir")
     parser.add_argument("--version", default=None, help="release version, e.g. v2026.07")
+    parser.add_argument("--force-partial-promotion", action="store_true",
+                        help="allow promotion even if not every candidate has been processed")
     args = parser.parse_args()
+
+    if bool(args.promote_to) != bool(args.version):
+        parser.error("--promote-to and --version must be used together")
 
     if args.mock:
         providers.complete = _mock_complete
         print("MOCK MODE — deterministic offline provider; results are plumbing-only")
 
+    # Config sidecar: refuse to silently mix records produced under different
+    # panel/judge pins in one results file.
+    run_config = {"panel": list(args.panel), "judges": list(args.judges),
+                  "tiebreak": args.tiebreak, "mock": args.mock}
+    meta_path = args.results.with_suffix(".meta.json")
+    if meta_path.exists():
+        previous = json.loads(meta_path.read_text(encoding="utf-8"))
+        if previous != run_config:
+            parser.error(
+                f"model pins differ from the existing results file's run config "
+                f"({meta_path}). Use a fresh --results path for a new configuration.")
+    else:
+        meta_path.parent.mkdir(parents=True, exist_ok=True)
+        meta_path.write_text(json.dumps(run_config, indent=1), encoding="utf-8")
+
     done: dict[str, dict] = {}
     if args.results.exists():
-        for line in args.results.read_text(encoding="utf-8").splitlines():
-            if line.strip():
+        lines = args.results.read_text(encoding="utf-8").splitlines()
+        good_lines = []
+        for lineno, line in enumerate(lines, 1):
+            if not line.strip():
+                continue
+            try:
                 record = json.loads(line)
-                done[record["id"]] = record
+            except json.JSONDecodeError:
+                if lineno == len(lines):
+                    print(f"warning: dropping truncated final line in {args.results} "
+                          f"(interrupted previous run)")
+                    continue
+                raise SystemExit(f"{args.results}:{lineno}: corrupt (non-final) line — "
+                                 f"inspect the file manually")
+            done[record["id"]] = record
+            good_lines.append(line)
+        # rewrite without the truncated tail so append stays clean
+        if len(good_lines) != len([line for line in lines if line.strip()]):
+            args.results.write_text("\n".join(good_lines) + "\n", encoding="utf-8")
+
+    # Errored records are retried by default — a bad key or rate-limit burst
+    # must never permanently mark candidates as processed (readiness-audit finding).
+    retryable = {i for i, r in done.items() if "error" in r and not args.no_retry_errors}
+    for item_id in retryable:
+        del done[item_id]
 
     drafts = []
     for path in sorted(args.candidates_dir.glob("*.json")):
@@ -85,8 +130,11 @@ def main() -> None:
     todo = [d for d in drafts if d.id not in done]
     if args.limit is not None:
         todo = todo[: args.limit]
-    print(f"{len(drafts)} candidates, {len(done)} already processed, running {len(todo)}")
+    print(f"{len(drafts)} candidates, {len(done)} already processed"
+          f"{f' ({len(retryable)} errored queued for retry)' if retryable else ''}, "
+          f"running {len(todo)}")
 
+    consecutive_errors = 0
     with args.results.open("a", encoding="utf-8") as out:
         for n, draft in enumerate(todo, 1):
             record = {"id": draft.id, "language": draft.language.value,
@@ -114,9 +162,17 @@ def main() -> None:
             except Exception as exc:
                 record["error"] = str(exc)
                 record["survived"] = False
+                consecutive_errors += 1
+            else:
+                consecutive_errors = 0
             done[draft.id] = record
             out.write(json.dumps(record, ensure_ascii=False) + "\n")
             out.flush()
+            if consecutive_errors >= args.max_consecutive_errors:
+                print(f"ABORTING: {consecutive_errors} consecutive errors "
+                      f"(last: {record['error']}) — check keys/model ids, then re-run "
+                      f"(errored candidates retry automatically)")
+                break
             if n % 20 == 0:
                 print(f"  {n}/{len(todo)} processed")
 
@@ -131,6 +187,11 @@ def main() -> None:
     print(f"s2-failed: {failed_s2} · errored: {errored}")
 
     if args.promote_to and args.version:
+        unprocessed = len(drafts) - len(done)
+        if unprocessed > 0 and not args.force_partial_promotion:
+            raise SystemExit(
+                f"REFUSING to promote: {unprocessed}/{len(drafts)} candidates were never "
+                f"processed. Finish the run, or pass --force-partial-promotion.")
         filter_round = args.version
         items = []
         for draft in drafts:

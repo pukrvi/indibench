@@ -23,10 +23,12 @@ def promote(
     not actually survive the filter or has no assembly id."""
     if not draft.id:
         raise ValueError("draft has no id — run scripts/assemble_candidates.py first")
+    if not draft.id.startswith("ibc-"):
+        raise ValueError(f"unexpected candidate id prefix: {draft.id}")
     if not survives_filter(results):
         raise ValueError(f"{draft.id} did not survive the filter — cannot promote")
     return Item(
-        id=draft.id.replace("ibc-", "ibt-", 1),
+        id="ibt-" + draft.id.removeprefix("ibc-"),
         question=draft.question,
         answer=draft.answer,
         answer_type=draft.answer_type,
