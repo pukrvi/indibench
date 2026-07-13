@@ -17,14 +17,20 @@ IndiBench/
 ├── .github/ISSUE_TEMPLATE/    # question_error_report.yml (D-037 bug-report channel)
 ├── goals.md                   # Owner's goals document (Input 002) — verbatim owner input
 ├── LMBench_References.md      # Owner's curated reference list of benchmark repos (original input)
-├── src/indibench/             # Package: schema.py (D-030/031/038), canary.py (D-013)
-│   └── pipeline/              # S0–S5 stages; S3 survival/S4 gates/S5 release implemented,
-│                              #   LLM plumbing (S0-S2, S3 panel calls) pending
+├── src/indibench/             # Package: schema.py (D-030/031/038 + CandidateDraft), canary.py (D-013),
+│   │                          #   providers.py (env-key adapter, D-042), judging.py (dual-judge, D-035)
+│   └── pipeline/              # S0–S5 stages; S1/S2/S3 LLM paths implemented (need keys),
+│                              #   S3 survival/S4 gates/S5 release pure logic tested
+├── scripts/
+│   └── assemble_candidates.py # authoring JSONL → validated canary-wrapped candidate files
 ├── evals/
 │   ├── inspect/indibench_text.py   # Inspect AI task (D-012; inspect_evals/hle pattern)
 │   └── standalone/predict.py, judge.py  # HLE-style zero-framework local eval (D-015)
-├── tests/                     # Unit tests for pure pipeline logic (6 passing)
-├── data/                      # Public releases will land here (README only for now)
+├── tests/                     # Unit tests for pure pipeline logic (7 passing)
+├── data/
+│   ├── CANARY_GUID            # fixed canary GUID for this release line
+│   └── candidates/            # v0-seed UNFILTERED pool (D-041): authoring/*.jsonl + v0-seed/*.json
+│                              #   240 items, 12 tracks × 10 domains × 2 — awaiting S2-S4 with API keys
 ├── docs/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)

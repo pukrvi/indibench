@@ -184,3 +184,22 @@ verbatim input; consult it directly. And said (verbatim):
   (D-001..D-038) are the build spec. Transition to build phase.
 - Deliverables: public README conveying the project's idea; then the
   build work continues (repo scaffold, pipeline, eval harness).
+
+---
+
+## Input 005 — 2026-07-13 — Create the complete bench; keys later
+
+> First create the complete bench yourself. then we will plug the API keys
+> to review and make it better
+
+**Working interpretation:**
+- Claude builds the complete benchmark now, without external API access:
+  (a) the full pipeline LLM plumbing, coded and ready for keys;
+  (b) a complete candidate question set authored by Claude itself — this IS
+  the locked S1 methodology (D-009: frontier-LLM-authored), with the caveat
+  that in-session authoring grounds in the model's knowledge of sources
+  rather than a retrieved S0 corpus, so every item is marked as an
+  UNFILTERED CANDIDATE pending S2 source-verification + S3 cross-lab
+  adversarial filtering + S4 expert spot-check.
+- When API keys are plugged in later, the panel/judges run and prune this
+  pool into the actual release ("review and make it better").

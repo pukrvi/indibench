@@ -187,4 +187,13 @@ the design doc as a Claude default — prefer government/public-domain sources
 under GODL-India, court judgments as public record, never long excerpts);
 langfuse = optional private dev-infra unless owner objects.
 
+---
+
+## Input 005 — Complete bench authored in-session; API-key filtering follows
+
+| # | Decision | Status |
+|---|----------|--------|
+| D-041 | **v0-seed candidate pool authored by Claude in-session**: 2 candidates per language×domain cell across all 12 tracks × 10 domains (~240 items), native-script, stored under `data/candidates/` clearly labeled UNFILTERED. Consistent with D-009 (frontier-LLM authoring); deviates from D-010's retrieved-corpus grounding (S0 corpus not yet built) — every item carries a `grounding_note` claiming its source basis, and NOTHING publishes as a release until S2 verification + S3 panel + S4 spot-check run with real API keys. | ✅ |
+| D-042 | Pipeline LLM plumbing implemented now behind a provider-adapter layer (OpenAI / Anthropic / Google / Sarvam-compatible, keys from env). S0 corpus building remains the open milestone; S1–S3 code paths become runnable the moment keys are supplied. | ✅ |
+
 ### Batch 8 — (pending; alignment loop resumes when build surfaces new forks)

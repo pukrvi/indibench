@@ -11,6 +11,9 @@ and audited independently of any API plumbing.
 
 from dataclasses import dataclass
 
+from indibench import providers
+from indibench.judging import judge_equivalent
+
 # D-029: keep iff >=2 of the 4-model panel fail.
 PANEL_SIZE = 4
 FAIL_THRESHOLD = 2
@@ -23,18 +26,25 @@ PANEL_FAMILIES = (
     "sarvam/best-available",
 )
 
+PANEL_SYSTEM = (
+    "Answer the question. Reply in the same language as the question, in this "
+    "exact format:\n"
+    "Answer: {your succinct final answer}\n"
+    "If the question is ambiguous or underspecified, reply exactly: AMBIGUOUS"
+)
+
 
 @dataclass
 class PanelResult:
     model_id: str  # pinned version actually used
     answered_correctly: bool
-    judged_ambiguous: bool = False  # judge flagged "underspecified"
+    judged_ambiguous: bool = False  # model flagged "underspecified"
 
 
 def survives_filter(results: list[PanelResult]) -> bool:
     """Apply D-029: keep iff >=2 of 4 panel models FAIL the item.
 
-    Ambiguous items are discarded outright (a judge marking the question
+    Ambiguous items are discarded outright (a model marking the question
     underspecified means difficulty came from bad wording, not knowledge).
     """
     if len(results) != PANEL_SIZE:
@@ -45,12 +55,33 @@ def survives_filter(results: list[PanelResult]) -> bool:
     return failures >= FAIL_THRESHOLD
 
 
-def run_panel(question: str, answer: str, panel_model_ids: list[str]) -> list[PanelResult]:
+def run_panel(
+    question: str,
+    answer: str,
+    panel_model_ids: list[str],
+    judge_models: tuple[str, str],
+    tiebreak_model: str,
+    choices: list[str] | None = None,
+) -> list[PanelResult]:
     """Query the pinned panel models (WITHOUT the source) and judge each response.
 
-    TODO(build): API calls + dual-judge equivalence check (D-035: one
-    Anthropic + one Google judge, third-judge tiebreak). Cost control
-    (D-033): call the panel only on candidates that passed a cheap
-    pre-screen model.
+    MCQ items: choices are rendered into the prompt (A-H) and the judge
+    reference carries letter + choice text. Requires provider API keys in the
+    environment (D-042). Cost control (D-033): callers should pre-screen
+    candidates with a cheap model before invoking the full panel.
     """
-    raise NotImplementedError("S3 panel plumbing: implementation pending (build phase)")
+    from indibench.judging import mcq_reference, render_mcq
+
+    rendered = render_mcq(question, choices)
+    reference = mcq_reference(answer, choices)
+    results: list[PanelResult] = []
+    for model_id in panel_model_ids:
+        raw = providers.complete(model_id, system=PANEL_SYSTEM, user=rendered, max_tokens=1024)
+        if "AMBIGUOUS" in raw.upper():
+            results.append(PanelResult(model_id=model_id, answered_correctly=False,
+                                       judged_ambiguous=True))
+            continue
+        response = raw.split("Answer:", 1)[-1].strip() if "Answer:" in raw else raw.strip()
+        correct = judge_equivalent(rendered, response, reference, judge_models, tiebreak_model)
+        results.append(PanelResult(model_id=model_id, answered_correctly=correct))
+    return results
