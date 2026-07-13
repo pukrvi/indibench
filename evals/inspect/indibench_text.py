@@ -38,8 +38,21 @@ not the explanation.
 {instructions}"""
 
 
+def _resolve(data_file: str) -> Path:
+    """Inspect executes task files from their own directory — resolve relative
+    paths against the repo root so CLI-friendly paths keep working."""
+    path = Path(data_file)
+    if path.is_absolute() or path.exists():
+        return path
+    repo_root = Path(__file__).resolve().parents[2]
+    candidate = repo_root / data_file
+    if candidate.exists():
+        return candidate
+    raise FileNotFoundError(f"data_file not found: {data_file} (also tried {candidate})")
+
+
 def _load_samples(data_file: str) -> list[Sample]:
-    payload = json.loads(Path(data_file).read_text(encoding="utf-8"))
+    payload = json.loads(_resolve(data_file).read_text(encoding="utf-8"))
     if not is_valid_canary(payload.get("canary", "")):
         raise ValueError(f"{data_file}: missing or malformed canary — refusing to run")
     samples = []

@@ -84,6 +84,12 @@ async def main() -> None:
     parser.add_argument("--data", required=True)
     parser.add_argument("--predictions", required=True)
     parser.add_argument("--judge", required=True)
+    parser.add_argument("--base-url", default=None,
+                        help="OpenAI-compatible endpoint for non-OpenAI judges "
+                             "(e.g. a gateway/proxy exposing Anthropic/Google models)")
+    parser.add_argument("--api-key", default=None,
+                        help="defaults to $OPENAI_API_KEY; a dummy value is used "
+                             "automatically when --base-url points at a local server")
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
 
@@ -95,7 +101,10 @@ async def main() -> None:
     )
     judged: dict = json.loads(out_path.read_text()) if out_path.exists() else {}
 
-    client = AsyncOpenAI()
+    api_key = args.api_key or os.environ.get("OPENAI_API_KEY") or (
+        "local" if args.base_url else None
+    )
+    client = AsyncOpenAI(base_url=args.base_url, api_key=api_key)
     sem = asyncio.Semaphore(args.workers)
     todo = [(items[i], p) for i, p in predictions.items() if i in items and i not in judged]
     for coro in asyncio.as_completed([judge_one(client, args.judge, it, p, sem) for it, p in todo]):

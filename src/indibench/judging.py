@@ -72,6 +72,10 @@ def _one_judge(model_id: str, question: str, response: str, reference: str) -> b
         model_id,
         system=JUDGE_SYSTEM,
         user=JUDGE_USER.format(question=question, response=response, reference=reference),
-        max_tokens=64,  # headroom for reasoning-model judges; instruction is one word
+        max_tokens=2048,  # thinking-model judges spend reasoning tokens inside this cap
     )
+    if not verdict.strip():
+        # An empty verdict must surface as an error, never as INCORRECT —
+        # silent misgrades corrupt filter yield (readiness-audit finding).
+        raise RuntimeError(f"judge {model_id} returned an empty response")
     return "CORRECT" in verdict.upper() and "INCORRECT" not in verdict.upper()

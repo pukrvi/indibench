@@ -6,7 +6,6 @@ Public: ~2,500 items. Private: ~500 — sized at ~20% of the PUBLIC set
 ~1/3 of public items (oldest/easiest first) around a stable anchor subset.
 """
 
-import json
 import random
 from pathlib import Path
 
