@@ -1,0 +1,36 @@
+[project]
+name = "indibench"
+version = "0.0.1"
+description = "IndiBench: the open, lab-neutral frontier benchmark for India"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "IndiBench contributors" }]
+dependencies = [
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+eval = [
+    "inspect-ai>=0.3",
+    "openai>=1.50",
+]
+pipeline = [
+    "openai>=1.50",
+    "anthropic>=0.40",
+    "google-genai>=1.0",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100

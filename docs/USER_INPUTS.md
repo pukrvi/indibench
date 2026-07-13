@@ -169,3 +169,18 @@ verbatim input; consult it directly. And said (verbatim):
 > Q26 (leaderboard verification): "Maintainer-run only for v1 (Recommended)"
 > Q27 (community policy): "Bug reports yes; question contributions via pipeline (Recommended)"
 > Q28 (safety + langfuse): "Add a safety slice inside Phase 1"
+
+---
+
+## Input 004 — 2026-07-13 — Checkpoint accepted; build + README directive
+
+(After the Phase 1 alignment checkpoint was presented, inviting corrections:)
+
+> continue and complete. also update the readme on Github to provide the idea
+> of the project
+
+**Working interpretation:**
+- The alignment checkpoint stands — no corrections; Phase 1 decisions
+  (D-001..D-038) are the build spec. Transition to build phase.
+- Deliverables: public README conveying the project's idea; then the
+  build work continues (repo scaffold, pipeline, eval harness).

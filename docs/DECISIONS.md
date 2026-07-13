@@ -173,4 +173,18 @@ asked when Phase 3 design starts (noted, not urgent for Phase 1).
 **Q28. Safety/bias + langfuse?** Options: safety out of scope + langfuse optional dev-infra (recommended) / safety slice inside Phase 1 / safety as Phase 5.
 **Answer (diverges from recommendation):** Add a safety slice inside Phase 1. → **D-038 ✅** Phase 1 carries a tagged safety-relevant subset (e.g., medical misinformation in Indic languages) — a TAG across the 10-domain grid (D-030 unchanged), not an 11th domain. Complements rather than duplicates Indic-Bias (their lane is identity bias/stereotypes; ours is frontier-hard safety-relevant knowledge). ⚠️ Review sensitivity noted: safety items get mandatory expert spot-check (not just sampled). ⏳ langfuse disposition was bundled only in the unchosen option — still open; proposed default: optional private dev-infra for pipeline tracing, never a user-facing dependency.
 
-### Batch 8 — (pending)
+---
+
+## Input 004 — Checkpoint accepted; build phase begins
+
+| # | Decision | Status |
+|---|----------|--------|
+| D-039 | Phase 1 alignment checkpoint ACCEPTED by owner ("continue and complete") — D-001..D-038 are the build spec. Project moves from alignment phase to build phase. | ✅ |
+| D-040 | Public README to convey the project idea (owner directive). Repo scaffold (package, schema, pipeline skeletons, Inspect task, standalone scripts, contributing policy) ships alongside. | ✅ |
+
+⏳ Carried into build: S0 source-licensing rules (proposed policy drafted into
+the design doc as a Claude default — prefer government/public-domain sources
+under GODL-India, court judgments as public record, never long excerpts);
+langfuse = optional private dev-infra unless owner objects.
+
+### Batch 8 — (pending; alignment loop resumes when build surfaces new forks)
