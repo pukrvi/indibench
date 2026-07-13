@@ -1,0 +1,47 @@
+name: Question error report
+description: Report a wrong answer key, ambiguous question, or labeling error in a released IndiBench item
+title: "[error] <item id>: <short description>"
+labels: ["data-error"]
+body:
+  - type: input
+    id: item_id
+    attributes:
+      label: Item ID
+      description: The `id` field of the item (e.g. ibt-hi-law_constitution-a1b2c3d4)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Dataset version
+      placeholder: v2026.XX
+    validations:
+      required: true
+  - type: dropdown
+    id: error_type
+    attributes:
+      label: Error type
+      options:
+        - Wrong answer key
+        - Question is ambiguous / underspecified
+        - Wrong language or script label
+        - Wrong domain label
+        - Grammar / transliteration problem
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: >
+        Why is it wrong? Cite a source (preferably the kind the question was
+        grounded in — statute text, gazette, textbook). Reports with sources
+        get fixed fastest and credited.
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: Name for credit (optional)
+      description: How you'd like to appear in release notes / acknowledgments

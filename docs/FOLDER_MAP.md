@@ -9,11 +9,22 @@ Git: this folder is the working copy of https://github.com/pukrvi/indibench
 ```
 IndiBench/
 ├── CLAUDE.md                  # Project guide for Claude + humans; read first
-├── README.md                  # Public repo README (from initial GitHub commit; to be expanded)
+├── README.md                  # Public project README (idea, thesis, phases, pipeline, status)
 ├── LICENSE                    # MIT (code)
-├── .gitignore                 # excludes benchmarks/, .claude/, .DS_Store
+├── CONTRIBUTING.md            # Contribution policy (D-037): errors + sources yes, questions no
+├── pyproject.toml             # Python package `indibench`
+├── .gitignore                 # excludes benchmarks/, .claude/, .venv/, .DS_Store
+├── .github/ISSUE_TEMPLATE/    # question_error_report.yml (D-037 bug-report channel)
 ├── goals.md                   # Owner's goals document (Input 002) — verbatim owner input
 ├── LMBench_References.md      # Owner's curated reference list of benchmark repos (original input)
+├── src/indibench/             # Package: schema.py (D-030/031/038), canary.py (D-013)
+│   └── pipeline/              # S0–S5 stages; S3 survival/S4 gates/S5 release implemented,
+│                              #   LLM plumbing (S0-S2, S3 panel calls) pending
+├── evals/
+│   ├── inspect/indibench_text.py   # Inspect AI task (D-012; inspect_evals/hle pattern)
+│   └── standalone/predict.py, judge.py  # HLE-style zero-framework local eval (D-015)
+├── tests/                     # Unit tests for pure pipeline logic (6 passing)
+├── data/                      # Public releases will land here (README only for now)
 ├── docs/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)

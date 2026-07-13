@@ -84,7 +84,9 @@ require a schema break.
 | CLAUDE.md + maps | ✅ Current |
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
 | Phase 1 design doc | 🟢 v0.3 — all core parameters locked; implementation-blocking items down to source licensing (S0) |
-| Repo scaffold for benchmark code | ⏳ Next — design is close to buildable |
+| Public README | ✅ Rewritten to carry the project idea (Input 004 / D-040) |
+| Repo scaffold | ✅ Package + schema + canary + S0–S5 stage modules + Inspect task + standalone predict/judge + tests (6 passing) + CONTRIBUTING + issue template |
+| Pipeline LLM plumbing (S0–S2, S3 panel calls) | ⏳ Next build milestone — then the 1-language×2-domain pilot to measure filter yield |
 
 ## Known open questions (feeding Batch 8+)
 
