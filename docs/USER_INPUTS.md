@@ -162,3 +162,10 @@ verbatim input; consult it directly. And said (verbatim):
 > Q22 (refresh + private split): "6-monthly refresh; ~20% private (Recommended)"
 > Q23 (budget): "Bootstrap: <$5k API + volunteer experts"
 > Q24 (human baseline): "Skip for v1"
+
+## Input 003c — 2026-07-13 — Batch 7 answers (verbatim selections)
+
+> Q25 (panel/judge model IDs): "GPT-5 + Claude Opus/Fable + Gemini Pro + Sarvam; judges Claude+Gemini (Recommended)"
+> Q26 (leaderboard verification): "Maintainer-run only for v1 (Recommended)"
+> Q27 (community policy): "Bug reports yes; question contributions via pipeline (Recommended)"
+> Q28 (safety + langfuse): "Add a safety slice inside Phase 1"

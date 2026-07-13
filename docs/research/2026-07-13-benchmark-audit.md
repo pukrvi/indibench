@@ -65,7 +65,7 @@ research reports in this folder. Repos marked *-ref* were added for this audit
 - No canary, no gating on the generated data.
 - Committed `config.py` full of placeholder API-key fields — invites accidental secret commits.
 - Fully-synthetic prompts without grounding documents → plausibility depends entirely on generator quality; no adversarial difficulty filter.
-**IndiBench takes:** taxonomy-driven synthesis + pipeline/eval separation (build upon); grounding + adversarial filtering + canary (improve). Safety/bias itself stays their lane (pending owner call).
+**IndiBench takes:** taxonomy-driven synthesis + pipeline/eval separation (build upon); grounding + adversarial filtering + canary (improve). Identity-bias/stereotype evaluation stays their lane; IndiBench carries a complementary frontier-hard safety-knowledge slice *(owner call → D-038)*.
 
 ### 5. Indic-LLM (CognitiveLab) — `Indic-llm-main`
 **Not a benchmark** (training toolkit, self-identified as work-in-progress; eval scripts are empty stubs, `docs/6_Eval.md` is 0 bytes). The lesson for IndiBench: never release a phase without its runnable eval. GPL-3 license would also be incompatible with our MIT code (reference-only).

@@ -159,4 +159,18 @@ asked when Phase 3 design starts (noted, not urgent for Phase 1).
 
 **Work interleave 3 (after Q24):** record batch; propagate locked parameters into the Phase 1 design doc (panel, domains, tracks, refresh, cost-aware pipeline); prune resolved open items from PROJECT_MAP; PR #4 with sub-agent review.
 
-### Batch 7 — (pending)
+### Batch 7 — 2026-07-13 — Model IDs, leaderboard verification, community policy, safety
+
+**Q25. Concrete panel + judge models?** Options: GPT-5/Claude/Gemini/Sarvam panel with Claude+Gemini judges (recommended) / open-weights judges / decide at build time.
+**Answer:** GPT-5 + Claude Opus/Fable + Gemini Pro + Sarvam; judges Claude+Gemini. → **D-035 ✅** Panel: latest GPT-5-class (OpenAI), Claude Opus 4.8/Fable 5 (Anthropic), Gemini 2.5-Pro-class (Google), Sarvam's best. Judges: one Anthropic + one Google (OpenAI excluded from judging because IndQA comparisons will be scrutinized). Exact versions pinned at pipeline-run time and published.
+
+**Q26. Leaderboard verification?** Options: maintainer-run only v1 (recommended) / self-serve + logs / HF Space auto-evaluator.
+**Answer:** Maintainer-run only for v1. → **D-036 ✅** We run every evaluated model and publish raw logs; labs can request runs; no self-serve submissions until a verification story exists. Resolves design doc §4 ⏳.
+
+**Q27. Community contributions + bug bounty?** Options: bug reports yes, questions via pipeline (recommended) / accept human-written questions / closed until v2.
+**Answer:** Bug reports yes; question contributions via pipeline. → **D-037 ✅** Public issue template + recognition wall (credited in release notes/paper acknowledgments — no cash bounty at bootstrap budget). Community contributes grounding SOURCES and pipeline runs, never direct questions; quality control stays centralized.
+
+**Q28. Safety/bias + langfuse?** Options: safety out of scope + langfuse optional dev-infra (recommended) / safety slice inside Phase 1 / safety as Phase 5.
+**Answer (diverges from recommendation):** Add a safety slice inside Phase 1. → **D-038 ✅** Phase 1 carries a tagged safety-relevant subset (e.g., medical misinformation in Indic languages) — a TAG across the 10-domain grid (D-030 unchanged), not an 11th domain. Complements rather than duplicates Indic-Bias (their lane is identity bias/stereotypes; ours is frontier-hard safety-relevant knowledge). ⚠️ Review sensitivity noted: safety items get mandatory expert spot-check (not just sampled). ⏳ langfuse disposition was bundled only in the unchosen option — still open; proposed default: optional private dev-infra for pipeline tracing, never a user-facing dependency.
+
+### Batch 8 — (pending)
