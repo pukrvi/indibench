@@ -1,6 +1,6 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-13 (alignment phase, after Input 003 — benchmark audit + thesis).
+Last updated: 2026-07-13 (alignment phase, after Batch 7 / Input 003c — Phase 1 alignment converged).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
@@ -74,7 +74,7 @@ require a schema break.
 
 | Workstream | Status |
 |---|---|
-| Alignment loop | 🟡 24 questions asked (Batches 1–6); core Phase 1 parameters locked; Batch 7 = judge/leaderboard/contribution details |
+| Alignment loop | 🟢 28 questions asked (Batches 1–7); Phase 1 alignment essentially converged — remaining items are build-time or later-phase |
 | Reference-repo study | ✅ Done |
 | Landscape research (text) | ✅ docs/research/2026-07-12-indic-landscape.md |
 | Harness research | ✅ docs/research/2026-07-12-harness-and-arena.md |
@@ -83,21 +83,19 @@ require a schema break.
 | Speech landscape research | 🟠 Partial — research agent killed by API spend limit; core findings captured in audit §12/§19; full sweep to redo before Phase 2 design |
 | CLAUDE.md + maps | ✅ Current |
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
-| Phase 1 design doc | 🟢 v0.2 — core parameters locked (languages, domains, panel, refresh, budget); implementation-blocking items down to judge IDs + source licensing |
+| Phase 1 design doc | 🟢 v0.3 — all core parameters locked; implementation-blocking items down to source licensing (S0) |
 | Repo scaffold for benchmark code | ⏳ Next — design is close to buildable |
 
-## Known open questions (feeding Batch 7+)
+## Known open questions (feeding Batch 8+)
 
-Resolved in Batches 5–6: governance (D-028), domains (D-030), panel (D-029),
-languages incl. English counting (D-031), refresh + private split (D-032),
-budget (D-033), human baseline — skipped v1 (D-034), historical accuracy
-suite-wide (D-027).
+Resolved in Batches 5–7: governance (D-028), domains (D-030), panel (D-029) +
+model IDs (D-035), languages (D-031), refresh + private split (D-032), budget
+(D-033), human baseline — skipped v1 (D-034), historical accuracy suite-wide
+(D-027), leaderboard verification (D-036), community policy (D-037), safety
+slice in Phase 1 (D-038).
 
-- Concrete judge model choices (dual-judge, lab-neutral) + exact panel model IDs
-- Leaderboard submission verification (self-reported predictions are fabricable — maintainer-run? logs? private-split spot-reruns?)
 - Source-document licensing rules for the grounding corpus (S0)
-- Real-website agent tasks: risk decision pending (D-011 ⏳ — reproducibility/legal)
-- Safety/bias track: out of scope (Indic-Bias exists) or later phase?
-- Role of langfuse (infra intent?) — still unasked
-- Community contributions of questions: accepted? bounty?
-- Image-generation accuracy scoring methodology (rubric? VLM-judge? human panel?) — Phase 3, not urgent (D-024 ⏳)
+- langfuse: proposed as optional private dev-infra only (D-038 note) — confirm or drop
+- Real-website agent tasks: risk decision pending (D-011 ⏳ — reproducibility/legal; Phase 4 timing)
+- Image-generation accuracy scoring methodology — Phase 3 design time (D-024 ⏳)
+- Per-cell quotas: empirical, tuned from filter-yield data during the build
