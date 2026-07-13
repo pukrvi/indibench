@@ -166,27 +166,27 @@ footer{max-width:var(--maxw);margin:0 auto;padding:24px 20px 50px;color:var(--fa
     <button class="themebtn" id="themebtn" title="Toggle theme">◐ Theme</button>
   </div>
   <nav class="tabs" role="tablist" id="tablist">
-    <button class="tab" role="tab" data-tab="overview">Overview</button>
-    <button class="tab" role="tab" data-tab="landscape">Landscape &amp; Competition</button>
-    <button class="tab" role="tab" data-tab="architecture">Architecture</button>
-    <button class="tab" role="tab" data-tab="flows">Flow Diagrams</button>
-    <button class="tab" role="tab" data-tab="usage">How to Use</button>
-    <button class="tab" role="tab" data-tab="decisions">Decisions &amp; Process</button>
-    <button class="tab" role="tab" data-tab="status">Status &amp; Roadmap</button>
+    <button class="tab" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true" data-tab="overview">Overview</button>
+    <button class="tab" role="tab" id="tab-landscape" aria-controls="landscape" aria-selected="false" data-tab="landscape">Landscape &amp; Competition</button>
+    <button class="tab" role="tab" id="tab-architecture" aria-controls="architecture" aria-selected="false" data-tab="architecture">Architecture</button>
+    <button class="tab" role="tab" id="tab-flows" aria-controls="flows" aria-selected="false" data-tab="flows">Flow Diagrams</button>
+    <button class="tab" role="tab" id="tab-usage" aria-controls="usage" aria-selected="false" data-tab="usage">How to Use</button>
+    <button class="tab" role="tab" id="tab-decisions" aria-controls="decisions" aria-selected="false" data-tab="decisions">Decisions &amp; Process</button>
+    <button class="tab" role="tab" id="tab-status" aria-controls="status" aria-selected="false" data-tab="status">Status &amp; Roadmap</button>
   </nav>
 </header>
 
 <main>
 
 <!-- ============ OVERVIEW ============ -->
-<section role="tabpanel" id="overview">
+<section role="tabpanel" id="overview" class="active" aria-labelledby="tab-overview">
   <div class="hero">
     <h2>The open, lab-neutral frontier benchmark for India</h2>
     <p class="lead">IndiBench evaluates LLMs and agents on Indian languages and Indian
       use cases — across text, speech, vision, and agentic tasks — at a difficulty where
       today's best models should score <em>low</em>. That is the point.</p>
     <div class="pillrow">
-      <span class="pill ok">● Alignment complete</span>
+      <span class="pill ok">● Phase-1 scope locked (D-039)</span>
       <span class="pill warn">● Phase 1 building — filtering blocked on API keys</span>
       <span class="pill">MIT code · CC-BY-4.0 data</span>
       <span class="pill">github.com/pukrvi/indibench</span>
@@ -254,7 +254,7 @@ footer{max-width:var(--maxw);margin:0 auto;padding:24px 20px 50px;color:var(--fa
 </section>
 
 <!-- ============ LANDSCAPE ============ -->
-<section role="tabpanel" id="landscape">
+<section role="tabpanel" id="landscape" aria-labelledby="tab-landscape">
   <h2>Market, Landscape &amp; Competitive Analysis</h2>
   <p>Design was grounded in an audit of 20 existing Indian and frontier benchmarks
   (<code>docs/research/2026-07-13-benchmark-audit.md</code>) plus a live landscape sweep.
@@ -263,7 +263,7 @@ footer{max-width:var(--maxw);margin:0 auto;padding:24px 20px 50px;color:var(--fa
   <div class="grid g3">
     <div class="card"><div class="k" style="color:var(--accent)">1</div><div class="klabel">frontier-positioned Indian benchmark exists today (IndQA) — and it is closed</div></div>
     <div class="card"><div class="k" style="color:var(--accent-2)">0</div><div class="klabel">agent benchmarks for Indian use cases (UPI / IRCTC / gov-portal) — wide open</div></div>
-    <div class="card"><div class="k" style="color:var(--accent-3)">0</div><div class="klabel">HLE-recipe replications for any language/region worldwide</div></div>
+    <div class="card"><div class="k" style="color:var(--accent-3)">0</div><div class="klabel">open HLE-recipe replications for any Indian language</div></div>
   </div>
 
   <h3>Closest competitor: OpenAI IndQA (Nov 2025)</h3>
@@ -353,7 +353,7 @@ footer{max-width:var(--maxw);margin:0 auto;padding:24px 20px 50px;color:var(--fa
 </section>
 
 <!-- ============ ARCHITECTURE ============ -->
-<section role="tabpanel" id="architecture">
+<section role="tabpanel" id="architecture" aria-labelledby="tab-architecture">
   <h2>Technology &amp; Architecture</h2>
   <p>One Python package, one schema family, one pipeline, one harness. The
   <em>pipeline is the product</em> — its output is a dataset, but its openness is the differentiator.</p>
@@ -375,7 +375,7 @@ tests/           16 tests over pure logic + offline end-to-end</code></pre>
   <div class="grid g2">
     <div class="card"><h4>Release item (schema.Item)</h4>
       <dl class="kv">
-        <dt>id</dt><dd><span class="mono">ibt-&lt;lang&gt;-&lt;domain&gt;-&lt;hash&gt;</span></dd>
+        <dt>id</dt><dd><span class="mono">ibt-&lt;lang&gt;-&lt;domain&gt;-&lt;hash8&gt;</span></dd>
         <dt>question</dt><dd>native script</dd>
         <dt>answer</dt><dd>short answer, or option letter</dd>
         <dt>answer_type</dt><dd>exactMatch | multipleChoice</dd>
@@ -429,7 +429,7 @@ tests/           16 tests over pure logic + offline end-to-end</code></pre>
 </section>
 
 <!-- ============ FLOWS ============ -->
-<section role="tabpanel" id="flows">
+<section role="tabpanel" id="flows" aria-labelledby="tab-flows">
   <h2>Flow Diagrams</h2>
 
   <h3>The S0 → S5 generation pipeline</h3>
@@ -519,7 +519,6 @@ tests/           16 tests over pure logic + offline end-to-end</code></pre>
         <path class="flow" d="M445,140 L390,178"/>
         <path class="flow" d="M615,140 L420,178"/>
 
-        <rect class="boxg" x="120" y="240" width="150" height="14" rx="7" opacity="0"/>
         <text x="180" y="250" text-anchor="middle" style="fill:var(--ok);font-weight:650">YES → keep (frontier-hard)</text>
         <text x="560" y="250" text-anchor="middle" style="fill:var(--bad);font-weight:650">NO → discard (too easy)</text>
         <path class="flowa" d="M320,226 L220,244"/>
@@ -569,11 +568,11 @@ tests/           16 tests over pure logic + offline end-to-end</code></pre>
         <text class="lbl" x="95" y="98" text-anchor="middle">promoted to Items</text>
 
         <rect class="box" x="250" y="20" width="180" height="46" rx="10"/>
-        <text x="340" y="43" text-anchor="middle">Public split (~80%)</text>
+        <text x="340" y="43" text-anchor="middle">Public split (~2,500)</text>
         <text class="lbl" x="340" y="58" text-anchor="middle">canary-wrapped, CC-BY-4.0</text>
         <rect class="boxr" x="250" y="104" width="180" height="46" rx="10"/>
-        <text x="340" y="127" text-anchor="middle">Private split (~20%)</text>
-        <text class="lbl" x="340" y="142" text-anchor="middle">never published</text>
+        <text x="340" y="127" text-anchor="middle">Private split (~500)</text>
+        <text class="lbl" x="340" y="142" text-anchor="middle">~20% of public · never published</text>
 
         <path class="flow" d="M170,78 L248,45"/>
         <path class="flow" d="M170,92 L248,120"/>
@@ -600,7 +599,7 @@ tests/           16 tests over pure logic + offline end-to-end</code></pre>
 </section>
 
 <!-- ============ USAGE ============ -->
-<section role="tabpanel" id="usage">
+<section role="tabpanel" id="usage" aria-labelledby="tab-usage">
   <h2>How to Use</h2>
 
   <h3>Install</h3>
@@ -627,8 +626,14 @@ python scripts/run_filter.py \
 # 2. full pool (resumes automatically; errored items retry)
 python scripts/run_filter.py --panel … --judges … --tiebreak …
 
-# 3. promote survivors into a versioned release
-python scripts/run_filter.py … --promote-to data/releases --version v2026.XX</code></pre>
+# 3. promote survivors into a versioned release (GATED)
+python scripts/run_filter.py … \
+  --promote-to data/releases --version v2026.XX \
+  --sources data/sources/&lt;manifest&gt;.jsonl \
+  --audit-verdicts &lt;s4-verdicts&gt;.jsonl</code></pre>
+  <p class="lbl">Release is gated: promotion refuses without a registered S0 source
+    manifest and recorded S4 audit verdicts (matching the trust model). See
+    <code>docs/RUNBOOK.md</code> for the exact, current flags.</p>
   <p class="lbl">Offline dry-run (no keys, deterministic mock provider) to exercise the
     whole chain: <code>python scripts/run_filter.py --mock --skip-s2 --limit 30</code></p>
 
@@ -656,7 +661,7 @@ python evals/standalone/judge.py  --data &lt;file&gt; --predictions &lt;out&gt; 
 </section>
 
 <!-- ============ DECISIONS ============ -->
-<section role="tabpanel" id="decisions">
+<section role="tabpanel" id="decisions" aria-labelledby="tab-decisions">
   <h2>Decisions &amp; Process</h2>
   <p>IndiBench was scoped through a recorded <strong>alignment loop</strong>: 28 questions
   across 7 batches, each answer logged before the next batch was formed. Every decision
@@ -706,7 +711,7 @@ python evals/standalone/judge.py  --data &lt;file&gt; --predictions &lt;out&gt; 
 </section>
 
 <!-- ============ STATUS ============ -->
-<section role="tabpanel" id="status">
+<section role="tabpanel" id="status" aria-labelledby="tab-status">
   <h2>Status &amp; Roadmap</h2>
 
   <div class="note ok"><strong>Verified ready for keys day.</strong> Everything that can run
