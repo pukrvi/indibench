@@ -253,9 +253,9 @@
    "review_priority": "high"
   },
   {
-   "id": "ibc-te-geography_environment-2d9829d4",
-   "question": "భారత రాష్ట్రాలలో పొడవైన తీరరేఖ విషయంలో ఆంధ్రప్రదేశ్ స్థానం ఎన్నవది?",
-   "answer": "రెండవది (గుజరాత్ తర్వాత)",
+   "id": "ibc-te-geography_environment-d922f13f",
+   "question": "కృష్ణా-గోదావరి డెల్టాల మధ్య ఉన్న, ఆంధ్రప్రదేశ్‌లోని అతి పెద్ద మంచినీటి సరస్సు ఏది?",
+   "answer": "కొల్లేరు సరస్సు",
    "answer_type": "exactMatch",
    "choices": null,
    "language": "te",
@@ -263,7 +263,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Coastline: Gujarat longest, Andhra Pradesh second among states",
+   "grounding_note": "Kolleru lake between Krishna and Godavari deltas — Ramsar site 2002 (replaced coastline-rank item: rank contested after 2024 NHO remeasurement)",
    "review_priority": "high"
   },
   {

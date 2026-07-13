@@ -35,20 +35,26 @@ def verify_key(
     verifier_models: list[str],
     judge_models: tuple[str, str],
     tiebreak_model: str,
+    choices: list[str] | None = None,
 ) -> bool:
     """True iff EVERY verifier independently derives an answer equivalent to
     the key from the source. INSUFFICIENT from any verifier fails the item
-    (route to the human queue rather than silently passing)."""
+    (route to the human queue rather than silently passing). MCQ items render
+    their choices into the prompt and judge against letter + choice text."""
+    from indibench.judging import mcq_reference, render_mcq
+
+    rendered = render_mcq(question, choices)
+    reference = mcq_reference(answer, choices)
     for model_id in verifier_models:
         raw = providers.complete(
             model_id,
             system=VERIFY_SYSTEM,
-            user=VERIFY_USER.format(source=source_text, question=question),
+            user=VERIFY_USER.format(source=source_text, question=rendered),
             max_tokens=1024,
         )
-        if "INSUFFICIENT" in raw.upper():
+        if raw.strip().upper().startswith("INSUFFICIENT"):
             return False
         derived = raw.split("Answer:", 1)[-1].strip() if "Answer:" in raw else raw.strip()
-        if not judge_equivalent(question, derived, answer, judge_models, tiebreak_model):
+        if not judge_equivalent(rendered, derived, reference, judge_models, tiebreak_model):
             return False
     return True

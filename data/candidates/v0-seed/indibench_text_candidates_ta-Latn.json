@@ -94,8 +94,8 @@
    "review_priority": "normal"
   },
   {
-   "id": "ibc-ta-Latn-history_heritage-cf8f3272",
-   "question": "Chennai-la irukkura Fort St. George-a British East India Company eppo kattinaanga?",
+   "id": "ibc-ta-Latn-history_heritage-fd0c0442",
+   "question": "Chennai-la irukkura Fort St. George-oda construction eppo complete aachu?",
    "answer": "1644",
    "answer_type": "exactMatch",
    "choices": null,
@@ -106,7 +106,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Fort St. George completed 1644 — first major English fortress in India",
+   "grounding_note": "Fort St. George COMPLETED 1644 (work began 1639-40) — first major English fortress in India",
    "review_priority": "normal"
   },
   {

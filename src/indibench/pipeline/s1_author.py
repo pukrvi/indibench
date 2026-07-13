@@ -46,7 +46,7 @@ def author_candidates(doc: SourceDocument, n: int, generator_model: str) -> list
         max_tokens=8192,
     )
     start, end = raw.find("["), raw.rfind("]")
-    if start == -1 or end == -1:
+    if start == -1 or end == -1 or end <= start:
         raise ValueError(f"generator returned no JSON array (doc {doc.doc_id})")
     drafts = []
     for entry in json.loads(raw[start : end + 1]):

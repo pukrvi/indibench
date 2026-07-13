@@ -94,8 +94,8 @@ class Provenance(BaseModel):
 
 class Item(BaseModel):
     id: str  # ibt-<lang>-<domain>-<uuid8>
-    question: str
-    answer: str  # exactMatch: the short answer; multipleChoice: the option LETTER ("A".."H")
+    question: str = Field(min_length=1)
+    answer: str = Field(min_length=1)  # exactMatch: short answer; multipleChoice: option LETTER ("A".."H")
     answer_type: AnswerType
     choices: list[str] | None = None  # required iff multipleChoice (max 8, rendered A–H)
     language: Language
@@ -125,8 +125,8 @@ class CandidateDraft(BaseModel):
     surviving S3 (which is when difficulty_evidence exists)."""
 
     id: str | None = None  # assigned at assembly: ibc-<lang>-<domain>-<uuid8>
-    question: str
-    answer: str  # exactMatch: short answer; multipleChoice: option LETTER
+    question: str = Field(min_length=1)
+    answer: str = Field(min_length=1)  # exactMatch: short answer; multipleChoice: option LETTER
     answer_type: AnswerType
     choices: list[str] | None = None
     language: Language

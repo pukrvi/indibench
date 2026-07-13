@@ -61,21 +61,27 @@ def run_panel(
     panel_model_ids: list[str],
     judge_models: tuple[str, str],
     tiebreak_model: str,
+    choices: list[str] | None = None,
 ) -> list[PanelResult]:
     """Query the pinned panel models (WITHOUT the source) and judge each response.
 
-    Requires provider API keys in the environment (D-042). Cost control
-    (D-033): callers should pre-screen candidates with a cheap model before
-    invoking the full panel.
+    MCQ items: choices are rendered into the prompt (A-H) and the judge
+    reference carries letter + choice text. Requires provider API keys in the
+    environment (D-042). Cost control (D-033): callers should pre-screen
+    candidates with a cheap model before invoking the full panel.
     """
+    from indibench.judging import mcq_reference, render_mcq
+
+    rendered = render_mcq(question, choices)
+    reference = mcq_reference(answer, choices)
     results: list[PanelResult] = []
     for model_id in panel_model_ids:
-        raw = providers.complete(model_id, system=PANEL_SYSTEM, user=question, max_tokens=1024)
+        raw = providers.complete(model_id, system=PANEL_SYSTEM, user=rendered, max_tokens=1024)
         if "AMBIGUOUS" in raw.upper():
             results.append(PanelResult(model_id=model_id, answered_correctly=False,
                                        judged_ambiguous=True))
             continue
         response = raw.split("Answer:", 1)[-1].strip() if "Answer:" in raw else raw.strip()
-        correct = judge_equivalent(question, response, answer, judge_models, tiebreak_model)
+        correct = judge_equivalent(rendered, response, reference, judge_models, tiebreak_model)
         results.append(PanelResult(model_id=model_id, answered_correctly=correct))
     return results

@@ -223,8 +223,8 @@
    "review_priority": "high"
   },
   {
-   "id": "ibc-bn-literature_arts-26735d6e",
-   "question": "১৯৬৫ সালের প্রথম জ্ঞানপীঠ পুরস্কার কোন বাংলা সাহিত্যকর্মের জন্য দেওয়া হয়েছিল এবং লেখক কে?",
+   "id": "ibc-bn-literature_arts-14eae7fd",
+   "question": "বাংলা ভাষায় প্রথম জ্ঞানপীঠ পুরস্কার (১৯৬৬) কোন সাহিত্যকর্মের জন্য দেওয়া হয় এবং লেখক কে?",
    "answer": "'গণদেবতা', তারাশঙ্কর বন্দ্যোপাধ্যায়",
    "answer_type": "exactMatch",
    "choices": null,
@@ -233,7 +233,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "First Jnanpith (1965) to Tarasankar Bandyopadhyay for Ganadevata",
+   "grounding_note": "First BENGALI Jnanpith = 1966, Tarasankar Bandyopadhyay for Ganadevata (the 1965 inaugural award went to G. Sankara Kurup, Malayalam)",
    "review_priority": "high"
   },
   {
@@ -293,8 +293,8 @@
    "review_priority": "high"
   },
   {
-   "id": "ibc-bn-society_daily_life-a33dd483",
-   "question": "এশিয়ার প্রথম শহর হিসেবে কলকাতায় ঘোড়ায় টানা ট্রাম চালু হয় কোন সালে?",
+   "id": "ibc-bn-society_daily_life-619defcb",
+   "question": "কলকাতায় ঘোড়ায় টানা ট্রাম পরিষেবা প্রথম চালু হয় কোন সালে?",
    "answer": "১৮৭৩",
    "answer_type": "exactMatch",
    "choices": null,
@@ -305,7 +305,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Horse-drawn trams in Calcutta began 1873 (Sealdah–Armenian Ghat)",
+   "grounding_note": "Horse-drawn trams in Calcutta began 1873 (Sealdah–Armenian Ghat); 'first in Asia' claim dropped — Batavia had earlier horse trams",
    "review_priority": "high"
   }
  ]

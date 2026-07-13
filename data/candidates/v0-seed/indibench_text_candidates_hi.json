@@ -3,9 +3,9 @@
  "status": "candidates-unfiltered",
  "examples": [
   {
-   "id": "ibc-hi-law_constitution-b6bfd6d1",
-   "question": "92वें संविधान संशोधन (2003) द्वारा आठवीं अनुसूची में जोड़ी गई चार भाषाओं में से कौन-सी भाषा परंपरागत रूप से देवनागरी लिपि में नहीं लिखी जाती?",
-   "answer": "संथाली (ओल चिकी लिपि)",
+   "id": "ibc-hi-law_constitution-1fbcb4f3",
+   "question": "92वें संविधान संशोधन (2003) द्वारा आठवीं अनुसूची में जोड़ी गई चार भाषाओं में से किस भाषा की अपनी विशिष्ट लिपि 'ओल चिकी' है?",
+   "answer": "संथाली",
    "answer_type": "exactMatch",
    "choices": null,
    "language": "hi",
@@ -13,7 +13,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "92nd Amendment Act 2003 added Bodo, Dogri, Maithili, Santali; Santali uses Ol Chiki script",
+   "grounding_note": "92nd Amendment Act 2003 added Bodo, Dogri, Maithili, Santali; Ol Chiki is Santali's script (reworded: Maithili/Tirhuta and Dogri/Takri made the 'not Devanagari' framing ambiguous)",
    "review_priority": "normal"
   },
   {
@@ -175,9 +175,9 @@
    "review_priority": "normal"
   },
   {
-   "id": "ibc-hi-agriculture-c528045c",
-   "question": "हरित क्रांति के जनक एम.एस. स्वामीनाथन को वर्ष 2024 में मरणोपरांत कौन-सा सर्वोच्च नागरिक सम्मान प्रदान किया गया?",
-   "answer": "भारत रत्न",
+   "id": "ibc-hi-agriculture-0ba6e7cd",
+   "question": "फरवरी 2024 में एम.एस. स्वामीनाथन को मरणोपरांत भारत रत्न घोषित हुआ — उसी घोषणा में किन दो पूर्व प्रधानमंत्रियों को भी मरणोपरांत भारत रत्न दिया गया?",
+   "answer": "चौधरी चरण सिंह और पी.वी. नरसिंह राव",
    "answer_type": "exactMatch",
    "choices": null,
    "language": "hi",
@@ -185,7 +185,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Bharat Ratna announced for M.S. Swaminathan (posthumous), February 2024",
+   "grounding_note": "Feb 2024 Bharat Ratna announcements: M.S. Swaminathan, Charan Singh, P.V. Narasimha Rao (also Karpoori Thakur, L.K. Advani that year)",
    "review_priority": "normal"
   },
   {

@@ -175,7 +175,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Coffee Board data: Karnataka ~70% of India's coffee (Kodagu, Chikkamagaluru, Hassan)",
+   "grounding_note": "Coffee Board data: Karnataka ~70% of India's coffee (Kodagu, Chikkamagaluru, Hassan); judge should accept 65-75% range",
    "review_priority": "high"
   },
   {

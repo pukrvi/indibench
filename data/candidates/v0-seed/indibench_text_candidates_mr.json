@@ -163,9 +163,9 @@
    "review_priority": "high"
   },
   {
-   "id": "ibc-mr-agriculture-5a670242",
-   "question": "हापूस आंब्याला भौगोलिक मानांकन (GI) प्रामुख्याने कोकणातील कोणत्या जिल्ह्यांसाठी मिळाले आहे?",
-   "answer": "रत्नागिरी आणि सिंधुदुर्ग (देवगड-कोकण पट्टा)",
+   "id": "ibc-mr-agriculture-16704a85",
+   "question": "हापूस आंब्याचे भौगोलिक मानांकन (GI) कोणत्या पट्ट्यातील जिल्ह्यांना लागू आहे?",
+   "answer": "कोकण पट्टा — रत्नागिरी, सिंधुदुर्ग, रायगड, ठाणे व पालघर",
    "answer_type": "exactMatch",
    "choices": null,
    "language": "mr",
@@ -173,7 +173,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Alphonso (Hapus) GI covers Ratnagiri, Sindhudurg and adjoining Konkan",
+   "grounding_note": "Alphonso (Hapus) GI covers five Konkan districts: Ratnagiri, Sindhudurg, Raigad, Thane, Palghar",
    "review_priority": "high"
   },
   {
@@ -283,9 +283,9 @@
    "review_priority": "high"
   },
   {
-   "id": "ibc-mr-society_daily_life-9515f252",
-   "question": "सार्वजनिक गणेशोत्सवाची सुरुवात कोणी व कोणत्या वर्षी केली?",
-   "answer": "लोकमान्य टिळक, १८९३",
+   "id": "ibc-mr-society_daily_life-ad80041b",
+   "question": "गणेशोत्सवाला व्यापक सार्वजनिक चळवळीचे स्वरूप देऊन राष्ट्रीय जागृतीचे व्यासपीठ बनवण्याचे श्रेय प्रामुख्याने कोणाला दिले जाते?",
+   "answer": "लोकमान्य टिळक",
    "answer_type": "exactMatch",
    "choices": null,
    "language": "mr",
@@ -295,7 +295,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
-   "grounding_note": "Public Ganeshotsav started by Lokmanya Tilak in 1893 (Pune)",
+   "grounding_note": "Tilak popularized/scaled sarvajanik Ganeshotsav from 1893 (reworded: Bhausaheb Rangari's 1892 'first' claim is documented, so 'who started' was contested)",
    "review_priority": "high"
   },
   {
