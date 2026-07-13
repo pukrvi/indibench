@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IndiBench — Project Wiki</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3efe9; --border:#e7ded2;
+  --text:#1c1a17; --muted:#6b6156; --faint:#938a7e;
+  --accent:#c2410c; --accent-2:#0f766e; --accent-3:#7c3aed;
+  --ok:#15803d; --warn:#b45309; --bad:#b91c1c;
+  --code-bg:#f3efe9; --shadow:0 1px 2px rgba(28,26,23,.06),0 8px 24px rgba(28,26,23,.06);
+  --radius:14px; --maxw:1080px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root[data-theme="auto"]{
+  --bg:#15130f; --surface:#1e1b16; --surface-2:#252017; --border:#332c22;
+  --text:#f0ebe3; --muted:#a99e8f; --faint:#7c7263;
+  --accent:#fb923c; --accent-2:#2dd4bf; --accent-3:#a78bfa;
+  --ok:#4ade80; --warn:#fbbf24; --bad:#f87171;
+  --code-bg:#252017; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --bg:#15130f; --surface:#1e1b16; --surface-2:#252017; --border:#332c22;
+  --text:#f0ebe3; --muted:#a99e8f; --faint:#7c7263;
+  --accent:#fb923c; --accent-2:#2dd4bf; --accent-3:#a78bfa;
+  --ok:#4ade80; --warn:#fbbf24; --bad:#f87171;
+  --code-bg:#252017; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+  line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--mono);background:var(--code-bg);padding:.12em .4em;
+  border-radius:6px;font-size:.88em;border:1px solid var(--border)}
+pre{background:var(--code-bg);border:1px solid var(--border);border-radius:12px;
+  padding:16px;overflow-x:auto;font-family:var(--mono);font-size:.84rem;line-height:1.5}
+pre code{background:none;border:none;padding:0}
+h1,h2,h3,h4{line-height:1.25;font-weight:650;margin:0 0 .5em}
+h2{font-size:1.6rem;margin-top:.2em;letter-spacing:-.01em}
+h3{font-size:1.18rem;margin-top:1.8em;color:var(--text)}
+h4{font-size:1rem;margin-top:1.4em;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;font-size:.8rem}
+p{margin:.6em 0}
+ul,ol{padding-left:1.3em}
+li{margin:.3em 0}
+
+/* top bar */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--border)}
+.bar{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:750;font-size:1.06rem;letter-spacing:-.01em}
+.mark{width:30px;height:30px;border-radius:9px;flex:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent-3));
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:.95rem}
+.tagline{color:var(--faint);font-size:.82rem;font-weight:500}
+.spacer{flex:1}
+.themebtn{border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  border-radius:9px;padding:7px 10px;cursor:pointer;font-size:.85rem;line-height:1}
+.themebtn:hover{color:var(--text)}
+nav.tabs{max-width:var(--maxw);margin:0 auto;padding:0 12px;display:flex;gap:2px;
+  overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:none;background:none;color:var(--muted);font-family:inherit;
+  font-size:.9rem;font-weight:550;padding:11px 14px;cursor:pointer;white-space:nowrap;
+  border-bottom:2.5px solid transparent;transition:color .15s}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+
+main{max-width:var(--maxw);margin:0 auto;padding:34px 20px 90px}
+section[role="tabpanel"]{display:none;animation:fade .25s ease}
+section[role="tabpanel"].active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* hero */
+.hero{border:1px solid var(--border);border-radius:var(--radius);background:
+  radial-gradient(120% 140% at 0% 0%,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));
+  padding:30px 28px;box-shadow:var(--shadow);margin-bottom:26px}
+.hero h2{font-size:2rem;margin-bottom:.15em}
+.hero .lead{font-size:1.12rem;color:var(--muted);max-width:62ch}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:650;
+  padding:4px 11px;border-radius:100px;border:1px solid var(--border);
+  background:var(--surface-2);color:var(--muted);letter-spacing:.02em}
+.pill.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 40%,var(--border))}
+.pill.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,var(--border))}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+
+/* cards + grid */
+.grid{display:grid;gap:16px;margin:18px 0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+  padding:18px 20px;box-shadow:var(--shadow)}
+.card h3{margin-top:0;font-size:1.05rem}
+.card .k{font-size:2rem;font-weight:750;letter-spacing:-.02em;line-height:1}
+.card .klabel{color:var(--faint);font-size:.8rem;margin-top:4px}
+.accentbar{height:3px;border-radius:3px;margin:-18px -20px 16px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-3))}
+
+/* callouts */
+.note{border-left:3px solid var(--accent);background:var(--surface-2);
+  padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;font-size:.95rem}
+.note.warn{border-left-color:var(--warn)}
+.note.ok{border-left-color:var(--ok)}
+.note strong{color:var(--text)}
+
+/* tables */
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface-2);font-weight:650;color:var(--muted);font-size:.78rem;
+  text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+tr:last-child td{border-bottom:none}
+td .yes{color:var(--ok);font-weight:650}
+td .no{color:var(--bad);font-weight:650}
+.mono{font-family:var(--mono);font-size:.85em}
+
+/* phase / step chips */
+.chipline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.chip{border:1px solid var(--border);border-radius:9px;padding:6px 11px;background:var(--surface);
+  font-size:.82rem;font-weight:550}
+.chip b{color:var(--accent)}
+
+/* diagrams */
+.diagram{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);
+  padding:20px;box-shadow:var(--shadow);margin:20px 0;overflow-x:auto}
+.diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.dcap{color:var(--faint);font-size:.82rem;text-align:center;margin-top:10px}
+svg .box{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+svg .boxa{fill:color-mix(in srgb,var(--accent) 14%,var(--surface));stroke:var(--accent);stroke-width:1.5}
+svg .boxg{fill:color-mix(in srgb,var(--ok) 14%,var(--surface));stroke:var(--ok);stroke-width:1.5}
+svg .boxr{fill:color-mix(in srgb,var(--bad) 12%,var(--surface));stroke:var(--bad);stroke-width:1.5}
+svg text{fill:var(--text);font-family:var(--sans);font-size:13px}
+svg .lbl{fill:var(--muted);font-size:11px}
+svg .flow{stroke:var(--faint);stroke-width:1.6;fill:none;marker-end:url(#arw)}
+svg .flowa{stroke:var(--accent);stroke-width:1.8;fill:none;marker-end:url(#arwa)}
+
+.timeline{border-left:2px solid var(--border);margin-left:8px;padding-left:22px}
+.tl{position:relative;margin:0 0 20px}
+.tl::before{content:"";position:absolute;left:-29px;top:4px;width:12px;height:12px;
+  border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.tl h4{margin:0 0 2px;color:var(--accent);text-transform:none;letter-spacing:0;font-size:.95rem}
+.tl .meta{color:var(--faint);font-size:.8rem}
+footer{max-width:var(--maxw);margin:0 auto;padding:24px 20px 50px;color:var(--faint);
+  font-size:.82rem;border-top:1px solid var(--border)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:.9rem}
+.kv dt{color:var(--faint)}
+.kv dd{margin:0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="logo"><span class="mark">इ</span> IndiBench
+      <span class="tagline">Project Wiki</span></div>
+    <div class="spacer"></div>
+    <button class="themebtn" id="themebtn" title="Toggle theme">◐ Theme</button>
+  </div>
+  <nav class="tabs" role="tablist" id="tablist">
+    <button class="tab" role="tab" data-tab="overview">Overview</button>
+    <button class="tab" role="tab" data-tab="landscape">Landscape &amp; Competition</button>
+    <button class="tab" role="tab" data-tab="architecture">Architecture</button>
+    <button class="tab" role="tab" data-tab="flows">Flow Diagrams</button>
+    <button class="tab" role="tab" data-tab="usage">How to Use</button>
+    <button class="tab" role="tab" data-tab="decisions">Decisions &amp; Process</button>
+    <button class="tab" role="tab" data-tab="status">Status &amp; Roadmap</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section role="tabpanel" id="overview">
+  <div class="hero">
+    <h2>The open, lab-neutral frontier benchmark for India</h2>
+    <p class="lead">IndiBench evaluates LLMs and agents on Indian languages and Indian
+      use cases — across text, speech, vision, and agentic tasks — at a difficulty where
+      today's best models should score <em>low</em>. That is the point.</p>
+    <div class="pillrow">
+      <span class="pill ok">● Alignment complete</span>
+      <span class="pill warn">● Phase 1 building — filtering blocked on API keys</span>
+      <span class="pill">MIT code · CC-BY-4.0 data</span>
+      <span class="pill">github.com/pukrvi/indibench</span>
+    </div>
+  </div>
+
+  <div class="grid g4">
+    <div class="card"><div class="k">4</div><div class="klabel">phases: text · speech · vision · agent</div></div>
+    <div class="card"><div class="k">12</div><div class="klabel">language tracks in Phase 1</div></div>
+    <div class="card"><div class="k">240</div><div class="klabel">v0-seed candidate questions</div></div>
+    <div class="card"><div class="k">~2,500</div><div class="klabel">Phase 1 v1 target (filtered)</div></div>
+  </div>
+
+  <h3>The problem</h3>
+  <p>Frontier AI has a benchmark suite it respects — Humanity's Last Exam for expert
+  knowledge, SWE-bench for software engineering. <strong>India is absent from that
+  suite.</strong> Every open Indian benchmark today is one of:</p>
+  <div class="grid g2">
+    <div class="card"><h3>Saturated</h3><p>Frontier models already score 56–77% on
+      MILU, BhashaBench, ParamBench. They measure deployment competence, not frontier progress.</p></div>
+    <div class="card"><h3>Contaminated</h3><p>Harvested from public exam papers that
+      are already all over the web — so they leak into training corpora by construction.</p></div>
+    <div class="card"><h3>Translationese</h3><p>IndicMMLU-Pro, Global-MMLU and the
+      machine-translated HLE variants measure translation transfer, not native competence or Indian grounding.</p></div>
+    <div class="card"><h3>Closed</h3><p>The one frontier-positioned effort, OpenAI's
+      IndQA, is closed-data and OpenAI-graded — you can't run it, audit its keys, or build on it.</p></div>
+  </div>
+
+  <h3>The thesis: India is a multimodal evaluation problem</h3>
+  <p>Text-only evaluation structurally under-measures what matters in India. Four
+  capabilities are core, not accessories:</p>
+  <div class="grid g4">
+    <div class="card"><div class="accentbar"></div><h3>Voice, both ways</h3><p>Speech is
+      the primary interface for hundreds of millions. ASR still runs 20–30% WER on Indian
+      languages; STT <em>and</em> TTS/spoken-interaction need frontier evaluation.</p></div>
+    <div class="card"><div class="accentbar"></div><h3>Vision, both ways</h3><p>Understanding
+      India in images <em>and</em> generating historically/contextually accurate images of India.</p></div>
+    <div class="card"><div class="accentbar"></div><h3>Language depth</h3><p>Native-script
+      and code-mixed (Hinglish/Tanglish) competence at frontier difficulty — never translated.</p></div>
+    <div class="card"><div class="accentbar"></div><h3>Historical accuracy</h3><p>A scored
+      dimension throughout — text claims, image content, spoken answers.</p></div>
+  </div>
+
+  <h3>Four phases <span style="font-weight:400;color:var(--faint);font-size:.9rem">(order locked: D-020)</span></h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Phase</th><th>Benchmark</th><th>Evaluates</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td>IndiBench-Text</td><td>Frontier knowledge &amp; reasoning:
+        12 language tracks, 10 domains, tagged safety &amp; historical slices</td><td><span class="pill warn">building</span></td></tr>
+      <tr><td><b>2</b></td><td>IndiBench-Speech</td><td>STT and TTS / spoken interaction; dialect &amp; acoustic diversity</td><td>designed</td></tr>
+      <tr><td><b>3</b></td><td>IndiBench-Vision</td><td>Understanding India in images AND culturally/historically accurate image generation</td><td>designed</td></tr>
+      <tr><td><b>4</b></td><td>IndiBench-Agent</td><td>Agents on Indian rails: UPI, IRCTC, gov-portal simulated domains with deterministic verification</td><td>designed</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What makes it different</h3>
+  <div class="grid g3">
+    <div class="card"><h3>Open</h3><p>Data, harness, <em>and</em> the generation pipeline
+      are public. Anyone can run it, audit answer keys, and reproduce it.</p></div>
+    <div class="card"><h3>Lab-neutral</h3><p>Adversarially filtered against all frontier
+      labs' models — not one lab's — with dual judges from two different labs.</p></div>
+    <div class="card"><h3>Renewable</h3><p>The pipeline regenerates test waves every 6
+      months; a private held-out split detects overfitting. It stays hard.</p></div>
+  </div>
+</section>
+
+<!-- ============ LANDSCAPE ============ -->
+<section role="tabpanel" id="landscape">
+  <h2>Market, Landscape &amp; Competitive Analysis</h2>
+  <p>Design was grounded in an audit of 20 existing Indian and frontier benchmarks
+  (<code>docs/research/2026-07-13-benchmark-audit.md</code>) plus a live landscape sweep.
+  The findings define exactly what IndiBench builds upon and what it must fix.</p>
+
+  <div class="grid g3">
+    <div class="card"><div class="k" style="color:var(--accent)">1</div><div class="klabel">frontier-positioned Indian benchmark exists today (IndQA) — and it is closed</div></div>
+    <div class="card"><div class="k" style="color:var(--accent-2)">0</div><div class="klabel">agent benchmarks for Indian use cases (UPI / IRCTC / gov-portal) — wide open</div></div>
+    <div class="card"><div class="k" style="color:var(--accent-3)">0</div><div class="klabel">HLE-recipe replications for any language/region worldwide</div></div>
+  </div>
+
+  <h3>Closest competitor: OpenAI IndQA (Nov 2025)</h3>
+  <p>IndQA planted the "HLE-for-India" flag: 2,278 questions, 12 language tracks
+  including Hinglish, 261 domain experts, adversarially filtered (GPT-5 ≈ 35%). It
+  validates the thesis — but leaves the defensible ground open:</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dimension</th><th>IndQA</th><th>IndiBench</th></tr></thead>
+    <tbody>
+      <tr><td>Data</td><td class="no">Closed — no public release</td><td class="yes">Fully open (CC-BY-4.0)</td></tr>
+      <tr><td>Harness &amp; pipeline</td><td class="no">Proprietary</td><td class="yes">Open (MIT), reproducible</td></tr>
+      <tr><td>Adversarial filtering</td><td>Against OpenAI models only</td><td class="yes">Cross-lab: OpenAI + Anthropic + Google + Indian model</td></tr>
+      <tr><td>Grading</td><td>OpenAI-graded</td><td class="yes">Dual-judge, two different labs, published agreement</td></tr>
+      <tr><td>Domain coverage</td><td>Culture / humanities</td><td class="yes">Balanced: culture AND STEM / professional (10-domain grid)</td></tr>
+      <tr><td>Code-mixing</td><td>Hinglish only</td><td class="yes">Hinglish + Tanglish (frontier Tanglish is unclaimed)</td></tr>
+      <tr><td>Lifespan</td><td>Static</td><td class="yes">Renewable — regenerated every 6 months</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The landscape (none of the open Indian benchmarks are frontier-hard)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Benchmark</th><th>Scope</th><th>Why it doesn't occupy our niche</th></tr></thead>
+    <tbody>
+      <tr><td>IndQA <span class="lbl">(OpenAI, '25)</span></td><td>2,278 Q · 12 langs · culture</td><td>Closed data, OpenAI-only filtering, no STEM</td></tr>
+      <tr><td>MILU <span class="lbl">(AI4Bharat, '24)</span></td><td>~80k MCQ · 11 langs</td><td>GPT-4o ~72–74% — saturating</td></tr>
+      <tr><td>BhashaBench <span class="lbl">(BharatGen, '25)</span></td><td>~74k · En+Hi · 4 domains</td><td>Bilingual only; 60–77%; exam-harvested</td></tr>
+      <tr><td>ParamBench <span class="lbl">('25)</span></td><td>17k+ · Hindi only</td><td>Hindi-only MCQ; contamination-prone</td></tr>
+      <tr><td>IndicGenBench <span class="lbl">(Google, '24)</span></td><td>generation · 29 langs</td><td>Translation of Western sets; no harness/leaderboard</td></tr>
+      <tr><td>MMLU-ProX / Global-MMLU</td><td>translated MMLU</td><td>Translationese + contaminated base</td></tr>
+      <tr><td>DRISHTIKON <span class="lbl">('25)</span></td><td>64k image-text · 15 langs</td><td>Not frontier-positioned; no open repo at audit</td></tr>
+      <tr><td>MASSIVE-Agents <span class="lbl">(Amazon, '25)</span></td><td>function calling · 52 langs</td><td>Single-turn; no environments; no Indian services</td></tr>
+      <tr><td>Voice of India <span class="lbl">('26)</span></td><td>ASR · 15 langs</td><td>Speech only; relevant to Phase 2 as partner/data</td></tr>
+      <tr><td>Indic LLM-Arena <span class="lbl">(AI4Bharat, '25)</span></td><td>human-preference arena</td><td>Complementary modality; Phase 3 = agentic (partner / watch)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Gap analysis — the most-cited failures (2025–26 surveys)</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Findings</h4>
+      <ul>
+        <li>Translationese ≠ native competence</li>
+        <li>Exam-scrape contamination is endemic</li>
+        <li>Saturation — nothing Indian is frontier-hard</li>
+        <li>Shallow cultural grounding</li>
+        <li>Romanized / code-mixed text ignored</li>
+        <li>Near-zero agentic evaluation in Indic languages</li>
+        <li>Static artifacts — no renewal, no contamination defense</li>
+      </ul></div>
+    <div class="card"><h4>How IndiBench answers each</h4>
+      <ul>
+        <li>Native in-script authoring, never translation (D-009)</li>
+        <li>Synthetic + source-grounded; exams as syllabi only (D-017)</li>
+        <li>Cross-lab adversarial filter keeps only what models fail (D-010)</li>
+        <li>Domain quotas + expert spot-check</li>
+        <li>Hinglish + Tanglish as first-class tracks (D-031)</li>
+        <li>Phase 4 tau2-style Indian agent domains</li>
+        <li>Canary + private split + 6-monthly regeneration (D-013)</li>
+      </ul></div>
+  </div>
+
+  <h3>Build upon ↔ Improve (audit synthesis)</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Build upon</h4>
+      <ul>
+        <li>MILU / BhashaBench harness packaging &amp; per-language reporting</li>
+        <li>IndicGenBench canary-per-file convention</li>
+        <li>Indic-Bias taxonomy-driven synthesis + pipeline/eval separation</li>
+        <li>BhashaBench professional-domain axis; ParamBench hard formats</li>
+        <li>IndicSUPERB clean/noisy + known/unknown speaker splits (Phase 2)</li>
+        <li>HLE / IndQA difficulty bar + expert rubric</li>
+      </ul></div>
+    <div class="card"><h4>Improve</h4>
+      <ul>
+        <li>Contamination-by-construction → grounded synthesis</li>
+        <li>Saturation → cross-lab adversarial filter</li>
+        <li>Translationese → native authoring</li>
+        <li>Closedness → open data + harness + pipeline</li>
+        <li>Staleness → renewable refresh waves</li>
+        <li>Text-MCQ monoculture → four-phase multimodal suite</li>
+        <li>English/Hindi gravity → 12 tracks at parity, 22 as end-goal</li>
+        <li>Answer-key fragility (HLE's crisis) → source-grounded keys + audit</li>
+      </ul></div>
+  </div>
+  <div class="note">Ecosystem note: IndQA (Nov '25), BhashaBench (Oct '25), IndicParam (Dec '25),
+    IndicDB (Apr '26) and the Feb '26 India-AI-Summit commitments show the space moving fast.
+    AI4Bharat / BharatGen are the likeliest next entrants — <strong>and the most natural partners.</strong></div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section role="tabpanel" id="architecture">
+  <h2>Technology &amp; Architecture</h2>
+  <p>One Python package, one schema family, one pipeline, one harness. The
+  <em>pipeline is the product</em> — its output is a dataset, but its openness is the differentiator.</p>
+
+  <h3>Repository layout</h3>
+  <pre><code>docs/            Decisions log, maps, thesis, design docs, research, this wiki
+src/indibench/   schema.py · canary.py · providers.py · judging.py
+  └ pipeline/    s0_corpus → s1_author → s2_verify → s3_filter → s4_spotcheck → s5_release
+scripts/         assemble_candidates.py · run_filter.py  (keys-day entry point)
+evals/
+  ├ inspect/     indibench_text.py        (Inspect AI task)
+  └ standalone/  predict.py · judge.py    (HLE-style, zero-framework, local)
+data/
+  ├ candidates/  v0-seed pool (UNFILTERED) + authoring sources
+  └ CANARY_GUID  fixed canary for the release line
+tests/           16 tests over pure logic + offline end-to-end</code></pre>
+
+  <h3>Dataset schema</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Release item (schema.Item)</h4>
+      <dl class="kv">
+        <dt>id</dt><dd><span class="mono">ibt-&lt;lang&gt;-&lt;domain&gt;-&lt;hash&gt;</span></dd>
+        <dt>question</dt><dd>native script</dd>
+        <dt>answer</dt><dd>short answer, or option letter</dd>
+        <dt>answer_type</dt><dd>exactMatch | multipleChoice</dd>
+        <dt>language</dt><dd>one of 12 tracks (BCP-47)</dd>
+        <dt>domain</dt><dd>one of 10 (D-030)</dd>
+        <dt>tags</dt><dd>historical · safety (cross-cutting)</dd>
+        <dt>difficulty_evidence</dt><dd>which panel models failed</dd>
+        <dt>provenance</dt><dd>source hash only — notes never ship</dd>
+        <dt>image</dt><dd>reserved for Phase 3</dd>
+      </dl></div>
+    <div class="card"><h4>12 language tracks &amp; 10 domains</h4>
+      <p><b>Tracks:</b> Hindi, Bengali, Tamil, Telugu, Marathi, Kannada, Malayalam,
+        Gujarati, Punjabi, Odia, English-about-India, code-mixed (Hinglish + Tanglish).</p>
+      <p><b>Domains:</b> law &amp; constitution · governance &amp; administration · STEM-in-India
+        · medicine incl. Ayush · finance &amp; taxation · agriculture · history &amp; heritage ·
+        literature &amp; arts · geography &amp; environment · society &amp; daily life.</p>
+      <p class="lbl">Schema extends to all 22 scheduled languages via refresh waves (D-017).</p></div>
+  </div>
+
+  <h3>The trust model</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Contamination defense</h4><ul>
+      <li><b>Canary GUID</b> in every public file — trainers can filter it out</li>
+      <li><b>Private held-out split</b> (~20% of public, ~500 items) — never published, detects overfitting</li>
+      <li><b>Renewable</b> — pipeline regenerates ~1/3 of items every 6 months around a stable anchor subset</li>
+    </ul></div>
+    <div class="card"><h4>Answer-key integrity</h4><ul>
+      <li>Keys derived from <b>source documents</b>, not model memory</li>
+      <li><b>S2</b> — independent model panel re-derives every key from the source</li>
+      <li><b>S4</b> — expert spot-check; <b>100%</b> of safety-tagged items</li>
+      <li>Release <b>gates</b> block shipping without S0 sources + S4 verdicts</li>
+    </ul></div>
+  </div>
+
+  <h3>Evaluation harness</h3>
+  <div class="grid g2">
+    <div class="card"><h3>Inspect AI (primary)</h3><p>Clones the <code>inspect_evals/hle</code>
+      pattern: Explanation/Answer/Confidence prompt, model-graded equivalence, accuracy +
+      calibration error. Native support for every provider and for the future agentic phase.</p></div>
+    <div class="card"><h3>Standalone scripts</h3><p><code>predict.py</code> +
+      <code>judge.py</code> — zero-framework, resumable, run locally on Ubuntu against any
+      OpenAI-compatible endpoint (incl. local vLLM/Ollama). Reports accuracy ± 95% CI and RMS calibration error.</p></div>
+  </div>
+
+  <h3>Provider abstraction</h3>
+  <p><code>providers.py</code> gives one <code>complete(model_id, …)</code> call across OpenAI,
+  Anthropic, Google and Sarvam-compatible endpoints (keys from environment). <code>judging.py</code>
+  implements the dual-judge + third-judge-tiebreak protocol with a normalization short-circuit for
+  exact matches (cost control). Empty model responses raise — they are never silently graded as
+  failures, which would corrupt filter yield.</p>
+</section>
+
+<!-- ============ FLOWS ============ -->
+<section role="tabpanel" id="flows">
+  <h2>Flow Diagrams</h2>
+
+  <h3>The S0 → S5 generation pipeline</h3>
+  <div class="diagram">
+    <svg viewBox="0 0 940 200" role="img" aria-label="S0 to S5 pipeline flow">
+      <defs>
+        <marker id="arw" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L7,3 L0,6 Z" fill="var(--faint)"/></marker>
+        <marker id="arwa" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L7,3 L0,6 Z" fill="var(--accent)"/></marker>
+      </defs>
+      <g>
+        <rect class="box" x="6" y="70" width="128" height="60" rx="10"/>
+        <text x="70" y="94" text-anchor="middle" font-weight="650">S0 Corpus</text>
+        <text class="lbl" x="70" y="112" text-anchor="middle">license-reviewed</text>
+        <text class="lbl" x="70" y="125" text-anchor="middle">source docs</text>
+
+        <rect class="box" x="160" y="70" width="128" height="60" rx="10"/>
+        <text x="224" y="94" text-anchor="middle" font-weight="650">S1 Author</text>
+        <text class="lbl" x="224" y="112" text-anchor="middle">LLM writes,</text>
+        <text class="lbl" x="224" y="125" text-anchor="middle">grounded in source</text>
+
+        <rect class="box" x="314" y="70" width="128" height="60" rx="10"/>
+        <text x="378" y="94" text-anchor="middle" font-weight="650">S2 Verify</text>
+        <text class="lbl" x="378" y="112" text-anchor="middle">panel re-derives</text>
+        <text class="lbl" x="378" y="125" text-anchor="middle">key from source</text>
+
+        <rect class="boxa" x="468" y="70" width="128" height="60" rx="10"/>
+        <text x="532" y="94" text-anchor="middle" font-weight="650">S3 Filter</text>
+        <text class="lbl" x="532" y="112" text-anchor="middle">cross-lab panel</text>
+        <text class="lbl" x="532" y="125" text-anchor="middle">keep if ≥2/4 fail</text>
+
+        <rect class="box" x="622" y="70" width="128" height="60" rx="10"/>
+        <text x="686" y="94" text-anchor="middle" font-weight="650">S4 Spot-check</text>
+        <text class="lbl" x="686" y="112" text-anchor="middle">experts;</text>
+        <text class="lbl" x="686" y="125" text-anchor="middle">safety = 100%</text>
+
+        <rect class="boxg" x="776" y="70" width="128" height="60" rx="10"/>
+        <text x="840" y="94" text-anchor="middle" font-weight="650">S5 Release</text>
+        <text class="lbl" x="840" y="112" text-anchor="middle">canary + split</text>
+        <text class="lbl" x="840" y="125" text-anchor="middle">versioned</text>
+
+        <path class="flow" d="M134,100 L158,100"/>
+        <path class="flow" d="M288,100 L312,100"/>
+        <path class="flow" d="M442,100 L466,100"/>
+        <path class="flowa" d="M596,100 L620,100"/>
+        <path class="flow" d="M750,100 L774,100"/>
+
+        <text class="lbl" x="70" y="30" text-anchor="middle">human + LLM research</text>
+        <path class="flow" d="M70,38 L70,68"/>
+        <text class="lbl" x="532" y="164" text-anchor="middle">discards easy &amp; ambiguous items</text>
+        <path class="flowa" d="M532,158 L532,132"/>
+        <text class="lbl" x="686" y="30" text-anchor="middle">co-authorship credit</text>
+        <path class="flow" d="M686,38 L686,68"/>
+      </g>
+    </svg>
+    <div class="dcap">Each stage is a discard gate. Only items that survive all five reach a release.</div>
+  </div>
+
+  <h3>S3 adversarial filter — the survival rule</h3>
+  <div class="diagram">
+    <svg viewBox="0 0 720 260" role="img" aria-label="Adversarial filter decision">
+      <g>
+        <rect class="boxa" x="290" y="10" width="140" height="46" rx="10"/>
+        <text x="360" y="38" text-anchor="middle" font-weight="650">Candidate + key</text>
+
+        <rect class="box" x="30" y="96" width="150" height="44" rx="9"/>
+        <text x="105" y="123" text-anchor="middle">OpenAI GPT-5</text>
+        <rect class="box" x="200" y="96" width="150" height="44" rx="9"/>
+        <text x="275" y="123" text-anchor="middle">Anthropic Claude</text>
+        <rect class="box" x="370" y="96" width="150" height="44" rx="9"/>
+        <text x="445" y="123" text-anchor="middle">Google Gemini</text>
+        <rect class="box" x="540" y="96" width="150" height="44" rx="9"/>
+        <text x="615" y="123" text-anchor="middle">Sarvam (Indian)</text>
+
+        <path class="flow" d="M320,56 L120,94"/>
+        <path class="flow" d="M340,56 L285,94"/>
+        <path class="flowa" d="M380,56 L440,94"/>
+        <path class="flow" d="M400,56 L600,94"/>
+        <text class="lbl" x="360" y="80" text-anchor="middle">answer WITHOUT the source</text>
+
+        <rect class="boxa" x="250" y="180" width="220" height="46" rx="10"/>
+        <text x="360" y="203" text-anchor="middle" font-weight="650">≥ 2 of 4 fail?</text>
+        <text class="lbl" x="360" y="218" text-anchor="middle">(any "ambiguous" → discard)</text>
+        <path class="flow" d="M105,140 L300,178"/>
+        <path class="flow" d="M275,140 L330,178"/>
+        <path class="flow" d="M445,140 L390,178"/>
+        <path class="flow" d="M615,140 L420,178"/>
+
+        <rect class="boxg" x="120" y="240" width="150" height="14" rx="7" opacity="0"/>
+        <text x="180" y="250" text-anchor="middle" style="fill:var(--ok);font-weight:650">YES → keep (frontier-hard)</text>
+        <text x="560" y="250" text-anchor="middle" style="fill:var(--bad);font-weight:650">NO → discard (too easy)</text>
+        <path class="flowa" d="M320,226 L220,244"/>
+        <path class="flow" d="M400,226 L520,244"/>
+      </g>
+    </svg>
+    <div class="dcap">The filter runs against models from every major lab, so difficulty is not one vendor's blind spot.</div>
+  </div>
+
+  <h3>Evaluation flow (scoring a model)</h3>
+  <div class="diagram">
+    <svg viewBox="0 0 900 150" role="img" aria-label="Evaluation flow">
+      <g>
+        <rect class="box" x="6" y="52" width="130" height="46" rx="9"/>
+        <text x="71" y="79" text-anchor="middle">Release file</text>
+        <rect class="box" x="176" y="52" width="140" height="46" rx="9"/>
+        <text x="246" y="72" text-anchor="middle">Model under test</text>
+        <text class="lbl" x="246" y="88" text-anchor="middle">Explanation/Answer/Conf</text>
+        <rect class="boxa" x="356" y="30" width="150" height="40" rx="9"/>
+        <text x="431" y="55" text-anchor="middle">Judge A (Anthropic)</text>
+        <rect class="boxa" x="356" y="80" width="150" height="40" rx="9"/>
+        <text x="431" y="105" text-anchor="middle">Judge B (Google)</text>
+        <rect class="box" x="546" y="52" width="140" height="46" rx="9"/>
+        <text x="616" y="72" text-anchor="middle">Agree?</text>
+        <text class="lbl" x="616" y="88" text-anchor="middle">else 3rd-judge tiebreak</text>
+        <rect class="boxg" x="726" y="52" width="168" height="46" rx="9"/>
+        <text x="810" y="72" text-anchor="middle" font-weight="650">Accuracy ± CI</text>
+        <text class="lbl" x="810" y="88" text-anchor="middle">+ calibration error</text>
+
+        <path class="flow" d="M136,75 L174,75"/>
+        <path class="flow" d="M316,68 L354,52"/>
+        <path class="flow" d="M316,82 L354,98"/>
+        <path class="flow" d="M506,50 L544,68"/>
+        <path class="flow" d="M506,100 L544,82"/>
+        <path class="flowa" d="M686,75 L724,75"/>
+      </g>
+    </svg>
+    <div class="dcap">No OpenAI judge — IndiBench results are compared against OpenAI's IndQA, so grading stays conflict-free (D-035).</div>
+  </div>
+
+  <h3>Release &amp; renewal</h3>
+  <div class="diagram">
+    <svg viewBox="0 0 820 170" role="img" aria-label="Release and renewal flow">
+      <g>
+        <rect class="boxg" x="20" y="60" width="150" height="50" rx="10"/>
+        <text x="95" y="82" text-anchor="middle" font-weight="650">Survivors</text>
+        <text class="lbl" x="95" y="98" text-anchor="middle">promoted to Items</text>
+
+        <rect class="box" x="250" y="20" width="180" height="46" rx="10"/>
+        <text x="340" y="43" text-anchor="middle">Public split (~80%)</text>
+        <text class="lbl" x="340" y="58" text-anchor="middle">canary-wrapped, CC-BY-4.0</text>
+        <rect class="boxr" x="250" y="104" width="180" height="46" rx="10"/>
+        <text x="340" y="127" text-anchor="middle">Private split (~20%)</text>
+        <text class="lbl" x="340" y="142" text-anchor="middle">never published</text>
+
+        <path class="flow" d="M170,78 L248,45"/>
+        <path class="flow" d="M170,92 L248,120"/>
+        <text class="lbl" x="205" y="72" text-anchor="middle">stratified by language</text>
+
+        <rect class="box" x="510" y="20" width="150" height="46" rx="10"/>
+        <text x="585" y="43" text-anchor="middle">Leaderboard</text>
+        <text class="lbl" x="585" y="58" text-anchor="middle">maintainer-run</text>
+        <rect class="box" x="510" y="104" width="150" height="46" rx="10"/>
+        <text x="585" y="127" text-anchor="middle">Overfit check</text>
+
+        <path class="flow" d="M430,43 L508,43"/>
+        <path class="flow" d="M430,127 L508,127"/>
+
+        <rect class="boxa" x="700" y="60" width="100" height="50" rx="10"/>
+        <text x="750" y="82" text-anchor="middle">Refresh</text>
+        <text class="lbl" x="750" y="98" text-anchor="middle">6-monthly</text>
+        <path class="flowa" d="M660,43 C695,43 700,60 730,60"/>
+        <text class="lbl" x="750" y="130" text-anchor="middle">replace ~1/3</text>
+      </g>
+    </svg>
+    <div class="dcap">Scores compare only within a dated version; refresh waves keep the benchmark ahead of contamination.</div>
+  </div>
+</section>
+
+<!-- ============ USAGE ============ -->
+<section role="tabpanel" id="usage">
+  <h2>How to Use</h2>
+
+  <h3>Install</h3>
+  <pre><code>git clone https://github.com/pukrvi/indibench
+cd indibench
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -e ".[dev,eval]"        # add ",pipeline" for the filter run
+pytest tests/ -q                    # 16 tests, all offline</code></pre>
+
+  <h3>Assemble / re-validate the candidate pool (no keys)</h3>
+  <pre><code>python scripts/assemble_candidates.py
+# → validates all 240 candidates, writes canary-wrapped files to data/candidates/v0-seed/</code></pre>
+
+  <h3>Run the filter when API keys arrive</h3>
+  <div class="note warn"><strong>This is the keys-day entry point.</strong> Export
+    <code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, <code>GOOGLE_API_KEY</code>,
+    <code>SARVAM_API_KEY</code> (+ <code>SARVAM_BASE_URL</code>), pin exact model versions, and smoke-test first.</div>
+  <pre><code># 1. tiny smoke run
+python scripts/run_filter.py \
+  --panel openai/&lt;id&gt; anthropic/&lt;id&gt; google/&lt;id&gt; sarvam/&lt;id&gt; \
+  --judges anthropic/&lt;id&gt; google/&lt;id&gt; --tiebreak openai/&lt;id&gt; \
+  --limit 10
+
+# 2. full pool (resumes automatically; errored items retry)
+python scripts/run_filter.py --panel … --judges … --tiebreak …
+
+# 3. promote survivors into a versioned release
+python scripts/run_filter.py … --promote-to data/releases --version v2026.XX</code></pre>
+  <p class="lbl">Offline dry-run (no keys, deterministic mock provider) to exercise the
+    whole chain: <code>python scripts/run_filter.py --mock --skip-s2 --limit 30</code></p>
+
+  <h3>Evaluate a model against a release</h3>
+  <pre><code># Inspect AI (handles every provider natively)
+inspect eval evals/inspect/indibench_text.py \
+  -T data_file=data/releases/public/v2026.XX/indibench_text_hi_v2026.XX.json \
+  --model &lt;provider/model&gt;
+
+# Standalone (resumable; works with local vLLM/Ollama via --base-url)
+python evals/standalone/predict.py --data &lt;file&gt; --model &lt;id&gt;
+python evals/standalone/judge.py  --data &lt;file&gt; --predictions &lt;out&gt; --judge &lt;id&gt;</code></pre>
+
+  <h3>Contribute</h3>
+  <div class="grid g3">
+    <div class="card"><h4>Report an error</h4><p>Wrong key, ambiguous question, bad
+      transliteration → open a <em>Question error report</em> issue. Reporters are credited in release notes.</p></div>
+    <div class="card"><h4>Contribute sources</h4><p>Hard, well-licensed Indian documents
+      (textbooks, gazettes, case law). Direct question submissions are declined by design — contribute grounding, run the open pipeline.</p></div>
+    <div class="card"><h4>Lend expertise</h4><p>Volunteer domain reviewers who spot-check
+      items earn co-authorship consideration on the paper.</p></div>
+  </div>
+  <div class="note ok">Full operational detail — guardrails, resume behavior, private-split
+    handling, model pinning — lives in <code>docs/RUNBOOK.md</code>.</div>
+</section>
+
+<!-- ============ DECISIONS ============ -->
+<section role="tabpanel" id="decisions">
+  <h2>Decisions &amp; Process</h2>
+  <p>IndiBench was scoped through a recorded <strong>alignment loop</strong>: 28 questions
+  across 7 batches, each answer logged before the next batch was formed. Every decision
+  (D-001 … D-042) is in <code>docs/DECISIONS.md</code>; every owner input is quoted verbatim
+  in <code>docs/USER_INPUTS.md</code>. Nothing was assumed silently.</p>
+
+  <div class="grid g4">
+    <div class="card"><div class="k">42</div><div class="klabel">locked decisions</div></div>
+    <div class="card"><div class="k">28</div><div class="klabel">alignment questions</div></div>
+    <div class="card"><div class="k">8</div><div class="klabel">PRs, each sub-agent-reviewed</div></div>
+    <div class="card"><div class="k">5</div><div class="klabel">verbatim owner inputs</div></div>
+  </div>
+
+  <h3>Keystone decisions by theme</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Theme</th><th>Locked</th></tr></thead>
+    <tbody>
+      <tr><td>Scope</td><td>Add to the frontier suite (peers: HLE, SWE-bench); NOT a coding benchmark, NOT broad MCQ <span class="lbl">(D-002/003)</span></td></tr>
+      <tr><td>Difficulty</td><td>Frontier-hard — models fail today <span class="lbl">(D-007)</span></td></tr>
+      <tr><td>Sourcing</td><td>Synthetic, grounded in hard source docs, cross-lab adversarially filtered <span class="lbl">(D-009/010/017)</span></td></tr>
+      <tr><td>Phases</td><td>text → speech → vision → agent <span class="lbl">(D-016/020)</span></td></tr>
+      <tr><td>Thesis</td><td>India is a multimodal evaluation problem <span class="lbl">(D-024)</span></td></tr>
+      <tr><td>Languages</td><td>12 tracks in v1; schema to all 22 <span class="lbl">(D-031)</span></td></tr>
+      <tr><td>Panel</td><td>OpenAI + Anthropic + Google + Sarvam; keep if ≥2/4 fail <span class="lbl">(D-029/035)</span></td></tr>
+      <tr><td>Contamination</td><td>Canary + private split + 6-monthly renewal <span class="lbl">(D-013/032)</span></td></tr>
+      <tr><td>Identity</td><td>"The open, lab-neutral frontier benchmark for India" <span class="lbl">(D-019)</span></td></tr>
+      <tr><td>Licensing</td><td>MIT code, CC-BY-4.0 data <span class="lbl">(D-022)</span></td></tr>
+      <tr><td>Governance</td><td>Personal → org on traction; dev-team workflow <span class="lbl">(D-014/028)</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>How the project runs itself</h3>
+  <div class="grid g2">
+    <div class="card"><h4>Living documents (always current)</h4><ul>
+      <li><code>USER_INPUTS.md</code> — verbatim owner intent</li>
+      <li><code>DECISIONS.md</code> — every Q, every A, every D-###</li>
+      <li><code>PROJECT_MAP.md</code> / <code>FOLDER_MAP.md</code> — living maps</li>
+      <li><code>THESIS.md</code> · <code>RUNBOOK.md</code> · <code>docs/design/</code> · <code>docs/research/</code></li>
+    </ul></div>
+    <div class="card"><h4>Dev-team workflow (D-014)</h4><ul>
+      <li>Never commit to <code>main</code></li>
+      <li>Feature branch → PR → <b>sub-agent self-review</b> → merge</li>
+      <li>Reference repos kept out of git</li>
+      <li>8 PRs shipped this way; reviews caught a wrong answer key, a silent grading bug, and two keys-day failure modes</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ STATUS ============ -->
+<section role="tabpanel" id="status">
+  <h2>Status &amp; Roadmap</h2>
+
+  <div class="note ok"><strong>Verified ready for keys day.</strong> Everything that can run
+    without external API access runs, is tested, and is lint-clean. What remains is genuinely
+    gated on keys or on human work — never on missing code.</div>
+
+  <h3>Readiness — done without keys</h3>
+  <div class="grid g2">
+    <div class="card"><h4>✔ Complete &amp; verified</h4><ul>
+      <li>Full S0–S5 pipeline code + provider adapters + dual-judge</li>
+      <li>240-item v0-seed pool (12 tracks × 10 domains × 2), schema-valid, canary-wrapped</li>
+      <li>Orchestration with resume, retry, error-abort, atomic writes, run-config sidecar</li>
+      <li>Release gates (block shipping without S0 sources + S4 verdicts)</li>
+      <li>Both eval harnesses; offline mock end-to-end to release files</li>
+      <li>16 tests passing · ruff clean · runbook written</li>
+    </ul></div>
+    <div class="card"><h4>⏳ Correctly blocked</h4><ul>
+      <li><b>S2/S3 filtering</b> — needs the 4 provider API keys</li>
+      <li><b>S0 corpus</b> — license-reviewed source documents (human research)</li>
+      <li><b>S4 review</b> — native-speaker verdicts; all safety items</li>
+      <li><b>Scale</b> — 240 pilot seed → enough grounded candidates that ~2,500 survive</li>
+      <li><b>Endpoint validation</b> — real model pins, pricing, rate limits, judge agreement</li>
+    </ul></div>
+  </div>
+  <div class="note warn"><strong>The v0-seed is not a released benchmark.</strong> It is an
+    unfiltered, source-claim-only candidate pool. No dataset has been released; release gates
+    intentionally prevent producing an official-looking dataset from it today.</div>
+
+  <h3>Path to Phase 1 v1</h3>
+  <div class="timeline">
+    <div class="tl"><h4>Attach keys → smoke run</h4><div class="meta">pin models, run <code>--limit 10</code>, inspect yield</div></div>
+    <div class="tl"><h4>Filter the pool</h4><div class="meta">full 240 through S2 + S3; measure survival rate per language×domain</div></div>
+    <div class="tl"><h4>Build the S0 corpus</h4><div class="meta">license-reviewed sources; re-ground candidates so keys trace to real documents</div></div>
+    <div class="tl"><h4>Scale authoring</h4><div class="meta">generate enough grounded candidates that ~2,500 survive the panel</div></div>
+    <div class="tl"><h4>Expert review (S4)</h4><div class="meta">native-speaker verdicts; 100% of safety-tagged items</div></div>
+    <div class="tl"><h4>Release v2026.XX</h4><div class="meta">public + private split, leaderboard, arXiv paper, inspect_evals registration</div></div>
+    <div class="tl"><h4>Phases 2–4</h4><div class="meta">speech, then vision (incl. image generation), then Indian agent domains</div></div>
+  </div>
+
+  <h3>Longer horizon</h3>
+  <div class="grid g3">
+    <div class="card"><h3>Partnerships</h3><p>Court AI4Bharat's Indic LLM-Arena (contribute
+      prompts; align the agent phase with their Phase 3). AIKosh / IndiaAI as distribution channels.</p></div>
+    <div class="card"><h3>Renewal cadence</h3><p>Every 6 months: regenerate ~1/3 of items,
+      re-run all models, publish a dated version. A benchmark that stays hard.</p></div>
+    <div class="card"><h3>Toward 22 languages</h3><p>Urdu, Assamese and the rest join via
+      refresh waves as the schema already supports every scheduled language.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  IndiBench project wiki · generated from the repository's living documentation
+  (<code>docs/</code>). Source of truth remains <code>docs/DECISIONS.md</code> and
+  <code>docs/USER_INPUTS.md</code>. Code MIT · data CC-BY-4.0 · the private held-out split is never published.
+</footer>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = {};
+  document.querySelectorAll('section[role=tabpanel]').forEach(function(p){panels[p.id]=p;});
+  function select(id, push){
+    if(!panels[id]) id = 'overview';
+    tabs.forEach(function(t){
+      var on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', on ? 'true':'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    Object.keys(panels).forEach(function(k){panels[k].classList.toggle('active', k===id);});
+    if(push && location.hash !== '#'+id){history.replaceState(null,'','#'+id);}
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){select(t.dataset.tab, true);});
+    t.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        var d = e.key==='ArrowRight'?1:-1;
+        var n = (i+d+tabs.length)%tabs.length;
+        tabs[n].focus(); select(tabs[n].dataset.tab, true);
+      }
+    });
+  });
+  window.addEventListener('hashchange', function(){select(location.hash.slice(1), false);});
+  select(location.hash.slice(1) || 'overview', false);
+
+  // theme toggle: auto → light → dark → auto
+  var root = document.documentElement, btn = document.getElementById('themebtn');
+  var order = ['auto','light','dark'], labels = {auto:'◐ Auto',light:'☀ Light',dark:'☾ Dark'};
+  var saved = null;
+  try{ saved = localStorage.getItem('ib-theme'); }catch(e){}
+  if(saved){ root.setAttribute('data-theme', saved); }
+  btn.textContent = labels[root.getAttribute('data-theme')||'auto'];
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme')||'auto';
+    var next = order[(order.indexOf(cur)+1)%order.length];
+    root.setAttribute('data-theme', next);
+    btn.textContent = labels[next];
+    try{ localStorage.setItem('ib-theme', next); }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
