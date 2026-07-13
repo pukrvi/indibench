@@ -6,6 +6,7 @@ Provenance is stripped to coarse form before public release (see design §2).
 """
 
 from enum import Enum
+from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -134,6 +135,10 @@ class CandidateDraft(BaseModel):
     domain: Domain
     tags: list[Tag] = Field(default_factory=list)
     generator_model: str = ""
+    # S0 assigns this once a candidate is grounded in a registered document.
+    # It is deliberately optional for the v0 seed so that the seed remains a
+    # review queue, never release-ready material.
+    source_document_id: str | None = None
     grounding_note: str  # claimed source basis — verified in S2/S4, never trusted
     review_priority: str = "normal"  # "high" = needs native-speaker review first
 
@@ -148,5 +153,5 @@ class CandidateFile(BaseModel):
     so candidate files can never be mistaken for a release."""
 
     canary: str
-    status: str = "candidates-unfiltered"
+    status: Literal["candidates-unfiltered"] = "candidates-unfiltered"
     examples: list[CandidateDraft]

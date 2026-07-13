@@ -28,6 +28,8 @@ from collections import Counter
 from pathlib import Path
 
 from indibench import providers
+from indibench.pipeline.release_gate import load_audit_verdicts, require_release_evidence
+from indibench.pipeline.s0_corpus import load_source_manifest
 from indibench.pipeline.promote import promote
 from indibench.pipeline.s2_verify import verify_key
 from indibench.pipeline.s3_filter import PanelResult, run_panel, survives_filter
@@ -70,12 +72,22 @@ def main() -> None:
     parser.add_argument("--promote-to", type=Path, default=None,
                         help="write survivors as a versioned release under this dir")
     parser.add_argument("--version", default=None, help="release version, e.g. v2026.07")
+    parser.add_argument("--sources", type=Path, default=None,
+                        help="license-reviewed S0 source manifest JSONL (required for real release)")
+    parser.add_argument("--audit-verdicts", type=Path, default=None,
+                        help="S4 human-audit verdicts JSONL (required for real release)")
+    parser.add_argument("--allow-mock-release", action="store_true",
+                        help="TEST ONLY: permit --mock to write synthetic release files")
     parser.add_argument("--force-partial-promotion", action="store_true",
                         help="allow promotion even if not every candidate has been processed")
     args = parser.parse_args()
 
     if bool(args.promote_to) != bool(args.version):
         parser.error("--promote-to and --version must be used together")
+    if args.allow_mock_release and not args.mock:
+        parser.error("--allow-mock-release is valid only with --mock")
+    if args.promote_to and args.mock and not args.allow_mock_release:
+        parser.error("--mock cannot write a release without --allow-mock-release (test only)")
 
     if args.mock:
         providers.complete = _mock_complete
@@ -187,20 +199,47 @@ def main() -> None:
     print(f"s2-failed: {failed_s2} · errored: {errored}")
 
     if args.promote_to and args.version:
+        if args.skip_s2 and not args.mock:
+            raise SystemExit("REFUSING to promote: real releases require S2 verification")
         unprocessed = len(drafts) - len(done)
         if unprocessed > 0 and not args.force_partial_promotion:
             raise SystemExit(
                 f"REFUSING to promote: {unprocessed}/{len(drafts)} candidates were never "
                 f"processed. Finish the run, or pass --force-partial-promotion.")
+        surviving_drafts = [
+            draft for draft in drafts
+            if (record := done.get(draft.id)) and record.get("survived") and record.get("panel")
+        ]
+        sources = None
+        if not args.mock:
+            if not args.sources or not args.audit_verdicts:
+                raise SystemExit(
+                    "REFUSING to promote: real releases require --sources (S0 manifest) "
+                    "and --audit-verdicts (S4 evidence)"
+                )
+            sources = load_source_manifest(args.sources)
+            require_release_evidence(surviving_drafts, sources, load_audit_verdicts(args.audit_verdicts))
+
         filter_round = args.version
         items = []
-        for draft in drafts:
+        for draft in surviving_drafts:
             record = done.get(draft.id)
-            if not record or not record.get("survived") or not record.get("panel"):
-                continue
             results = [PanelResult(model_id=p["model"], answered_correctly=p["correct"],
                                    judged_ambiguous=p["ambiguous"]) for p in record["panel"]]
-            items.append(promote(draft, results, filter_round, verifier_models=list(args.judges)))
+            if args.mock:
+                # Mock releases only exercise S5 in tests and are never official.
+                from indibench.pipeline.s0_corpus import SourceDocument
+                source = SourceDocument(
+                    doc_id=draft.source_document_id or f"mock-{draft.id}",
+                    language=draft.language, domain=draft.domain, source_type="test-fixture",
+                    license="CC-BY-4.0", provenance_url="https://example.invalid/",
+                    content_sha256="0" * 64,
+                )
+                draft.source_document_id = source.doc_id
+            else:
+                source = sources[draft.source_document_id]  # validated above
+            items.append(promote(draft, results, filter_round,
+                                 verifier_models=list(args.judges), source=source))
         public, private = split_public_private(items, seed=2026)
         written = write_release(public, args.promote_to / "public", args.version,
                                 GUID_FILE.read_text().strip())

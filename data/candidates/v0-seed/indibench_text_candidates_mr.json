@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bombay Reorganisation Act 1960; Maharashtra Day = 1 May 1960",
    "review_priority": "high"
   },
@@ -31,6 +32,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bombay High Court established 1862 under Indian High Courts Act 1861",
    "review_priority": "high"
   },
@@ -47,6 +49,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Maharashtra EGS born of the 1972 drought; MEGS Act 1977 — precursor of MGNREGA",
    "review_priority": "high"
   },
@@ -61,6 +64,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "PESA 1996 applies to Fifth Schedule (tribal) areas; Maharashtra has notified PESA villages",
    "review_priority": "high"
   },
@@ -75,6 +79,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Hoyle–Narlikar theory of gravity; Jayant Narlikar founded IUCAA Pune",
    "review_priority": "high"
   },
@@ -89,6 +94,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "IUCAA = Inter-University Centre for Astronomy and Astrophysics, Pune",
    "review_priority": "high"
   },
@@ -103,6 +109,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Nasya = nasal administration, one of the five panchakarma procedures",
    "review_priority": "high"
   },
@@ -124,6 +131,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Honey can carry C. botulinum spores — infant botulism risk under 12 months (AAP/WHO guidance)",
    "review_priority": "high"
   },
@@ -138,6 +146,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 279A(9): states together 2/3 weight, Centre 1/3",
    "review_priority": "high"
   },
@@ -159,6 +168,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Electricity-bill SMS scam: victims made to install remote-access apps; widely documented by police advisories",
    "review_priority": "high"
   },
@@ -173,6 +183,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Alphonso (Hapus) GI covers five Konkan districts: Ratnagiri, Sindhudurg, Raigad, Thane, Palghar",
    "review_priority": "high"
   },
@@ -189,6 +200,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Pravara Sahakari Sakhar Karkhana, Pravaranagar (1950), Vitthalrao Vikhe Patil",
    "review_priority": "high"
   },
@@ -205,6 +217,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Coronation at Raigad fort, June 1674",
    "review_priority": "high"
   },
@@ -221,6 +234,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Trimurti/Sadashiva sculpture, Elephanta caves (UNESCO site)",
    "review_priority": "high"
   },
@@ -235,6 +249,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "V.S. Khandekar, Jnanpith 1974 for Yayati — first Marathi Jnanpith",
    "review_priority": "high"
   },
@@ -251,6 +266,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Dnyaneshwari composed at Nevasa (Ahmednagar district), c. 1290",
    "review_priority": "high"
   },
@@ -265,6 +281,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kalsubai (~1,646 m), Ahmednagar district",
    "review_priority": "high"
   },
@@ -279,6 +296,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Lonar lake — meteorite impact crater in basalt",
    "review_priority": "high"
   },
@@ -295,6 +313,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Tilak popularized/scaled sarvajanik Ganeshotsav from 1893 (reworded: Bhausaheb Rangari's 1892 'first' claim is documented, so 'who started' was contested)",
    "review_priority": "high"
   },
@@ -309,6 +328,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Ashadhi wari culminates at Pandharpur (Vitthal temple)",
    "review_priority": "high"
   }

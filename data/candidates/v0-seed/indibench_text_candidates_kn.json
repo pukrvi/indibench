@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Mysore State renamed Karnataka on 1 Nov 1973 (Devaraj Urs govt)",
    "review_priority": "high"
   },
@@ -29,6 +30,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Karnataka HC permanent benches at Dharwad and Kalaburagi (2013)",
    "review_priority": "high"
   },
@@ -45,6 +47,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Abdul Nazir Sab ('Neer Sab'), Karnataka Panchayat Raj Act 1983/85, implemented 1987",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bhagyalakshmi scheme (2006-): deposits for girl children of BPL families",
    "review_priority": "high"
   },
@@ -75,6 +79,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "IISc founded 1909 with J.N. Tata endowment + Mysore durbar land grant",
    "review_priority": "high"
   },
@@ -91,6 +96,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "KRS dam across the Kaveri near Srirangapatna; chief engineer M. Visvesvaraya",
    "review_priority": "high"
   },
@@ -105,6 +111,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Agada tantra = toxicology among Ayurveda's eight branches",
    "review_priority": "high"
   },
@@ -126,6 +133,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Jaundice may indicate viral hepatitis/liver disease; delayed care risks liver failure — standard hepatology guidance",
    "review_priority": "high"
   },
@@ -140,6 +148,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Karnataka registration: 'guidance value' (circle rate equivalent) fixes minimum stamp-duty valuation",
    "review_priority": "high"
   },
@@ -161,6 +170,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RBI/bank advisories: remote-access app scams let fraudsters view OTPs and drain accounts",
    "review_priority": "high"
   },
@@ -175,6 +185,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Coffee Board data: Karnataka ~70% of India's coffee (Kodagu, Chikkamagaluru, Hassan); judge should accept 65-75% range",
    "review_priority": "high"
   },
@@ -189,6 +200,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Byadgi chilli (GI tag) — famed deep-red, low-pungency dry chilli market",
    "review_priority": "high"
   },
@@ -205,6 +217,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Vijayanagara founded 1336 by Harihara I and Bukka Raya I",
    "review_priority": "high"
   },
@@ -221,6 +234,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Pulakeshin II defeated Harshavardhana on the Narmada (Aihole inscription)",
    "review_priority": "high"
   },
@@ -235,6 +249,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kuvempu, Jnanpith 1967 for Sri Ramayana Darshanam",
    "review_priority": "high"
   },
@@ -251,6 +266,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kavirajamarga (c. 850 CE, Amoghavarsha era) — earliest extant Kannada work",
    "review_priority": "high"
   },
@@ -265,6 +281,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Mullayanagiri (~1,930 m), Chikkamagaluru district",
    "review_priority": "high"
   },
@@ -279,6 +296,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Jog Falls on the Sharavati river, Shivamogga-Uttara Kannada border",
    "review_priority": "high"
   },
@@ -293,6 +311,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Mysuru Dasara: Chamundeshwari idol in the golden howdah",
    "review_priority": "high"
   },
@@ -307,6 +326,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kambala — buffalo race in slushy paddy tracks, coastal Karnataka",
    "review_priority": "high"
   }

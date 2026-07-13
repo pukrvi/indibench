@@ -1,6 +1,6 @@
 # Folder Map — /IndiBench
 
-Last updated: 2026-07-13 (alignment phase). Update whenever files/folders change.
+Last updated: 2026-07-13 (build phase; implementation audit). Update whenever files/folders change.
 
 Git: this folder is the working copy of https://github.com/pukrvi/indibench
 (MIT). `benchmarks/` and `.claude/` are gitignored. Workflow: feature branches
@@ -19,18 +19,20 @@ IndiBench/
 ├── LMBench_References.md      # Owner's curated reference list of benchmark repos (original input)
 ├── src/indibench/             # Package: schema.py (D-030/031/038 + CandidateDraft), canary.py (D-013),
 │   │                          #   providers.py (env-key adapter, D-042), judging.py (dual-judge, D-035)
-│   └── pipeline/              # S0–S5 stages; S1/S2/S3 LLM paths implemented (need keys),
-│                              #   S3 survival/S4 gates/S5 release pure logic tested
+│   └── pipeline/              # S0–S5 stages + release_gate.py. S0 manifest, S2/S3 filtering,
+│                              #   S4 audit evidence and S5 release gates are separated/tested.
 ├── scripts/
 │   └── assemble_candidates.py # authoring JSONL → validated canary-wrapped candidate files
+│   └── run_filter.py          # S2→S3 orchestrator; real promotion requires S0+S4 evidence
 ├── evals/
 │   ├── inspect/indibench_text.py   # Inspect AI task (D-012; inspect_evals/hle pattern)
 │   └── standalone/predict.py, judge.py  # HLE-style zero-framework local eval (D-015)
-├── tests/                     # Unit tests for pure pipeline logic (7 passing)
+├── tests/                     # Unit + offline integration tests (release gate included)
 ├── data/
 │   ├── CANARY_GUID            # fixed canary GUID for this release line
 │   └── candidates/            # v0-seed UNFILTERED pool (D-041): authoring/*.jsonl + v0-seed/*.json
-│                              #   240 items, 12 tracks × 10 domains × 2 — awaiting S2-S4 with API keys
+│                              #   240 items, 12 tracks × 10 domains × 2 — candidate-only, not S0 grounded
+│   └── sources/               # S0 manifest format; empty until licenses + source records are reviewed
 ├── docs/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)
@@ -44,6 +46,7 @@ IndiBench/
 │       ├── 2026-07-12-indic-landscape.md    # Competitive landscape; IndQA analysis; niche verdict
 │       ├── 2026-07-12-harness-and-arena.md  # Inspect AI / LM Arena / renewable benchmarks / tau2
 │       └── 2026-07-13-benchmark-audit.md    # 20-benchmark audit (Input 003): right/wrong + synthesis
+│       └── 2026-07-13-implementation-audit.md # Code/data audit: corrected release-evidence gaps
 └── benchmarks/                # REFERENCE REPOS (gitignored) — read-only study material, not our code
     ├── BhashaBench-main/          # BharatGen: ~74k domain MCQs (agri/finance/legal/ayur), En+Hi.
     │                              #   lm-eval-harness fork. Pattern: _default_template_yaml + per-lang YAMLs.
@@ -92,8 +95,8 @@ git clone --depth 1 https://github.com/alexa/massive                 benchmarks/
 git clone --depth 1 https://github.com/lingo-iitgn/COMI-LINGUA       benchmarks/COMI-LINGUA-ref
 ```
 
-## Planned additions (once alignment closes)
+## Planned additions
 
-- Our own benchmark code + data pipeline (structure TBD after Batch 3+ —
-  likely: `src/` or a named package, `data/` with public/private splits,
-  `pipeline/` for synthetic generation, `evals/` for Inspect AI tasks).
+- License-reviewed S0 source manifests and the private grounding corpus.
+- S4 expert-audit verdict files; only then can a filtered candidate pool be
+  promoted into an official public/private release.

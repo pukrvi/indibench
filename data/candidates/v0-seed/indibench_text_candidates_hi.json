@@ -13,6 +13,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "92nd Amendment Act 2003 added Bodo, Dogri, Maithili, Santali; Ol Chiki is Santali's script (reworded: Maithili/Tirhuta and Dogri/Takri made the 'not Devanagari' framing ambiguous)",
    "review_priority": "normal"
   },
@@ -27,6 +28,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 243ZD, Part IXA, Constitution of India — District Planning Committee",
    "review_priority": "normal"
   },
@@ -41,6 +43,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "PESA Act 1996 extends Part IX (Panchayats) provisions to Fifth Schedule areas",
    "review_priority": "normal"
   },
@@ -55,6 +58,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Balwant Rai Mehta Committee report 1957: village panchayat, panchayat samiti, zila parishad",
    "review_priority": "normal"
   },
@@ -71,6 +75,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Raman effect announced 28 Feb 1928; National Science Day since 1987",
    "review_priority": "normal"
   },
@@ -87,6 +92,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Aryabhata launched 19 April 1975 on Soviet Kosmos-3M from Kapustin Yar",
    "review_priority": "normal"
   },
@@ -101,6 +107,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Charaka Samhita = internal medicine (kayachikitsa); Sushruta Samhita = surgery (shalya)",
    "review_priority": "normal"
   },
@@ -122,6 +129,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Type-1 diabetes: absolute insulin deficiency; stopping insulin risks DKA — standard endocrinology",
    "review_priority": "normal"
   },
@@ -136,6 +144,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 279A(9): decisions by 3/4 weighted votes; Centre = 1/3 weight, states together 2/3",
    "review_priority": "normal"
   },
@@ -157,6 +166,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "NPCI UPI design: PIN authorizes debits only; 'enter PIN to receive money' is a standard fraud pattern",
    "review_priority": "normal"
   },
@@ -171,6 +181,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "HD series wheat varieties bred at IARI (Pusa), New Delhi",
    "review_priority": "normal"
   },
@@ -185,6 +196,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Feb 2024 Bharat Ratna announcements: M.S. Swaminathan, Charan Singh, P.V. Narasimha Rao (also Karpoori Thakur, L.K. Advani that year)",
    "review_priority": "normal"
   },
@@ -201,6 +213,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Prayaga Prashasti composed by Harishena, court poet of Samudragupta",
    "review_priority": "normal"
   },
@@ -217,6 +230,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Major Rock Edict XIII describes Kalinga war and Ashoka's remorse",
    "review_priority": "normal"
   },
@@ -231,6 +245,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sumitranandan Pant received Jnanpith 1968 for Chidambara — first Hindi Jnanpith",
    "review_priority": "normal"
   },
@@ -245,6 +260,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Maila Anchal (1954) set in Meriganj, Purnea (Purnia) district, Bihar",
    "review_priority": "normal"
   },
@@ -259,6 +275,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chambal: rises in MP (Janapav), flows through Rajasthan, joins Yamuna in UP",
    "review_priority": "normal"
   },
@@ -273,6 +290,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Nilgiri Biosphere Reserve, established 1986 — first in India",
    "review_priority": "normal"
   },
@@ -287,6 +305,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chhath day 2 = Kharna: vratis take gur-kheer (rasiyav) and roti after sunset",
    "review_priority": "normal"
   },
@@ -301,6 +320,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "IRCTC Tatkal: AC classes 10:00, non-AC 11:00, one day before journey (stable for years)",
    "review_priority": "normal"
   }

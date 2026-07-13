@@ -6,8 +6,7 @@ results, and provenance is coarsened for public release (the full
 grounding_note stays in private pipeline records; only a hash ships).
 """
 
-import hashlib
-
+from indibench.pipeline.s0_corpus import SourceDocument
 from indibench.pipeline.s3_filter import PanelResult, survives_filter
 from indibench.schema import CandidateDraft, DifficultyEvidence, Item, Provenance
 
@@ -17,14 +16,18 @@ def promote(
     results: list[PanelResult],
     filter_round: str,
     verifier_models: list[str],
-    source_type: str = "parametric-draft",
+    source: SourceDocument,
 ) -> Item:
     """Convert a surviving draft to a release Item. Raises if the draft did
-    not actually survive the filter or has no assembly id."""
+    not survive, has no assembly id, or lacks a matching registered S0 source."""
     if not draft.id:
         raise ValueError("draft has no id — run scripts/assemble_candidates.py first")
     if not draft.id.startswith("ibc-"):
         raise ValueError(f"unexpected candidate id prefix: {draft.id}")
+    if draft.source_document_id != source.doc_id:
+        raise ValueError(f"{draft.id} is not linked to source {source.doc_id}")
+    if source.language != draft.language or source.domain != draft.domain:
+        raise ValueError(f"{draft.id} source language/domain does not match candidate")
     if not survives_filter(results):
         raise ValueError(f"{draft.id} did not survive the filter — cannot promote")
     return Item(
@@ -43,8 +46,8 @@ def promote(
             filter_round=filter_round,
         ),
         provenance=Provenance(
-            source_type=source_type,
-            source_ref=hashlib.sha256(draft.grounding_note.encode()).hexdigest()[:12],
+            source_type=source.source_type,
+            source_ref=source.content_sha256[:12],
             generator_model=draft.generator_model,
             verifier_models=verifier_models,
         ),

@@ -13,6 +13,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 22(2) + CrPC/BNSS: production before magistrate within 24 hours excluding journey time",
    "review_priority": "normal"
   },
@@ -27,6 +28,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RTI Act 2005 s.7(1): 30 days (48 hours for life/liberty matters)",
    "review_priority": "normal"
   },
@@ -43,6 +45,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "MOM launched Nov 2013, orbit insertion Sep 2014 — first nation to succeed on first Mars attempt",
    "review_priority": "normal"
   },
@@ -64,6 +67,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Antibiotics act on bacteria, not viruses; misuse drives AMR — ICMR/WHO messaging",
    "review_priority": "normal"
   },
@@ -85,6 +89,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Revolving credit: interest on unpaid balance + loss of grace period — RBI financial-literacy material",
    "review_priority": "normal"
   },
@@ -99,6 +104,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "PM-KISAN: ₹6,000/year in three ₹2,000 instalments via DBT",
    "review_priority": "normal"
   },
@@ -115,6 +121,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Meerut sepoy uprising began 10 May 1857",
    "review_priority": "normal"
   },
@@ -129,6 +136,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Madhushala (1935) by Harivansh Rai Bachchan",
    "review_priority": "normal"
   },
@@ -143,6 +151,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sundarbans — Ganga-Brahmaputra (Meghna) delta",
    "review_priority": "normal"
   },
@@ -157,6 +166,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "IRCTC Tatkal: AC 10:00, non-AC/sleeper 11:00, one day before journey",
    "review_priority": "normal"
   }

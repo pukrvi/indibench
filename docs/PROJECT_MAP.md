@@ -1,6 +1,6 @@
 # Project Map — IndiBench
 
-Last updated: 2026-07-13 (alignment phase, after Batch 7 / Input 003c — Phase 1 alignment converged).
+Last updated: 2026-07-13 (build phase; post implementation audit).
 This is the living picture of WHAT we're building and WHERE each workstream stands.
 Intent source of truth: `docs/USER_INPUTS.md`. Decision source of truth: `docs/DECISIONS.md`.
 
@@ -87,10 +87,10 @@ require a schema break.
 | Public README | ✅ Rewritten to carry the project idea (Input 004 / D-040) |
 | Repo scaffold | ✅ Package + schema + canary + S0–S5 stage modules + Inspect task + standalone predict/judge + tests + CONTRIBUTING + issue template |
 | Pipeline LLM plumbing | ✅ providers.py adapter (OpenAI/Anthropic/Google/Sarvam via env keys) + judging.py dual-judge + S1/S2/S3 implemented (D-042) — runnable the moment keys are plugged in |
-| **v0-seed candidate pool (D-041)** | ✅ 240 candidates authored in-session: 12 tracks × 10 domains × 2, native-script, schema-validated, canary-wrapped, status=candidates-unfiltered |
-| S0 grounding corpus | ⏳ Open milestone (proposed licensing policy drafted) |
-| **Pre-keys readiness audit** | ✅ 14 tests passing; full offline mock dry-run of filter→promote→release over all 240 items; Inspect harness grading verified with scripted mock; resumability tested; runbook written (docs/RUNBOOK.md) |
-| S2→S4 filtering of v0-seed | ⏳ **Blocked on API keys only** — run per docs/RUNBOOK.md the moment keys are exported |
+| **v0-seed candidate pool (D-041)** | 🟡 240 in-session-authored candidates: 12 tracks × 10 domains × 2, native-script, schema-validated, canary-wrapped, **unfiltered and not source-grounded** — pilot/review queue only |
+| S0 grounding corpus | ⏳ Open milestone — source-manifest validator now implemented, but no reviewed corpus/source links exist yet |
+| **Pre-keys implementation audit** | ✅ Release-evidence gates added; tests cover keyless filtering, release refusal, mock flow and source/audit guards. See `docs/research/2026-07-13-implementation-audit.md` |
+| S2→S4 filtering of v0-seed | 🟠 API keys allow S2/S3 review only. **Official release additionally blocked on S0 source records + S4 expert verdicts**. |
 
 ## Known open questions (feeding Batch 8+)
 

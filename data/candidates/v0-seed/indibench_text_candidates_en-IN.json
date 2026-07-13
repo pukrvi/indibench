@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kesavananda Bharati (13-judge bench), 24 April 1973",
    "review_priority": "normal"
   },
@@ -29,6 +30,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 356(3): proclamation lapses at two months without parliamentary approval",
    "review_priority": "normal"
   },
@@ -43,6 +45,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 280: Finance Commission constituted every five years",
    "review_priority": "normal"
   },
@@ -57,6 +60,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "74th CAA 1992 added the Twelfth Schedule (18 municipal functions)",
    "review_priority": "normal"
   },
@@ -71,6 +75,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "S. Chandrasekhar (Nobel 1983): white-dwarf mass limit ≈1.4 M☉",
    "review_priority": "normal"
   },
@@ -87,6 +92,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chandrayaan-1 (M3 instrument + MIP) — lunar water discovery, 2009",
    "review_priority": "normal"
   },
@@ -103,6 +109,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "DMR(OA) Act 1954 bans advertisements claiming cures for scheduled diseases",
    "review_priority": "normal"
   },
@@ -119,6 +126,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sushruta Samhita — forehead-flap rhinoplasty described",
    "review_priority": "normal"
   },
@@ -133,6 +141,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Constitution (101st Amendment) Act 2016; GST Council under Art 279A",
    "review_priority": "normal"
   },
@@ -147,6 +156,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "DICGC cover raised to ₹5 lakh in 2020 (from ₹1 lakh)",
    "review_priority": "normal"
   },
@@ -161,6 +171,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "FRP under Sugarcane (Control) Order, announced by CCEA on CACP advice",
    "review_priority": "normal"
   },
@@ -177,6 +188,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Operation Flood launched 1970, NDDB under Verghese Kurien",
    "review_priority": "normal"
   },
@@ -193,6 +205,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Uttaramerur (Kanchipuram dist.) inscriptions, c. 920 CE, Parantaka I",
    "review_priority": "normal"
   },
@@ -209,6 +222,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Hathigumpha inscription (Udayagiri) — Kharavela of the Mahameghavahana dynasty",
    "review_priority": "normal"
   },
@@ -225,6 +239,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Panini's Ashtadhyayi (~4th c. BCE), ~3,996 sutras",
    "review_priority": "normal"
   },
@@ -241,6 +256,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Natyashastra attributed to Bharata Muni (c. 200 BCE-200 CE)",
    "review_priority": "normal"
   },
@@ -255,6 +271,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Majuli island, Assam — Brahmaputra river",
    "review_priority": "normal"
   },
@@ -269,6 +286,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "India's first Ramsar designations (1981): Chilika and Keoladeo Ghana",
    "review_priority": "normal"
   },
@@ -283,6 +301,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RAC — shared berth entitlement, confirms on cancellations",
    "review_priority": "normal"
   },
@@ -297,6 +316,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kumbh cycle: Prayagraj, Haridwar, Ujjain, Nashik (UNESCO ICH 2017)",
    "review_priority": "normal"
   }
