@@ -34,6 +34,7 @@ IndiBench/
 ├── docs/
 │   ├── USER_INPUTS.md         # VERBATIM record of all owner inputs (source of truth for intent)
 │   ├── DECISIONS.md           # Alignment-loop decisions log (every Q, every A, D-### decisions)
+│   ├── RUNBOOK.md             # Readiness status + exact commands for the keys-attached filter run
 │   ├── THESIS.md              # The India-is-multimodal thesis (D-024, from Input 003)
 │   ├── FOLDER_MAP.md          # This file
 │   ├── PROJECT_MAP.md         # What we're building: phases, workstream status

@@ -52,9 +52,10 @@ def _require_env(name: str) -> str:
 
 def _openai_compatible(model, system, user, max_tokens, temperature,
                        api_key_env, base_url_env, token_param) -> str:
+    api_key = _require_env(api_key_env)  # key check BEFORE SDK import: clearer failure
     from openai import OpenAI
 
-    client = OpenAI(api_key=_require_env(api_key_env),
+    client = OpenAI(api_key=api_key,
                     base_url=os.environ.get(base_url_env) or None)
     kwargs = {token_param: max_tokens}
     if temperature is not None:
@@ -69,9 +70,10 @@ def _openai_compatible(model, system, user, max_tokens, temperature,
 
 
 def _anthropic(model, system, user, max_tokens, temperature) -> str:
+    api_key = _require_env("ANTHROPIC_API_KEY")
     from anthropic import Anthropic
 
-    client = Anthropic(api_key=_require_env("ANTHROPIC_API_KEY"))
+    client = Anthropic(api_key=api_key)
     kwargs = {} if temperature is None else {"temperature": temperature}
     response = client.messages.create(
         model=model,
@@ -84,10 +86,11 @@ def _anthropic(model, system, user, max_tokens, temperature) -> str:
 
 
 def _google(model, system, user, max_tokens, temperature) -> str:
+    api_key = _require_env("GOOGLE_API_KEY")
     from google import genai
     from google.genai import types
 
-    client = genai.Client(api_key=_require_env("GOOGLE_API_KEY"))
+    client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model=model,
         contents=user,

@@ -11,3 +11,7 @@ __pycache__/
 
 # Local Claude session state (commit .claude/settings.json explicitly if ever needed)
 .claude/
+
+# Filter run outputs — results are per-run; private splits must never be committed (D-032)
+data/filter_results.jsonl
+data/releases/private/

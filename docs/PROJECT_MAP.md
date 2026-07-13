@@ -89,7 +89,8 @@ require a schema break.
 | Pipeline LLM plumbing | ✅ providers.py adapter (OpenAI/Anthropic/Google/Sarvam via env keys) + judging.py dual-judge + S1/S2/S3 implemented (D-042) — runnable the moment keys are plugged in |
 | **v0-seed candidate pool (D-041)** | ✅ 240 candidates authored in-session: 12 tracks × 10 domains × 2, native-script, schema-validated, canary-wrapped, status=candidates-unfiltered |
 | S0 grounding corpus | ⏳ Open milestone (proposed licensing policy drafted) |
-| S2→S4 filtering of v0-seed | ⏳ **Blocked on API keys** (owner: "then we will plug the API keys to review and make it better") |
+| **Pre-keys readiness audit** | ✅ 14 tests passing; full offline mock dry-run of filter→promote→release over all 240 items; Inspect harness grading verified with scripted mock; resumability tested; runbook written (docs/RUNBOOK.md) |
+| S2→S4 filtering of v0-seed | ⏳ **Blocked on API keys only** — run per docs/RUNBOOK.md the moment keys are exported |
 
 ## Known open questions (feeding Batch 8+)
 
