@@ -61,6 +61,19 @@ class AnswerType(str, Enum):
     MULTIPLE_CHOICE = "multipleChoice"
 
 
+def _validate_mcq(answer_type: "AnswerType", answer: str, choices: list[str] | None) -> None:
+    if answer_type is AnswerType.MULTIPLE_CHOICE:
+        if not choices:
+            raise ValueError("multipleChoice items require choices")
+        if len(choices) > MAX_CHOICES:
+            raise ValueError(f"at most {MAX_CHOICES} choices (rendered A–H)")
+        valid_letters = {chr(ord("A") + i) for i in range(len(choices))}
+        if answer not in valid_letters:
+            raise ValueError(f"multipleChoice answer must be one of {sorted(valid_letters)}")
+    elif choices:
+        raise ValueError("exactMatch items must not carry choices")
+
+
 class DifficultyEvidence(BaseModel):
     """Why an item survived the S3 adversarial filter (D-029/D-035)."""
 
@@ -95,16 +108,7 @@ class Item(BaseModel):
 
     @model_validator(mode="after")
     def _check_choices(self) -> "Item":
-        if self.answer_type is AnswerType.MULTIPLE_CHOICE:
-            if not self.choices:
-                raise ValueError("multipleChoice items require choices")
-            if len(self.choices) > MAX_CHOICES:
-                raise ValueError(f"at most {MAX_CHOICES} choices (rendered A–H)")
-            valid_letters = {chr(ord("A") + i) for i in range(len(self.choices))}
-            if self.answer not in valid_letters:
-                raise ValueError(f"multipleChoice answer must be one of {sorted(valid_letters)}")
-        elif self.choices:
-            raise ValueError("exactMatch items must not carry choices")
+        _validate_mcq(self.answer_type, self.answer, self.choices)
         return self
 
 
@@ -113,3 +117,36 @@ class DatasetFile(BaseModel):
 
     canary: str
     examples: list[Item]
+
+
+class CandidateDraft(BaseModel):
+    """S1 output (D-041): an authored candidate awaiting S2 verification,
+    S3 adversarial filtering, and S4 spot-check. Becomes an Item only after
+    surviving S3 (which is when difficulty_evidence exists)."""
+
+    id: str | None = None  # assigned at assembly: ibc-<lang>-<domain>-<uuid8>
+    question: str
+    answer: str  # exactMatch: short answer; multipleChoice: option LETTER
+    answer_type: AnswerType
+    choices: list[str] | None = None
+    language: Language
+    script: str
+    domain: Domain
+    tags: list[Tag] = Field(default_factory=list)
+    generator_model: str = ""
+    grounding_note: str  # claimed source basis — verified in S2/S4, never trusted
+    review_priority: str = "normal"  # "high" = needs native-speaker review first
+
+    @model_validator(mode="after")
+    def _check_choices(self) -> "CandidateDraft":
+        _validate_mcq(self.answer_type, self.answer, self.choices)
+        return self
+
+
+class CandidateFile(BaseModel):
+    """A canary-wrapped candidate pool file. status makes UNFILTERED explicit
+    so candidate files can never be mistaken for a release."""
+
+    canary: str
+    status: str = "candidates-unfiltered"
+    examples: list[CandidateDraft]

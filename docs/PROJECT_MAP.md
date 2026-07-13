@@ -85,8 +85,11 @@ require a schema break.
 | Git/GitHub dev workflow | ✅ Live (PR #1 merged with sub-agent review) |
 | Phase 1 design doc | 🟢 v0.3 — all core parameters locked; implementation-blocking items down to source licensing (S0) |
 | Public README | ✅ Rewritten to carry the project idea (Input 004 / D-040) |
-| Repo scaffold | ✅ Package + schema + canary + S0–S5 stage modules + Inspect task + standalone predict/judge + tests (6 passing) + CONTRIBUTING + issue template |
-| Pipeline LLM plumbing (S0–S2, S3 panel calls) | ⏳ Next build milestone — then the 1-language×2-domain pilot to measure filter yield |
+| Repo scaffold | ✅ Package + schema + canary + S0–S5 stage modules + Inspect task + standalone predict/judge + tests + CONTRIBUTING + issue template |
+| Pipeline LLM plumbing | ✅ providers.py adapter (OpenAI/Anthropic/Google/Sarvam via env keys) + judging.py dual-judge + S1/S2/S3 implemented (D-042) — runnable the moment keys are plugged in |
+| **v0-seed candidate pool (D-041)** | ✅ 240 candidates authored in-session: 12 tracks × 10 domains × 2, native-script, schema-validated, canary-wrapped, status=candidates-unfiltered |
+| S0 grounding corpus | ⏳ Open milestone (proposed licensing policy drafted) |
+| S2→S4 filtering of v0-seed | ⏳ **Blocked on API keys** (owner: "then we will plug the API keys to review and make it better") |
 
 ## Known open questions (feeding Batch 8+)
 
