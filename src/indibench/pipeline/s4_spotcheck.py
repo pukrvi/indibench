@@ -11,8 +11,9 @@ from dataclasses import dataclass
 
 from indibench.schema import Item, Tag
 
-DEFAULT_SAMPLE_RATE = 0.10  # D-010 note (tunable)
-CELL_REJECTION_THRESHOLD = 0.05  # >5% audited-sample error ⇒ regenerate cell
+DEFAULT_SAMPLE_RATE = 0.10  # D-010 note (proposed default, tunable)
+# Proposed default, tunable: aligns with design §1's <3% wrong-key target.
+CELL_REJECTION_THRESHOLD = 0.03  # >3% audited-sample error ⇒ regenerate cell
 
 
 @dataclass

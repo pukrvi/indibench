@@ -14,10 +14,20 @@ import argparse
 import asyncio
 import json
 import math
+import os
+import tempfile
 from pathlib import Path
 
 from openai import AsyncOpenAI
 from pydantic import BaseModel
+
+
+def atomic_write_json(path: Path, payload: dict) -> None:
+    """Write via temp file + rename so an interrupted run never corrupts the cache."""
+    fd, tmp = tempfile.mkstemp(dir=path.parent or ".", suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, path)
 
 JUDGE_PROMPT = """Judge whether the [response]'s final answer is equivalent to the
 [correct_answer], allowing small numerical tolerance and treating
@@ -39,7 +49,7 @@ class Verdict(BaseModel):
 async def judge_one(client: AsyncOpenAI, judge: str, item: dict, prediction: dict,
                     sem: asyncio.Semaphore) -> tuple[str, dict]:
     async with sem:
-        completion = await client.beta.chat.completions.parse(
+        completion = await client.chat.completions.parse(
             model=judge,
             messages=[{
                 "role": "user",
@@ -59,14 +69,13 @@ def calibration_error_rms(confidences: list[float], correctness: list[bool],
                           bin_size: int = 100) -> float:
     """RMS calibration error over confidence-sorted bins (HLE's method)."""
     paired = sorted(zip(confidences, correctness))
-    total, acc = 0.0, 0
+    total = 0.0
     n = len(paired)
     for start in range(0, n, bin_size):
         chunk = paired[start:start + bin_size]
         mean_conf = sum(c for c, _ in chunk) / len(chunk)
         mean_acc = 100.0 * sum(1 for _, ok in chunk if ok) / len(chunk)
         total += len(chunk) * (mean_conf - mean_acc) ** 2
-        acc += 1
     return math.sqrt(total / n) if n else 0.0
 
 
@@ -80,7 +89,10 @@ async def main() -> None:
 
     items = {ex["id"]: ex for ex in json.loads(Path(args.data).read_text())["examples"]}
     predictions = json.loads(Path(args.predictions).read_text())
-    out_path = Path(f"judged_{Path(args.predictions).stem}_{args.judge.replace('/', '_')}.json")
+    data_stem = Path(args.data).stem
+    out_path = Path(
+        f"judged_{data_stem}_{Path(args.predictions).stem}_{args.judge.replace('/', '_')}.json"
+    )
     judged: dict = json.loads(out_path.read_text()) if out_path.exists() else {}
 
     client = AsyncOpenAI()
@@ -90,16 +102,24 @@ async def main() -> None:
         try:
             item_id, verdict = await coro
             judged[item_id] = verdict
-            out_path.write_text(json.dumps(judged, ensure_ascii=False, indent=1))
+            atomic_write_json(out_path, judged)
         except Exception as exc:
             print(f"error: {exc}")
 
-    n = len(judged)
-    correct = [v["correct"] for v in judged.values()]
-    confidence = [float(v["confidence"]) for v in judged.values()]
-    accuracy = 100.0 * sum(correct) / n if n else 0.0
-    ci = 1.96 * math.sqrt(accuracy * (100 - accuracy) / n) if n else 0.0
-    print(f"n={n}  accuracy={accuracy:.2f}% ± {ci:.2f}%  "
+    # Metrics over the FULL dataset (HLE convention): an item with no judged
+    # prediction counts as incorrect; calibration uses judged items only.
+    total_n = len(items)
+    judged_in_data = {i: v for i, v in judged.items() if i in items}
+    missing = total_n - len(judged_in_data)
+    if missing:
+        print(f"warning: {missing}/{total_n} items have no judged prediction "
+              f"(counted as incorrect in accuracy)")
+    n_correct = sum(1 for v in judged_in_data.values() if v["correct"])
+    correct = [v["correct"] for v in judged_in_data.values()]
+    confidence = [float(v["confidence"]) for v in judged_in_data.values()]
+    accuracy = 100.0 * n_correct / total_n if total_n else 0.0
+    ci = 1.96 * math.sqrt(accuracy * (100 - accuracy) / total_n) if total_n else 0.0
+    print(f"n={total_n}  accuracy={accuracy:.2f}% ± {ci:.2f}%  "
           f"calibration_error(RMS)={calibration_error_rms(confidence, correct):.1f}")
 
 

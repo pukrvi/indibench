@@ -1,8 +1,8 @@
 # IndiBench
 
-**Only benchmark you need to evaluate AI, LLMs, and Agents on Indian Languages
-and Tasks** — open, lab-neutral, and frontier-hard, across text, speech,
-vision, and agentic use cases.
+**Aiming to be the only benchmark you need to evaluate AI, LLMs, and Agents on
+Indian Languages and Tasks** — open, lab-neutral, and frontier-hard, across
+text, speech, vision, and agentic use cases.
 
 > Today's best models should score *low* on IndiBench. That's the point.
 

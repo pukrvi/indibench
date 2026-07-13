@@ -1,9 +1,9 @@
 """S5 — Assembly & versioned release (design §3, D-013/D-032).
 
 Injects the canary, carves the private held-out split, stamps the version.
-Public: ~2,500 items. Private: ~500 (~20%), never published (D-032).
-Refresh waves every 6 months replace ~1/3 of public items (oldest/easiest
-first) around a stable anchor subset.
+Public: ~2,500 items. Private: ~500 — sized at ~20% of the PUBLIC set
+(D-032), i.e. 1/6 of the total pool. Refresh waves every 6 months replace
+~1/3 of public items (oldest/easiest first) around a stable anchor subset.
 """
 
 import json
@@ -13,23 +13,30 @@ from pathlib import Path
 from indibench.canary import make_canary
 from indibench.schema import DatasetFile, Item
 
-PRIVATE_FRACTION = 0.20  # D-032
+# D-032: private ≈ 20% of the public set ⇒ 1/6 of the total generated pool.
+PRIVATE_FRACTION_OF_TOTAL = 1 / 6
 
 
 def split_public_private(
-    items: list[Item], seed: int, private_fraction: float = PRIVATE_FRACTION
+    items: list[Item], seed: int, private_fraction: float = PRIVATE_FRACTION_OF_TOTAL
 ) -> tuple[list[Item], list[Item]]:
     """Deterministic public/private split, stratified by language track so the
-    private split can detect overfitting per language, not just overall."""
-    rng = random.Random(seed)
+    private split can detect overfitting per language, not just overall.
+
+    Determinism is w.r.t. the item SET, not input order: cells are processed
+    in sorted language order, sorted by id, with a per-language RNG derived
+    from (seed, language). Caveat: cells smaller than ~1/private_fraction
+    items round to zero private items — release tooling must check
+    per-language private counts before shipping.
+    """
     by_lang: dict[str, list[Item]] = {}
     for item in items:
         by_lang.setdefault(item.language.value, []).append(item)
     public: list[Item] = []
     private: list[Item] = []
-    for lang_items in by_lang.values():
-        shuffled = lang_items[:]
-        rng.shuffle(shuffled)
+    for lang, lang_items in sorted(by_lang.items()):
+        shuffled = sorted(lang_items, key=lambda i: i.id)
+        random.Random(f"{seed}:{lang}").shuffle(shuffled)
         n_private = round(len(shuffled) * private_fraction)
         private.extend(shuffled[:n_private])
         public.extend(shuffled[n_private:])

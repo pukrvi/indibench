@@ -33,7 +33,9 @@ not the explanation.
 
 [question]: {question}
 [answer]: {answer}
-[criterion]: {criterion}"""
+[criterion]: {criterion}
+
+{instructions}"""
 
 
 def _load_samples(data_file: str) -> list[Sample]:

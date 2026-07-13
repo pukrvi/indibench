@@ -39,13 +39,13 @@ def test_filter_discards_ambiguous_even_if_hard():
     assert not survives_filter(_panel(4, ambiguous=True))
 
 
-def _item(tags: list[Tag]) -> Item:
+def _item(tags: list[Tag], language: Language = Language.HINDI) -> Item:
     return Item(
-        id=f"ibt-hi-law_constitution-{uuid.uuid4().hex[:8]}",
+        id=f"ibt-{language.value}-law_constitution-{uuid.uuid4().hex[:8]}",
         question="q",
         answer="a",
         answer_type=AnswerType.EXACT_MATCH,
-        language=Language.HINDI,
+        language=language,
         script="Deva",
         domain=Domain.LAW_CONSTITUTION,
         tags=tags,
@@ -72,13 +72,37 @@ def test_cell_gate():
 
 
 def test_split_is_stratified_and_deterministic():
-    items = [_item([]) for _ in range(50)]
+    items = [_item([], Language.HINDI) for _ in range(30)] + [
+        _item([], Language.TAMIL) for _ in range(30)
+    ]
     pub1, priv1 = split_public_private(items, seed=42)
-    pub2, priv2 = split_public_private(items, seed=42)
-    assert [i.id for i in pub1] == [i.id for i in pub2]
-    assert len(priv1) == round(50 * 0.20)
-    assert len(pub1) + len(priv1) == 50
+    # Determinism must hold for the item SET, regardless of input order.
+    pub2, priv2 = split_public_private(list(reversed(items)), seed=42)
+    assert sorted(i.id for i in pub1) == sorted(i.id for i in pub2)
+    assert sorted(i.id for i in priv1) == sorted(i.id for i in priv2)
+    assert len(pub1) + len(priv1) == 60
     assert {i.id for i in pub1}.isdisjoint({i.id for i in priv1})
+    # Stratified: each language contributes to the private split.
+    priv_langs = {i.language for i in priv1}
+    assert priv_langs == {Language.HINDI, Language.TAMIL}
+
+
+def test_mcq_items_validate_choices():
+    import pytest
+
+    base = _item([])
+    mcq = base.model_copy(
+        update={"answer_type": AnswerType.MULTIPLE_CHOICE, "choices": ["x", "y", "z"], "answer": "B"}
+    )
+    assert Item.model_validate(mcq.model_dump()).answer == "B"
+    with pytest.raises(ValueError):
+        Item.model_validate(
+            base.model_copy(update={"answer_type": AnswerType.MULTIPLE_CHOICE}).model_dump()
+        )
+    with pytest.raises(ValueError):
+        Item.model_validate(
+            mcq.model_copy(update={"answer": "D"}).model_dump()  # only A-C valid for 3 choices
+        )
 
 
 def test_canary_roundtrip():

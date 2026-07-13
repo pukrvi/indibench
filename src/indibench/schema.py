@@ -7,7 +7,9 @@ Provenance is stripped to coarse form before public release (see design §2).
 
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
+
+MAX_CHOICES = 8  # rendered as letters A–H by the eval harnesses
 
 
 class Language(str, Enum):
@@ -80,9 +82,9 @@ class Provenance(BaseModel):
 class Item(BaseModel):
     id: str  # ibt-<lang>-<domain>-<uuid8>
     question: str
-    answer: str
+    answer: str  # exactMatch: the short answer; multipleChoice: the option LETTER ("A".."H")
     answer_type: AnswerType
-    choices: list[str] | None = None  # required iff multipleChoice
+    choices: list[str] | None = None  # required iff multipleChoice (max 8, rendered A–H)
     language: Language
     script: str  # ISO 15924 (Deva, Beng, Taml, ... ; Latn for romanized code-mix)
     domain: Domain
@@ -90,6 +92,20 @@ class Item(BaseModel):
     difficulty_evidence: DifficultyEvidence
     provenance: Provenance
     image: str = ""  # reserved for Phase 3 (D-016); always empty in v1
+
+    @model_validator(mode="after")
+    def _check_choices(self) -> "Item":
+        if self.answer_type is AnswerType.MULTIPLE_CHOICE:
+            if not self.choices:
+                raise ValueError("multipleChoice items require choices")
+            if len(self.choices) > MAX_CHOICES:
+                raise ValueError(f"at most {MAX_CHOICES} choices (rendered A–H)")
+            valid_letters = {chr(ord("A") + i) for i in range(len(self.choices))}
+            if self.answer not in valid_letters:
+                raise ValueError(f"multipleChoice answer must be one of {sorted(valid_letters)}")
+        elif self.choices:
+            raise ValueError("exactMatch items must not carry choices")
+        return self
 
 
 class DatasetFile(BaseModel):

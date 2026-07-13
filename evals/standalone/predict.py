@@ -11,9 +11,19 @@ are cached per-item so interrupted runs resume instead of re-spending.
 import argparse
 import asyncio
 import json
+import os
+import tempfile
 from pathlib import Path
 
 from openai import AsyncOpenAI
+
+
+def atomic_write_json(path: Path, payload: dict) -> None:
+    """Write via temp file + rename so an interrupted run never corrupts the cache."""
+    fd, tmp = tempfile.mkstemp(dir=path.parent or ".", suffix=".tmp")
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, path)
 
 SYSTEM_PROMPT = """Your response must be in the following exact format:
 Explanation: {your explanation for your answer}
@@ -52,23 +62,30 @@ async def main() -> None:
     parser.add_argument("--data", required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--base-url", default=None)
+    parser.add_argument("--api-key", default=None,
+                        help="defaults to $OPENAI_API_KEY; a dummy value is used "
+                             "automatically when --base-url points at a local server")
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
 
     payload = json.loads(Path(args.data).read_text(encoding="utf-8"))
-    out_path = Path(f"predictions_{args.model.replace('/', '_')}.json")
+    data_stem = Path(args.data).stem
+    out_path = Path(f"predictions_{data_stem}_{args.model.replace('/', '_')}.json")
     done: dict = json.loads(out_path.read_text()) if out_path.exists() else {}
 
     todo = [ex for ex in payload["examples"] if ex["id"] not in done]
     print(f"{len(done)} cached, {len(todo)} to run")
 
-    client = AsyncOpenAI(base_url=args.base_url)
+    api_key = args.api_key or os.environ.get("OPENAI_API_KEY") or (
+        "local" if args.base_url else None
+    )
+    client = AsyncOpenAI(base_url=args.base_url, api_key=api_key)
     sem = asyncio.Semaphore(args.workers)
     for coro in asyncio.as_completed([predict_one(client, args.model, ex, sem) for ex in todo]):
         try:
             item_id, result = await coro
             done[item_id] = result
-            out_path.write_text(json.dumps(done, ensure_ascii=False, indent=1))
+            atomic_write_json(out_path, done)
         except Exception as exc:  # keep going; cached items make retries cheap
             print(f"error: {exc}")
     print(f"wrote {out_path}")
