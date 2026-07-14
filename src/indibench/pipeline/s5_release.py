@@ -7,6 +7,8 @@ Public: ~2,500 items. Private: ~500 — sized at ~20% of the PUBLIC set
 """
 
 import random
+import os
+import tempfile
 from pathlib import Path
 
 from indibench.canary import make_canary
@@ -58,6 +60,14 @@ def write_release(
     for lang, lang_items in sorted(by_lang.items()):
         payload = DatasetFile(canary=canary, examples=lang_items)
         path = release_dir / f"indibench_text_{lang}_{version}.json"
-        path.write_text(payload.model_dump_json(indent=2), encoding="utf-8")
+        # A release file must never be left half-written if the process dies.
+        fd, temporary = tempfile.mkstemp(dir=release_dir, suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as handle:
+                handle.write(payload.model_dump_json(indent=2))
+            os.replace(temporary, path)
+        except Exception:
+            Path(temporary).unlink(missing_ok=True)
+            raise
         written.append(path)
     return written

@@ -13,6 +13,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "TN Legislative Assembly: 234 elected seats (+1 nominated Anglo-Indian historically)",
    "review_priority": "normal"
   },
@@ -27,6 +28,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "TN raised women's reservation in local bodies to 50% (2016 amendment)",
    "review_priority": "normal"
   },
@@ -41,6 +43,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "MAPS at Kalpakkam; also IGCAR fast-breeder campus",
    "review_priority": "normal"
   },
@@ -62,6 +65,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Stopping prescribed diabetes treatment risks organ damage/DKA — standard diabetology",
    "review_priority": "normal"
   },
@@ -76,6 +80,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "EPF: employee contributes 12% of basic+DA (employer 12% split with EPS)",
    "review_priority": "normal"
   },
@@ -90,6 +95,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kuruvai — short-duration paddy season of the Cauvery delta (Jun-Oct)",
    "review_priority": "normal"
   },
@@ -106,6 +112,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Fort St. George COMPLETED 1644 (work began 1639-40) — first major English fortress in India",
    "review_priority": "normal"
   },
@@ -122,6 +129,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Silappathikaram by Ilango Adigal — one of the five great Tamil epics",
    "review_priority": "normal"
   },
@@ -136,6 +144,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Agasthyamala BR — UNESCO World Network of Biosphere Reserves (2016)",
    "review_priority": "normal"
   },
@@ -150,6 +159,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Aadi Perukku (Pathinettam Perukku) on the 18th day of Aadi — river festival",
    "review_priority": "normal"
   }

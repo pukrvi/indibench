@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Tamil declared first classical language of India, 2004 (Govt of India notification)",
    "review_priority": "high"
   },
@@ -31,6 +32,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Madras High Court established 1862 under Indian High Courts Act 1861",
    "review_priority": "high"
   },
@@ -45,6 +47,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "MGR expanded the Nutritious Meal Programme statewide in 1982",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Janaki Ramachandran, CM briefly in Jan 1988 — before Jayalalithaa (1991)",
    "review_priority": "high"
   },
@@ -73,6 +77,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "National Mathematics Day = 22 December, Ramanujan's birthday (declared 2012)",
    "review_priority": "high"
   },
@@ -89,6 +94,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "TERLS at Thumba, near Thiruvananthapuram; first sounding rocket 1963",
    "review_priority": "high"
   },
@@ -103,6 +109,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sage Agastya regarded as the father of Siddha medicine",
    "review_priority": "high"
   },
@@ -124,6 +131,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "WHO snakebite first-aid: no cutting/suction; immobilize and reach antivenom care fast",
    "review_priority": "high"
   },
@@ -138,6 +146,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "GST Compensation Act 2017 guaranteed states' revenue for 5 years (2017-2022)",
    "review_priority": "high"
   },
@@ -159,6 +168,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RBI advisories: KYC-update links via SMS are phishing scams",
    "review_priority": "high"
   },
@@ -173,6 +183,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Thanjavur, Cauvery delta — 'rice bowl of Tamil Nadu'",
    "review_priority": "high"
   },
@@ -189,6 +200,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sangam aintinai: marutham = agricultural tracts/paddy fields",
    "review_priority": "high"
   },
@@ -205,6 +217,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Brihadisvara temple completed c. 1010 CE by Rajaraja Chola I",
    "review_priority": "high"
   },
@@ -221,6 +234,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Keeladi excavations (near Madurai) reveal urban settlement on the Vaigai river",
    "review_priority": "high"
   },
@@ -235,6 +249,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Ponniyin Selvan serialized in Kalki magazine, 1950-54",
    "review_priority": "high"
   },
@@ -249,6 +264,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Tirukkural: 133 chapters × 10 couplets = 1330 kurals",
    "review_priority": "high"
   },
@@ -263,6 +279,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Doddabetta (~2,637 m), Nilgiris — highest peak in Tamil Nadu",
    "review_priority": "high"
   },
@@ -277,6 +294,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Pichavaram — among India's largest mangrove forests",
    "review_priority": "high"
   },
@@ -291,6 +309,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bhogi, Thai Pongal, Mattu Pongal (day 3), Kaanum Pongal",
    "review_priority": "high"
   },
@@ -305,6 +324,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Alanganallur and Palamedu jallikattu — Madurai district",
    "review_priority": "high"
   }

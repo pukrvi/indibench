@@ -8,7 +8,7 @@ Last updated: 2026-07-13, after the pre-keys readiness audit.
 |---|---|
 | Unit + integration tests | ✅ 14 passing (`pytest tests/`) |
 | All 240 v0-seed candidates schema-valid, canary-wrapped, unfiltered-labeled | ✅ (`scripts/assemble_candidates.py` re-validates) |
-| Full offline dry-run of the filter orchestration (`--mock`) over all 240 items: S3 panel → judging → survival rule → yield report → promotion → public/private split → versioned release files | ✅ |
+| Full offline dry-run of the filter orchestration (`--mock`) over all 240 items: S3 panel → judging → survival rule → yield report → promotion → public/private split → test-only versioned files | ✅ |
 | Resumability (re-run skips processed ids; no double API spend) | ✅ tested |
 | Inspect AI harness end-to-end (loader + canary check + generation + model-graded scoring) with scripted mock model: GRADE: C → 1.0, GRADE: I → 0.0 | ✅ |
 | Standalone `predict.py` / `judge.py` CLI smoke + calibration math unit-tested (full CLI flows need a live endpoint) | ✅ |
@@ -19,6 +19,13 @@ Last updated: 2026-07-13, after the pre-keys readiness audit.
 Known limits before keys: S2/S3 quality outcomes are unmeasurable offline (mock
 yield numbers are plumbing checks, not difficulty data), and Indic-script
 `review_priority: high` items still await native-speaker review (S4).
+
+**Release gate:** the v0 seed has claimed grounding notes but no S0 source
+manifest or S4 expert verdicts. It can be filtered with keys but cannot become
+an official release. A real promotion requires both `--sources` (license-
+reviewed S0 JSONL) and `--audit-verdicts` (S4 JSONL). See
+[`data/sources/README.md`](../data/sources/README.md) and the
+[implementation audit](research/2026-07-13-implementation-audit.md).
 
 ## When API keys arrive
 
@@ -37,9 +44,11 @@ yield numbers are plumbing checks, not difficulty data), and Indic-script
 
 4. Inspect the yield report + `data/filter_results.jsonl`; then drop `--limit`
    for the full 240. Re-runs resume automatically.
-5. Promote survivors to a versioned release:
-   `--promote-to data/releases --version v2026.XX` (both flags required;
-   refuses if candidates remain unprocessed unless `--force-partial-promotion`).
+5. **Before promotion**, register the verified sources and collect S4 expert
+   verdicts. Promote survivors only with:
+   `--promote-to data/releases --version v2026.XX --sources data/sources/<manifest>.jsonl --audit-verdicts <audits>.jsonl`
+   (all flags required; refuses if candidates remain unprocessed unless
+   `--force-partial-promotion`).
    The `private/` output directory must NEVER be committed (D-032) — verify
    the `data/releases/private/` entry still exists in `.gitignore`.
 6. Record the pinned model IDs + yield stats in `docs/DECISIONS.md`. The

@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Orissa Province created 1 April 1936 — first linguistically organized province (Utkala Dibasa)",
    "review_priority": "high"
   },
@@ -29,6 +30,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Orissa High Court, Cuttack, established 1948",
    "review_priority": "high"
   },
@@ -43,6 +45,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Mission Shakti (2001-): Odisha's women SHG mission, now a separate department",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Capital shifted from Cuttack to Bhubaneswar 1948 (Koenigsberger plan)",
    "review_priority": "high"
   },
@@ -75,6 +79,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Pathani Samanta / Samanta Chandrasekhar, Siddhanta Darpana (1899), naked-eye astronomy",
    "review_priority": "high"
   },
@@ -89,6 +94,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Dr. Abdul Kalam Island (Wheeler Island) — DRDO missile test range",
    "review_priority": "high"
   },
@@ -103,6 +109,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Shalya tantra = surgery among Ayurveda's eight branches",
    "review_priority": "high"
   },
@@ -124,6 +131,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Odisha malaria-endemic districts: early testing/treatment critical — NVBDCP guidance",
    "review_priority": "high"
   },
@@ -138,6 +146,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "KALIA (Krushak Assistance for Livelihood and Income Augmentation), 2018",
    "review_priority": "high"
   },
@@ -159,6 +168,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RBI advisories: banks never ask PIN/OTP; cyber helpline 1930",
    "review_priority": "high"
   },
@@ -173,6 +183,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Paddy — Odisha's dominant kharif crop",
    "review_priority": "high"
   },
@@ -187,6 +198,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kandhamal Haldi received GI tag (2019)",
    "review_priority": "high"
   },
@@ -203,6 +215,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kalinga war site associated with the Daya river near Dhauli",
    "review_priority": "high"
   },
@@ -219,6 +232,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Konark Sun Temple by Narasimhadeva I (Eastern Ganga), 13th century",
    "review_priority": "high"
   },
@@ -235,6 +249,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sarala Dasa (15th c.) — Odia Mahabharata, 'adikavi' of Odia",
    "review_priority": "high"
   },
@@ -249,6 +264,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Gopinath Mohanty, Jnanpith 1973 for Matimatala — first Odia Jnanpith",
    "review_priority": "high"
   },
@@ -263,6 +279,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chilika — Asia's largest brackish-water lagoon, Ramsar site 1981",
    "review_priority": "high"
   },
@@ -277,6 +294,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Deomali (~1,672 m), Koraput district",
    "review_priority": "high"
   },
@@ -291,6 +309,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chariots: Nandighosha (Jagannath), Taladhwaja (Balabhadra), Darpadalana (Subhadra)",
    "review_priority": "high"
   },
@@ -305,6 +324,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Raja Parba celebrates the menstruation of Bhudevi/Mother Earth (womanhood)",
    "review_priority": "high"
   }

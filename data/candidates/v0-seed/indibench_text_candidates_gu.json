@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bombay Reorganisation Act 1960; Gujarat formed 1 May 1960",
    "review_priority": "high"
   },
@@ -29,6 +30,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bombay Prohibition Act 1949 (now Gujarat Prohibition Act) — in force since state formation",
    "review_priority": "high"
   },
@@ -43,6 +45,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Jyotigram Yojana (2003-06): feeder separation, 24x7 rural domestic power",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Ahmedabad was capital 1960-1970 until Gandhinagar was built",
    "review_priority": "high"
   },
@@ -75,6 +79,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Vikram Sarabhai, father of Indian space programme, born Ahmedabad 1919",
    "review_priority": "high"
   },
@@ -91,6 +96,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Lilavati — arithmetic volume of Bhaskara II's Siddhanta Shiromani",
    "review_priority": "high"
   },
@@ -105,6 +111,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Rasayana = rejuvenation/immunity-longevity branch among Ayurveda's eight",
    "review_priority": "high"
   },
@@ -126,6 +133,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Stopping prescribed antidiabetics risks uncontrolled hyperglycemia and organ damage — standard diabetology",
    "review_priority": "high"
   },
@@ -140,6 +148,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "IFSCA Act 2019; unified regulator for GIFT-IFSC, Gandhinagar",
    "review_priority": "high"
   },
@@ -161,6 +170,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "SEBI investor advisories: guaranteed-return claims are per se fraudulent/illegal",
    "review_priority": "high"
   },
@@ -177,6 +187,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Amul (Kaira District Co-op, 1946) at Anand; Operation Flood base",
    "review_priority": "high"
   },
@@ -191,6 +202,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Gir Kesar mango GI — Talala/Junagadh, foothills of Girnar",
    "review_priority": "high"
   },
@@ -207,6 +219,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Dholavira — Harappan city, UNESCO World Heritage 2021, Khadir bet, Kutch",
    "review_priority": "high"
   },
@@ -223,6 +236,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Salt March: 12 March 1930 from Sabarmati Ashram to Dandi (6 April)",
    "review_priority": "high"
   },
@@ -237,6 +251,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Umashankar Joshi, Jnanpith 1967 (shared) for Nishith",
    "review_priority": "high"
   },
@@ -251,6 +266,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Saraswatichandra (4 vols, 1887-1901) by Govardhanram Tripathi",
    "review_priority": "high"
   },
@@ -265,6 +281,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Girnar's Gorakhnath peak (~1,117 m) — highest point of Gujarat",
    "review_priority": "high"
   },
@@ -279,6 +296,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Gir forest — sole wild habitat of the Asiatic lion",
    "review_priority": "high"
   },
@@ -293,6 +311,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Garba derives from garbha-deep — lamp inside a perforated earthen pot",
    "review_priority": "high"
   },
@@ -307,6 +326,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Rann Utsav tent city at Dhordo, White Rann of Kutch",
    "review_priority": "high"
   }

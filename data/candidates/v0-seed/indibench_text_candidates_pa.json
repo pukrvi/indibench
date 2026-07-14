@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Punjab Reorganisation Act 1966; Haryana formed 1 Nov 1966",
    "review_priority": "high"
   },
@@ -29,6 +30,7 @@
    "domain": "law_constitution",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Chandigarh is a Union Territory serving as capital of both states",
    "review_priority": "high"
   },
@@ -43,6 +45,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Punjab and Haryana High Court at Chandigarh — common HC for both states + UT",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Punjabi Suba movement led by Shiromani Akali Dal (Master Tara Singh, Sant Fateh Singh)",
    "review_priority": "high"
   },
@@ -75,6 +79,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "CIMMYT Mexico semi-dwarf wheat (Lerma Rojo, Sonora 64) imported mid-1960s",
    "review_priority": "high"
   },
@@ -91,6 +96,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Har Gobind Khorana (born Raipur, Multan region), Nobel 1968 Physiology/Medicine — genetic code",
    "review_priority": "high"
   },
@@ -105,6 +111,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "AYUSH = Ayurveda, Yoga & Naturopathy, Unani, Siddha, Homoeopathy",
    "review_priority": "high"
   },
@@ -126,6 +133,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Punjab OOAT clinics: supervised opioid-substitution; unregulated 'desi' preparations often adulterated — health dept advisories",
    "review_priority": "high"
   },
@@ -140,6 +148,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Arhtiya — licensed commission agent in Punjab mandis (APMC system)",
    "review_priority": "high"
   },
@@ -161,6 +170,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Punjab Travel Professionals (Regulation) Act 2012 — licence check against 'kabootarbazi' immigration fraud",
    "review_priority": "high"
   },
@@ -177,6 +187,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "PAU Ludhiana established 1962 (land-grant model)",
    "review_priority": "high"
   },
@@ -191,6 +202,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Stubble burning peaks Oct-Nov in the narrow paddy-harvest-to-wheat-sowing window",
    "review_priority": "high"
   },
@@ -207,6 +219,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Jallianwala Bagh massacre, Baisakhi day, 13 April 1919, Amritsar",
    "review_priority": "high"
   },
@@ -223,6 +236,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Ranjit Singh's Sikh Empire capital: Lahore (1799-1849)",
    "review_priority": "high"
   },
@@ -237,6 +251,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Amrita Pritam, Jnanpith 1981 for Kagaz te Canvas — first Punjabi Jnanpith",
    "review_priority": "high"
   },
@@ -253,6 +268,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Heer Waris Shah completed c. 1766 at Malka Hans",
    "review_priority": "high"
   },
@@ -267,6 +283,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Post-partition Indian Punjab rivers: Sutlej, Beas, Ravi (Jhelum-Chenab in Pakistan)",
    "review_priority": "high"
   },
@@ -281,6 +298,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Harike wetland at the Sutlej-Beas confluence (Ramsar site 1990)",
    "review_priority": "high"
   },
@@ -297,6 +315,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Khalsa founded by Guru Gobind Singh, Baisakhi 1699, Anandpur Sahib",
    "review_priority": "high"
   },
@@ -313,6 +332,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Maghi mela commemorates the Chali Mukte, Battle of Muktsar (Khidrana) 1705",
    "review_priority": "high"
   }

@@ -85,8 +85,12 @@ counting), every owner input in
 Indian/frontier benchmarks that shaped the design is in
 [docs/research/2026-07-13-benchmark-audit.md](docs/research/2026-07-13-benchmark-audit.md).
 
-No dataset has been released yet. Phase 1 v1 target: ~2,500 adversarially
-filtered questions + leaderboard + paper + inspect_evals registration.
+No dataset has been released yet. The repository currently contains a
+**240-item unfiltered pilot seed**, not a benchmark release: it must first be
+linked to license-reviewed source records, pass S2/S3, and receive S4 expert
+audits. Phase 1 v1 target: ~2,500 adversarially filtered questions +
+leaderboard + paper + inspect_evals registration. See the
+[implementation audit](docs/research/2026-07-13-implementation-audit.md).
 
 ## Repository layout
 

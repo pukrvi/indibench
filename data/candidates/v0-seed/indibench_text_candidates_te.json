@@ -15,6 +15,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "AP Reorganisation Act 2014; Telangana formed 2 June 2014",
    "review_priority": "high"
   },
@@ -31,6 +32,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Potti Sriramulu died Dec 1952 after 58-day fast; Andhra State formed Oct 1953",
    "review_priority": "high"
   },
@@ -45,6 +47,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Rythu Bandhu (2018): per-acre investment support paid per season via DBT",
    "review_priority": "high"
   },
@@ -59,6 +62,7 @@
    "domain": "governance_admin",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Article 243(b): Gram Sabha = persons registered in electoral rolls of the village",
    "review_priority": "high"
   },
@@ -73,6 +77,7 @@
    "domain": "stem_india",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Sriharikota launch centre renamed Satish Dhawan Space Centre in 2002",
    "review_priority": "high"
   },
@@ -89,6 +94,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Yellapragada Subbarow: folic acid synthesis, methotrexate, aureomycin work",
    "review_priority": "high"
   },
@@ -103,6 +109,7 @@
    "domain": "medicine_ayush",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kaumarabhritya = pediatrics among the eight branches of Ayurveda",
    "review_priority": "high"
   },
@@ -124,6 +131,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Snakebite: antivenom delay is the key mortality driver; topical remedies do not neutralize venom",
    "review_priority": "high"
   },
@@ -138,6 +146,7 @@
    "domain": "finance_tax",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Agricultural income exempt u/s 10(1), Income-tax Act 1961 (state subject)",
    "review_priority": "high"
   },
@@ -159,6 +168,7 @@
     "safety"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "RBI warnings on unregistered digital lending apps: data abuse, harassment, usurious rates",
    "review_priority": "high"
   },
@@ -173,6 +183,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Guntur — largest chilli market yard in Asia; Guntur Sannam GI",
    "review_priority": "high"
   },
@@ -187,6 +198,7 @@
    "domain": "agriculture",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Konaseema (Godavari delta) famed for coconut groves",
    "review_priority": "high"
   },
@@ -203,6 +215,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kakatiya capital Orugallu = present-day Warangal",
    "review_priority": "high"
   },
@@ -219,6 +232,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Amaravati Mahastupa — Buddhist, on the Krishna river (Satavahana era)",
    "review_priority": "high"
   },
@@ -235,6 +249,7 @@
     "historical"
    ],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Nannaya began Andhra Mahabharatam (11th c.); honored as Adikavi",
    "review_priority": "high"
   },
@@ -249,6 +264,7 @@
    "domain": "literature_arts",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Mahaprasthanam by Sri Sri — landmark of modern Telugu poetry",
    "review_priority": "high"
   },
@@ -263,6 +279,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Kolleru lake between Krishna and Godavari deltas — Ramsar site 2002 (replaced coastline-rank item: rank contested after 2024 NHO remeasurement)",
    "review_priority": "high"
   },
@@ -277,6 +294,7 @@
    "domain": "geography_environment",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Papikondalu hills along the Godavari gorge",
    "review_priority": "high"
   },
@@ -291,6 +309,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bhogi, Makara Sankranti, Kanuma (day 3, cattle veneration)",
    "review_priority": "high"
   },
@@ -305,6 +324,7 @@
    "domain": "society_daily_life",
    "tags": [],
    "generator_model": "anthropic/claude-fable-5",
+   "source_document_id": null,
    "grounding_note": "Bonalu — Telangana state festival honoring Mahankali, Ashada month",
    "review_priority": "high"
   }
