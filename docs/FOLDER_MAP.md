@@ -22,7 +22,10 @@ IndiBench/
 │   └── pipeline/              # S0–S5 stages + release_gate.py. S0 manifest, S2/S3 filtering,
 │                              #   S4 audit evidence and S5 release gates are separated/tested.
 ├── scripts/
-│   └── assemble_candidates.py # authoring JSONL → validated canary-wrapped candidate files
+│   ├── assemble_candidates.py # authoring JSONL → validated canary-wrapped candidate files
+│   ├── run_filter.py          # keys-day S2→S3 filter orchestration (gated promotion)
+│   └── run_benchmark.py       # evaluate any model → results/ folder: CSV + overview.html
+│                              #   (accuracy, TTFT, tokens/sec, tokens, cost); --mock dry run
 │   └── run_filter.py          # S2→S3 orchestrator; real promotion requires S0+S4 evidence
 ├── evals/
 │   ├── inspect/indibench_text.py   # Inspect AI task (D-012; inspect_evals/hle pattern)

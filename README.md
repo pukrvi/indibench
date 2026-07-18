@@ -92,13 +92,84 @@ audits. Phase 1 v1 target: ~2,500 adversarially filtered questions +
 leaderboard + paper + inspect_evals registration. See the
 [implementation audit](docs/research/2026-07-13-implementation-audit.md).
 
+## Run the benchmark
+
+Evaluate any model on the current pool and get a results folder with per-item
+CSV data plus a visual overview (accuracy, time-to-first-token, tokens/sec,
+tokens generated, total cost).
+
+### 1. Setup
+
+```bash
+git clone https://github.com/pukrvi/indibench
+cd indibench
+python3 -m venv .venv && source .venv/bin/activate   # Python 3.10+
+pip install -e ".[eval]"
+pytest tests/ -q        # optional sanity check — all tests run offline
+```
+
+### 2. Try it with zero keys (offline dry run)
+
+```bash
+python scripts/run_benchmark.py --mock
+```
+
+This runs a deterministic fake model over all 240 items and produces a real
+results folder — use it to see exactly what you'll get before spending money.
+
+### 3. Run a real model
+
+Any OpenAI-compatible endpoint works. Pricing flags are USD per **million**
+tokens (from your provider's pricing page); omit them and cost reports 0.
+
+```bash
+export OPENAI_API_KEY=sk-...
+python scripts/run_benchmark.py \
+    --model gpt-5-mini \
+    --judge gpt-5-mini \
+    --input-cost 0.25 --output-cost 2.00
+```
+
+Local model (Ollama / vLLM — no key needed):
+
+```bash
+python scripts/run_benchmark.py --model llama3 --base-url http://localhost:11434/v1
+```
+
+Omit `--judge` for a performance-only run (latency/throughput/cost, no
+grading). Interrupted runs resume automatically: re-run with the same
+`--run-name` **and the same flags** (the run folder pins its config and
+refuses a mismatched resume) — cached items are skipped, errored items retry.
+
+### 4. Read the results
+
+Every run writes `results/<run-name>/`:
+
+| File | Contents |
+|---|---|
+| `results.csv` | one row per question: correct?, confidence, **TTFT**, generation time, **input/output tokens**, **tokens/sec**, **cost (USD)**, model answer |
+| `summary.csv` | aggregates overall + per language track + per domain |
+| `summary.json` | run metadata + the same aggregates, machine-readable |
+| `overview.html` | **open in any browser** — tiles for accuracy, median TTFT, mean tokens/sec, tokens generated, total cost, calibration error, plus per-language/per-domain charts |
+| `raw.jsonl` | full per-item records incl. complete responses (the resume cache) |
+
+Metric definitions: TTFT = time from request to first streamed content token;
+tokens/sec = output tokens ÷ generation time after the first token; cost =
+input_tokens × input price + output_tokens × output price.
+
+> **Note:** until the filtered v1 release ships, runs use the unfiltered
+> v0-seed pool — treat scores as diagnostic, not official IndiBench numbers
+> (the overview banner says the same).
+
 ## Repository layout
 
 ```
-docs/            Decisions log, project maps, thesis, design docs, research
+docs/            Decisions log, project maps, thesis, design docs, research, wiki
 src/indibench/   Schema, canary handling, pipeline stages (S0–S5)
+scripts/         run_benchmark.py (evaluate a model) · run_filter.py · assemble_candidates.py
 evals/           Inspect AI task + standalone predict/judge scripts
-data/            Public dataset releases (canary-wrapped; none yet)
+data/            Candidate pool + future releases (canary-wrapped)
+results/         Your benchmark runs land here (gitignored)
 ```
 
 ## Contributing

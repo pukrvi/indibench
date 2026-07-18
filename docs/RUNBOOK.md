@@ -61,8 +61,13 @@ standalone `judge.py` reaches non-OpenAI judges via `--base-url` pointing at
 an OpenAI-compatible gateway; the Inspect harness needs no gateway
 (`--model` handles all providers natively).
 
-## Evaluating a model (after a release exists)
+## Evaluating a model
 
+- **One-command runner (recommended):** `python scripts/run_benchmark.py --model <id> --judge <id> [--base-url <local>] [--input-cost X --output-cost Y]`
+  → writes `results/<run-name>/` with `results.csv` (per-item correctness,
+  TTFT, tokens/sec, tokens, cost), `summary.csv`/`summary.json`, and a visual
+  `overview.html`. `--mock` dry-runs the whole thing offline. Full
+  instructions in the README's "Run the benchmark" section.
 - Inspect AI: `inspect eval evals/inspect/indibench_text.py -T data_file=<release file> --model <model>`
 - Standalone: `python evals/standalone/predict.py --data <file> --model <id> [--base-url <local>]`
   then `python evals/standalone/judge.py --data <file> --predictions <out> --judge <id>`
