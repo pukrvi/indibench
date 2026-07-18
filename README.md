@@ -138,7 +138,8 @@ python scripts/run_benchmark.py --model llama3 --base-url http://localhost:11434
 
 Omit `--judge` for a performance-only run (latency/throughput/cost, no
 grading). Interrupted runs resume automatically: re-run with the same
-`--run-name` and cached items are skipped.
+`--run-name` **and the same flags** (the run folder pins its config and
+refuses a mismatched resume) — cached items are skipped, errored items retry.
 
 ### 4. Read the results
 

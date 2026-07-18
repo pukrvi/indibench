@@ -92,15 +92,22 @@ def render_question(item: dict) -> str:
 
 
 def parse_confidence(text: str) -> float | None:
-    match = re.search(r"[Cc]onfidence[:\s]*([0-9]{1,3})", text)
-    if match:
-        return min(100.0, float(match.group(1)))
-    return None
+    match = re.search(r"[Cc]onfidence[:\s]*([0-9]{1,3}(?:\.[0-9]+)?)", text)
+    if not match:
+        return None
+    value = float(match.group(1))
+    if 0 < value <= 1.0:  # models answering on a 0-1 scale
+        value *= 100.0
+    return min(100.0, value)
 
 
 def extract_answer(text: str) -> str:
-    match = re.search(r"[Aa]nswer\s*:\s*(.+?)(?:\n[Cc]onfidence|$)", text, re.DOTALL)
-    return (match.group(1) if match else text).strip()
+    # take everything after the LAST "Answer:" (an explanation that mentions
+    # "answer:" must not swallow the real one), cut before the Confidence line
+    parts = re.split(r"[Aa]nswer\s*:", text)
+    if len(parts) == 1:
+        return text.strip()
+    return re.split(r"\n[Cc]onfidence", parts[-1])[0].strip()
 
 
 # ---------------------------------------------------------------- model calls
@@ -280,11 +287,13 @@ def write_outputs(run_dir: Path, records: list[dict], summary: dict, meta: dict)
             writer.writerow(record)
 
     with (run_dir / "summary.csv").open("w", newline="", encoding="utf-8") as f:
-        fields = ["slice"] + list(next(iter(summary["by_language"].values())).keys())
-        writer = csv.DictWriter(f, fieldnames=fields)
+        # static field list: must not depend on data being non-empty
+        fields = ["slice", "items", "errors", "accuracy_pct", "mean_ttft_s",
+                  "median_ttft_s", "mean_tokens_per_sec", "output_tokens",
+                  "input_tokens", "cost_usd"]
+        writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
-        writer.writerow({"slice": "OVERALL",
-                         **{k: v for k, v in summary["overall"].items() if k in fields}})
+        writer.writerow({"slice": "OVERALL", **summary["overall"]})
         for lang, stats in summary["by_language"].items():
             writer.writerow({"slice": f"lang:{lang}", **stats})
         for dom, stats in summary["by_domain"].items():
@@ -317,11 +326,14 @@ def build_overview(summary: dict, meta: dict) -> str:
               "(D-041). Scores are diagnostic only — <b>not official IndiBench scores</b>. "
               "The official benchmark ships after S2–S4 filtering.</div>"
               if meta.get("unfiltered_pool") else "")
+    def fmt(value, suffix=""):
+        return f"{value}{suffix}" if value is not None else "—"
+
     tiles = [
         ("Items", overall["items"], ""),
         ("Accuracy", f"{overall['accuracy_pct']}%" if judged else "perf-only run", ""),
-        ("Median TTFT", f"{overall['median_ttft_s']}s", "time to first token"),
-        ("Mean speed", f"{overall['mean_tokens_per_sec']} tok/s", "generation phase"),
+        ("Median TTFT", fmt(overall["median_ttft_s"], "s"), "time to first token"),
+        ("Mean speed", fmt(overall["mean_tokens_per_sec"], " tok/s"), "generation phase"),
         ("Tokens out", f"{overall['output_tokens']:,}", f"in: {overall['input_tokens']:,}"),
         ("Total cost", f"${overall['cost_usd']:,.4f}",
          "" if meta.get("priced") else "no pricing supplied — pass --input-cost/--output-cost"),
@@ -427,13 +439,34 @@ async def main() -> None:
     run_dir.mkdir(parents=True, exist_ok=True)
     raw_path = run_dir / "raw.jsonl"
 
+    # Config sidecar: results in one run folder must all come from the same
+    # model/judge/pricing — a resume with different flags would silently mix data.
+    run_config = {"model": args.model, "judge": args.judge, "mock": args.mock,
+                  "data": str(args.data), "input_cost": args.input_cost,
+                  "output_cost": args.output_cost}
+    config_path = run_dir / "run_config.json"
+    if config_path.exists():
+        previous = json.loads(config_path.read_text(encoding="utf-8"))
+        if previous != run_config:
+            raise SystemExit(
+                f"REFUSING to resume: flags differ from this run folder's config "
+                f"({config_path}). Re-run with the same flags, or use a new --run-name.")
+    else:
+        config_path.write_text(json.dumps(run_config, indent=1), encoding="utf-8")
+
     done: dict[str, dict] = {}
     if raw_path.exists():
         for line in raw_path.read_text(encoding="utf-8").splitlines():
-            if line.strip():
+            if not line.strip():
+                continue
+            try:
                 record = json.loads(line)
-                if "error" not in record:  # errored items retry
-                    done[record["id"]] = record
+            except json.JSONDecodeError:
+                # truncated tail from an interrupted run — skip; the item re-runs
+                print("warning: skipping a truncated line in raw.jsonl (interrupted run)")
+                continue
+            if "error" not in record:  # errored items retry
+                done[record["id"]] = record
     todo = [it for it in items if it["id"] not in done]
     print(f"{len(items)} items · {len(done)} cached · running {len(todo)}"
           + (" · MOCK MODE (no API calls)" if args.mock else ""))
@@ -476,8 +509,10 @@ async def main() -> None:
     print(f"\nrun folder: {run_dir}")
     print(f"  accuracy: {overall['accuracy_pct']}%" if overall["accuracy_pct"] is not None
           else "  accuracy: n/a (perf-only run — pass --judge to grade)")
-    print(f"  median TTFT: {overall['median_ttft_s']}s · mean speed: "
-          f"{overall['mean_tokens_per_sec']} tok/s")
+    ttft = overall["median_ttft_s"]
+    speed = overall["mean_tokens_per_sec"]
+    print(f"  median TTFT: {f'{ttft}s' if ttft is not None else 'n/a'} · mean speed: "
+          f"{f'{speed} tok/s' if speed is not None else 'n/a'}")
     print(f"  tokens out: {overall['output_tokens']:,} · total cost: "
           f"${overall['cost_usd']:,.4f}")
     print("  open overview.html in a browser for the visual report")

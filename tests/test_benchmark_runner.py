@@ -21,6 +21,12 @@ def test_parse_helpers():
     assert rb.parse_confidence(text) == 85.0
     assert rb.parse_confidence("no confidence here") is None
     assert rb.extract_answer("bare text") == "bare text"
+    # fractional confidence scales up; >100 caps
+    assert rb.parse_confidence("Confidence: 0.95") == 95.0
+    assert rb.parse_confidence("Confidence: 250") == 100.0
+    # LAST Answer: wins when the explanation mentions "answer:"
+    tricky = "The answer: A is wrong here. Answer: B\nConfidence: 60%"
+    assert rb.extract_answer(tricky) == "B"
 
 
 def test_mock_record_deterministic():
@@ -85,12 +91,34 @@ def test_mock_run_end_to_end(tmp_path):
     assert "Median TTFT" in html and "tok/s" in html and "Total cost" in html
     assert "http://" not in html and "https://" not in html  # self-contained
 
-    # resume: rerun with same run-name touches nothing new
-    proc2 = subprocess.run(
-        [sys.executable, str(SCRIPT), "--mock", "--limit", "25",
-         "--out", str(tmp_path), "--run-name", "t1"],
-        capture_output=True, text=True, timeout=180)
+    # resume: rerun with the SAME flags touches nothing new
+    same_flags = [sys.executable, str(SCRIPT), "--mock", "--limit", "25",
+                  "--out", str(tmp_path), "--run-name", "t1",
+                  "--input-cost", "1.0", "--output-cost", "3.0"]
+    proc2 = subprocess.run(same_flags, capture_output=True, text=True, timeout=180)
     assert "25 cached · running 0" in proc2.stdout
+    # resume with DIFFERENT flags must refuse (would silently mix data)
+    proc3 = subprocess.run(
+        [sys.executable, str(SCRIPT), "--mock", "--limit", "25",
+         "--out", str(tmp_path), "--run-name", "t1"],  # pricing omitted
+        capture_output=True, text=True, timeout=180)
+    assert proc3.returncode != 0 and "REFUSING to resume" in (proc3.stdout + proc3.stderr)
+    # truncated raw.jsonl tail must not kill the resume
+    with (run_dir / "raw.jsonl").open("a", encoding="utf-8") as f:
+        f.write('{"id": "ibc-trunc')
+    proc4 = subprocess.run(same_flags, capture_output=True, text=True, timeout=180)
+    assert proc4.returncode == 0, proc4.stderr
+    assert "truncated line" in proc4.stdout
+
+
+def test_zero_item_run_does_not_crash(tmp_path):
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT), "--mock", "--limit", "0",
+         "--out", str(tmp_path), "--run-name", "empty"],
+        capture_output=True, text=True, timeout=60)
+    assert proc.returncode == 0, proc.stderr
+    assert (tmp_path / "empty" / "summary.csv").exists()
+    assert (tmp_path / "empty" / "overview.html").exists()
 
 
 def test_run_refuses_non_canary_data(tmp_path):
