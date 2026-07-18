@@ -15,3 +15,6 @@ __pycache__/
 # Filter run outputs — results are per-run; private splits must never be committed (D-032)
 data/filter_results.jsonl
 data/releases/private/
+
+# Benchmark run outputs (scripts/run_benchmark.py) — per-user, never committed
+results/
