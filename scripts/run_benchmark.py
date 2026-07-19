@@ -111,18 +111,22 @@ def extract_answer(text: str) -> str:
 
 # ---------------------------------------------------------------- model calls
 
-async def stream_completion(client, model: str, question: str) -> dict:
+async def stream_completion(client, model: str, question: str,
+                            effort: str | None = None) -> dict:
     """Stream one completion, timing TTFT and generation. Returns raw fields."""
     t0 = time.perf_counter()
     ttft = None
     chunks: list[str] = []
     usage = None
+    # only send reasoning_effort when set — non-reasoning endpoints reject it
+    extra = {"reasoning_effort": effort} if effort is not None else {}
     stream = await client.chat.completions.create(
         model=model,
         stream=True,
         stream_options={"include_usage": True},
         messages=[{"role": "system", "content": SYSTEM_PROMPT},
                   {"role": "user", "content": question}],
+        **extra,
     )
     async for chunk in stream:
         if chunk.usage:
@@ -187,7 +191,8 @@ async def run_item(item: dict, args, client, judge_client, sem) -> dict:
             raw = _mock_record(item)
         else:
             async with sem:
-                raw = await stream_completion(client, args.model, question)
+                raw = await stream_completion(client, args.model, question,
+                                              effort=args.effort)
         gen_time = max(raw["total_time_s"] - raw["ttft_s"], 1e-6)
         record.update({
             "ttft_s": round(raw["ttft_s"], 4),
@@ -512,7 +517,7 @@ skinSel.addEventListener("change", () => {
 });
 
 /* ---------- header ---------- */
-$("c-model").textContent = "model · " + META.model;
+$("c-model").textContent = "model · " + META.model + (META.effort ? " [" + META.effort + "]" : "");
 $("c-judge").textContent = META.mock ? "judge · mock self-grading"
   : "judge · " + (META.judge || "none (perf-only)");
 if (META.mock) $("c-mock").hidden = false;
@@ -718,6 +723,10 @@ async def main() -> None:
     parser.add_argument("--model", default="mock-model")
     parser.add_argument("--base-url", default=None)
     parser.add_argument("--api-key", default=None)
+    parser.add_argument("--effort", default=None,
+                        help="reasoning effort passed to the model as reasoning_effort "
+                             "and recorded in run metadata (common values: minimal, "
+                             "low, medium, high, xhigh, max; omit for the default)")
     parser.add_argument("--judge", default=None,
                         help="judge model id (omit for a perf-only run)")
     parser.add_argument("--judge-base-url", default=None)
@@ -740,16 +749,19 @@ async def main() -> None:
         items = items[: args.limit]
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-    run_name = args.run_name or f"{args.model.replace('/', '_')}_{stamp}"
+    model_slug = args.model.replace("/", "_")
+    if args.effort:
+        model_slug += f"_{args.effort}"
+    run_name = args.run_name or f"{model_slug}_{stamp}"
     run_dir = args.out / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     raw_path = run_dir / "raw.jsonl"
 
     # Config sidecar: results in one run folder must all come from the same
     # model/judge/pricing — a resume with different flags would silently mix data.
-    run_config = {"model": args.model, "judge": args.judge, "mock": args.mock,
-                  "data": str(args.data), "input_cost": args.input_cost,
-                  "output_cost": args.output_cost}
+    run_config = {"model": args.model, "effort": args.effort, "judge": args.judge,
+                  "mock": args.mock, "data": str(args.data),
+                  "input_cost": args.input_cost, "output_cost": args.output_cost}
     config_path = run_dir / "run_config.json"
     if config_path.exists():
         previous = json.loads(config_path.read_text(encoding="utf-8"))
@@ -805,7 +817,8 @@ async def main() -> None:
 
     records = [done[it["id"]] for it in items if it["id"] in done]
     summary = aggregate(records)
-    meta = {"model": args.model, "judge": args.judge, "data": str(args.data),
+    meta = {"model": args.model, "effort": args.effort, "judge": args.judge,
+            "data": str(args.data),
             "timestamp": stamp, "mock": args.mock, "unfiltered_pool": unfiltered,
             "priced": bool(args.input_cost or args.output_cost),
             "input_cost_per_mtok": args.input_cost, "output_cost_per_mtok": args.output_cost}
@@ -813,6 +826,7 @@ async def main() -> None:
 
     overall = summary["overall"]
     print(f"\nrun folder: {run_dir}")
+    print(f"  model: {args.model}" + (f" [{args.effort}]" if args.effort else ""))
     print(f"  accuracy: {overall['accuracy_pct']}%" if overall["accuracy_pct"] is not None
           else "  accuracy: n/a (perf-only run — pass --judge to grade)")
     ttft = overall["median_ttft_s"]

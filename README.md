@@ -136,6 +136,9 @@ Local model (Ollama / vLLM — no key needed):
 python scripts/run_benchmark.py --model llama3 --base-url http://localhost:11434/v1
 ```
 
+Pass `--effort <level>` (e.g. minimal, low, medium, high, xhigh, max) to set
+the model's `reasoning_effort` — it is recorded in the run metadata and shown
+as `model [effort]` everywhere the run is identified.
 Omit `--judge` for a performance-only run (latency/throughput/cost, no
 grading). Interrupted runs resume automatically: re-run with the same
 `--run-name` **and the same flags** (the run folder pins its config and

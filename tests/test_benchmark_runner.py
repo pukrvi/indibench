@@ -120,6 +120,39 @@ def test_mock_run_end_to_end(tmp_path):
     assert "truncated line" in proc4.stdout
 
 
+def test_effort_recorded_and_pinned(tmp_path):
+    """--effort is captured in meta + run_config and shown in the dashboard;
+    resuming without it refuses (config mismatch)."""
+    flags = [sys.executable, str(SCRIPT), "--mock", "--limit", "5",
+             "--out", str(tmp_path), "--run-name", "eff", "--effort", "max"]
+    proc = subprocess.run(flags, capture_output=True, text=True, timeout=180)
+    assert proc.returncode == 0, proc.stderr
+    assert "[max]" in proc.stdout  # console summary mentions the effort
+    run_dir = tmp_path / "eff"
+
+    summary = json.loads((run_dir / "summary.json").read_text(encoding="utf-8"))
+    assert summary["meta"]["effort"] == "max"
+    config = json.loads((run_dir / "run_config.json").read_text(encoding="utf-8"))
+    assert config["effort"] == "max"
+    html = (run_dir / "overview.html").read_text(encoding="utf-8")
+    assert '"effort": "max"' in html or '"effort":"max"' in html  # embedded payload
+    # header-chip JS renders "model · <name> [<effort>]" when META.effort is set
+    assert 'META.effort ? " [" + META.effort + "]"' in html
+
+    # resume WITHOUT --effort must refuse — it would silently mix data
+    proc2 = subprocess.run(flags[:-2], capture_output=True, text=True, timeout=180)
+    assert proc2.returncode != 0
+    assert "REFUSING to resume" in (proc2.stdout + proc2.stderr)
+
+    # default run-name gets the effort suffix: <model>_<effort>_<stamp>
+    proc3 = subprocess.run(
+        [sys.executable, str(SCRIPT), "--mock", "--limit", "1",
+         "--out", str(tmp_path), "--effort", "low"],
+        capture_output=True, text=True, timeout=180)
+    assert proc3.returncode == 0, proc3.stderr
+    assert any(p.name.startswith("mock-model_low_") for p in tmp_path.iterdir())
+
+
 def test_zero_item_run_does_not_crash(tmp_path):
     proc = subprocess.run(
         [sys.executable, str(SCRIPT), "--mock", "--limit", "0",
