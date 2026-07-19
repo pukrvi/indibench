@@ -88,8 +88,17 @@ def test_mock_run_end_to_end(tmp_path):
 
     html = (run_dir / "overview.html").read_text(encoding="utf-8")
     assert "not official IndiBench scores" in html  # unfiltered-pool caveat
-    assert "Median TTFT" in html and "tok/s" in html and "Total cost" in html
+    assert "Median TTFT" in html and "tok/s" in html
     assert "http://" not in html and "https://" not in html  # self-contained
+    # dashboard: theme dropdown with exactly the three skins, data embedded
+    assert '<select id="skin"' in html
+    for skin in ("slate", "paper", "kesar"):
+        assert f'value="{skin}"' in html
+    assert "__PAYLOAD__" not in html and '"records":' in html
+    # interactivity hooks: filters + sortable table + tooltip layer
+    for hook in ('id="f-lang"', 'id="f-dom"', 'id="f-res"', 'id="f-q"',
+                 'id="tbl"', 'id="tip"', 'id="kpis"'):
+        assert hook in html, hook
 
     # resume: rerun with the SAME flags touches nothing new
     same_flags = [sys.executable, str(SCRIPT), "--mock", "--limit", "25",
