@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IndiBench — Pitch Deck</title>
+<style>
+:root{
+  --bg:#0f0e0c; --card:#1a1917; --card2:#232120; --line:#37342f;
+  --ink:#f5f1ea; --ink2:#bdb7ab; --ink3:#847e72;
+  --saffron:#f0821e; --blue:#3987e5; --aqua:#1baf7a; --yellow:#eda100;
+  --good:#0ca30c; --bad:#e05252; --green2:#199e70;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);
+  -webkit-font-smoothing:antialiased}
+.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;
+  justify-content:center;padding:56px 7vw;position:relative;border-bottom:1px solid var(--line)}
+.slide .no{position:absolute;top:26px;right:7vw;color:var(--ink3);
+  font:600 .78rem var(--mono)}
+.slide .brand{position:absolute;top:24px;left:7vw;display:flex;align-items:center;gap:9px;
+  font:700 .9rem var(--sans);color:var(--ink2)}
+.brand .m{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--saffron),#c2410c);color:#fff;font-size:.75rem}
+kicker,.kicker{display:block;color:var(--saffron);font:700 .8rem var(--sans);
+  text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
+h1{font-size:clamp(2.2rem,5.4vw,4.6rem);line-height:1.06;font-weight:800;
+  letter-spacing:-.025em;margin:0 0 18px;max-width:22ch}
+h1 .hl{color:var(--saffron)}
+h2{font-size:clamp(1.6rem,3.6vw,2.9rem);line-height:1.12;font-weight:750;
+  letter-spacing:-.02em;margin:0 0 16px;max-width:26ch}
+p.big{font-size:clamp(1rem,1.7vw,1.3rem);color:var(--ink2);max-width:56ch;margin:.3em 0}
+.sub{color:var(--ink3);font-size:.92rem;max-width:70ch}
+ul.pts{margin:18px 0 0;padding:0;list-style:none;max-width:62ch}
+ul.pts li{padding:9px 0 9px 30px;position:relative;color:var(--ink2);font-size:1.05rem}
+ul.pts li::before{content:"→";position:absolute;left:0;color:var(--saffron);font-weight:700}
+ul.pts b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:26px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.tile h3{margin:0 0 6px;font-size:1.02rem}
+.tile p{margin:0;color:var(--ink2);font-size:.9rem}
+.tile .big{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:0}
+.tile .cap{color:var(--ink3);font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;
+  font-weight:700;margin-top:5px}
+.badge{display:inline-block;font:700 .72rem var(--mono);letter-spacing:.05em;
+  border:1.5px solid var(--bad);color:var(--bad);border-radius:8px;padding:4px 10px;
+  text-transform:uppercase}
+.footer-note{margin-top:30px;color:var(--ink3);font-size:.82rem;font-family:var(--mono)}
+
+/* pipeline strip */
+.pipe{display:flex;flex-wrap:wrap;gap:0;align-items:stretch;margin-top:30px}
+.pipe .st{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);
+  padding:16px 16px 14px;position:relative;margin-right:26px;border-radius:14px}
+.pipe .st:last-child{margin-right:0}
+.pipe .st::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);
+  color:var(--saffron);font-size:1.2rem;font-weight:800}
+.pipe .st:last-child::after{content:""}
+.pipe .st .t{font:700 .78rem var(--mono);color:var(--saffron);margin-bottom:5px}
+.pipe .st .n{font-weight:700;font-size:.95rem;margin-bottom:4px}
+.pipe .st .d{color:var(--ink3);font-size:.78rem;line-height:1.45}
+.pipe .st.hot{border-color:var(--saffron);background:#231a10}
+
+/* coverage grid */
+.covwrap{display:grid;grid-template-columns:auto 1fr;gap:0 10px;margin-top:26px;
+  overflow-x:auto;padding-bottom:6px}
+.covgrid{display:grid;grid-template-columns:repeat(10,minmax(30px,1fr));gap:4px}
+.covlangs{display:grid;gap:4px;align-content:start}
+.covlangs span{font:600 .72rem var(--mono);color:var(--ink2);height:26px;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:4px}
+.cell{height:26px;border-radius:5px;background:linear-gradient(135deg,#2c2013,#3a2a15);
+  border:1px solid #4a3517;position:relative}
+.cell.s::after{content:"";position:absolute;right:3px;top:3px;width:6px;height:6px;
+  border-radius:50%;background:var(--bad)}
+.cell.h::before{content:"";position:absolute;left:3px;top:3px;width:6px;height:6px;
+  border-radius:50%;background:var(--yellow)}
+.covdoms{grid-column:2;display:grid;grid-template-columns:repeat(10,minmax(30px,1fr));gap:4px;margin-top:6px}
+.covdoms span{font:600 .6rem var(--mono);color:var(--ink3);writing-mode:vertical-rl;
+  transform:rotate(180deg);height:78px;display:flex;align-items:center}
+.legend{display:flex;gap:18px;margin-top:14px;color:var(--ink3);font-size:.78rem;align-items:center}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+/* leaderboard bars */
+.lb{margin-top:24px;max-width:980px}
+.lbhead,.lbrow{display:grid;grid-template-columns:210px 1fr 88px 78px 66px 56px;
+  gap:12px;align-items:center}
+.lbhead{color:var(--ink3);font:700 .68rem var(--sans);text-transform:uppercase;
+  letter-spacing:.07em;padding:0 0 8px}
+.lbrow{padding:7px 0;border-top:1px solid var(--line)}
+.lbrow .m{font:650 .88rem var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbrow .m small{color:var(--ink3);font:600 .72rem var(--mono);margin-left:6px}
+.lbrow .track{height:15px;background:var(--card2);border-radius:4px;position:relative}
+.lbrow .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0}
+.lbrow .err{position:absolute;top:50%;height:1.5px;background:var(--ink);opacity:.85}
+.lbrow .err::before,.lbrow .err::after{content:"";position:absolute;top:-4px;width:1.5px;
+  height:9.5px;background:var(--ink)}
+.lbrow .err::before{left:0}.lbrow .err::after{right:0}
+.lbrow .v{font:750 .9rem var(--sans);font-variant-numeric:tabular-nums}
+.lbrow .n{color:var(--ink2);font:.84rem var(--sans);font-variant-numeric:tabular-nums;text-align:right}
+.mockbanner{display:inline-flex;align-items:center;gap:8px;background:#2a1212;
+  border:1.5px solid var(--bad);color:#f2b8b8;border-radius:10px;padding:7px 13px;
+  font:700 .78rem var(--sans);letter-spacing:.04em;margin:4px 0 6px}
+
+/* scatter */
+.scatter{margin-top:18px;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:18px 18px 8px;max-width:980px;overflow-x:auto}
+svg text{font-family:var(--sans)}
+
+/* compare table */
+table.cmp{border-collapse:collapse;margin-top:24px;font-size:.92rem;max-width:900px;width:100%}
+.cmp th,.cmp td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line)}
+.cmp th{color:var(--ink3);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em}
+.cmp td.y{color:var(--good);font-weight:700}
+.cmp td.n{color:var(--bad);font-weight:700}
+.cmp td:first-child{color:var(--ink2)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:28px}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.ph .k{font:800 1.6rem var(--sans);color:var(--saffron)}
+.ph h3{margin:6px 0 6px;font-size:1.05rem}
+.ph p{margin:0;color:var(--ink3);font-size:.84rem}
+.ph.now{border-color:var(--saffron)}
+.ph .tag{font:700 .64rem var(--mono);color:var(--saffron);text-transform:uppercase;letter-spacing:.08em}
+
+.kbd{position:fixed;bottom:16px;right:18px;color:var(--ink3);font:.72rem var(--mono);
+  background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 9px;z-index:5}
+@media print{.slide{page-break-after:always;min-height:96vh}.kbd{display:none}}
+</style></head>
+<body>
+
+<!-- 1 · TITLE -->
+<section class="slide" id="title">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">01</div>
+  <span class="kicker">Open source · MIT code · CC-BY-4.0 data</span>
+  <h1>The open, lab-neutral <span class="hl">frontier benchmark</span> for India.</h1>
+  <p class="big">LLMs and agents, measured on Indian languages and Indian use cases —
+  across text, speech, vision, and agentic tasks — at a difficulty where today's
+  best models score <em>low</em>. That is the point.</p>
+  <p class="footer-note">github.com/pukrvi/indibench · python scripts/run_benchmark.py</p>
+</section>
+
+<!-- 2 · PROBLEM -->
+<section class="slide" id="problem">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">02</div>
+  <span class="kicker">Problem</span>
+  <h2>1.4 billion people.<br>Zero seats in the frontier benchmark suite.</h2>
+  <p class="big">Frontier AI has benchmarks it respects — HLE for expert knowledge,
+  SWE-bench for engineering. India is absent. Every open Indian benchmark today is:</p>
+  <div class="cols">
+    <div class="tile"><h3>Saturated</h3><p>Frontier models already score 56–77% on MILU,
+      BhashaBench, ParamBench — they measure yesterday, not the frontier.</p></div>
+    <div class="tile"><h3>Contaminated</h3><p>Scraped from public exam papers that are
+      already inside training corpora, by construction.</p></div>
+    <div class="tile"><h3>Translated</h3><p>MMLU clones in Indic packaging measure
+      translation transfer — not native competence, not India.</p></div>
+    <div class="tile"><h3>Closed</h3><p>The one frontier-grade effort (OpenAI's IndQA)
+      can't be run, audited, or built upon by anyone else.</p></div>
+  </div>
+</section>
+
+<!-- 3 · WHY NOW -->
+<section class="slide" id="why-now">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">03</div>
+  <span class="kicker">Why now</span>
+  <h2>Models already serve hundreds of millions of Indians. Nobody is keeping score.</h2>
+  <ul class="pts">
+    <li><b>Voice is the interface</b> for India's next users — and ASR still runs
+      20–30% word-error-rate on Indian languages.</li>
+    <li><b>IndQA (Nov 2025) proved the demand</b> — then kept the data, grading, and
+      pipeline closed. The open, lab-neutral slot is unclaimed.</li>
+    <li><b>India AI Summit (Feb 2026):</b> frontier labs committed to benchmark and
+      dataset support for under-represented languages. The window is open.</li>
+    <li><b>Every static benchmark decays.</b> Ours regenerates — a renewable
+      benchmark stays hard while the ecosystem's snapshots go stale.</li>
+  </ul>
+</section>
+
+<!-- 4 · SOLUTION / PIPELINE -->
+<section class="slide" id="pipeline">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">04</div>
+  <span class="kicker">Solution</span>
+  <h2>The pipeline is the product.</h2>
+  <p class="big">Questions are synthesized from hard Indian source documents, then
+  adversarially filtered: an item survives only if <b>≥2 of 4 frontier models fail it</b> —
+  one each from OpenAI, Anthropic, Google, plus the best Indian model.</p>
+  <div class="pipe">
+    <div class="st"><div class="t">S0</div><div class="n">Ground</div>
+      <div class="d">license-reviewed textbooks, gazettes, case law</div></div>
+    <div class="st"><div class="t">S1</div><div class="n">Author</div>
+      <div class="d">frontier LLM writes natively in-script; key comes from the source</div></div>
+    <div class="st"><div class="t">S2</div><div class="n">Verify</div>
+      <div class="d">independent panel re-derives every answer key</div></div>
+    <div class="st hot"><div class="t">S3</div><div class="n">Filter</div>
+      <div class="d">cross-lab panel answers blind — keep only what ≥2/4 fail</div></div>
+    <div class="st"><div class="t">S4</div><div class="n">Audit</div>
+      <div class="d">native experts spot-check; safety items 100%</div></div>
+    <div class="st"><div class="t">S5</div><div class="n">Release</div>
+      <div class="d">canary + private split + 6-monthly regeneration</div></div>
+  </div>
+  <p class="footer-note">Contamination defense: canary GUID · never-published held-out split · renewable refresh waves</p>
+</section>
+
+<!-- 5 · COVERAGE -->
+<section class="slide" id="coverage">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">05</div>
+  <span class="kicker">Coverage · Phase 1</span>
+  <h2>12 language tracks × 10 domains.<br>Native script. Never translated.</h2>
+  <div class="covwrap">
+    <div class="covlangs">
+      <span>Hindi</span><span>Bengali</span><span>Tamil</span><span>Telugu</span>
+      <span>Marathi</span><span>Kannada</span><span>Malayalam</span><span>Gujarati</span>
+      <span>Punjabi</span><span>Odia</span><span>English-IN</span><span>Hinglish+Tanglish</span>
+    </div>
+    <div>
+      <div class="covgrid" id="cov"></div>
+      <div class="covdoms">
+        <span>law &amp; constitution</span><span>governance</span><span>STEM-in-India</span>
+        <span>medicine · Ayush</span><span>finance &amp; tax</span><span>agriculture</span>
+        <span>history · heritage</span><span>literature · arts</span><span>geography · env</span>
+        <span>society · daily life</span>
+      </div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--bad)"></i>safety slice (100% expert-audited)</span>
+    <span><i style="background:var(--yellow)"></i>historical-accuracy slice</span>
+    <span>schema extends to all 22 scheduled languages · roadmap: speech → vision → agents</span>
+  </div>
+</section>
+
+<!-- 6 · PRODUCT -->
+<section class="slide" id="product">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">06</div>
+  <span class="kicker">Product · runnable today</span>
+  <h2>One command. A full evaluation report.</h2>
+  <p class="big"><code style="font-family:var(--mono);color:var(--saffron)">python scripts/run_benchmark.py --model &lt;any&gt;</code>
+  &nbsp;→ per-item CSV + an interactive dashboard: accuracy, time-to-first-token,
+  tokens/sec, tokens generated, total cost — filterable by language and domain,
+  in three selectable themes.</p>
+  <div class="cols">
+    <div class="tile"><p class="big">240</p><div class="cap">seed questions live (12×10×2)</div></div>
+    <div class="tile"><p class="big">~2,500</p><div class="cap">v1 target after cross-lab filtering</div></div>
+    <div class="tile"><p class="big">22</p><div class="cap">offline tests · every stage runnable without keys</div></div>
+    <div class="tile"><p class="big">2</p><div class="cap">harnesses: Inspect AI + zero-framework scripts</div></div>
+  </div>
+  <p class="footer-note">see docs/assets/dashboard.png — the live report a run produces</p>
+</section>
+
+<!-- 7 · LEADERBOARD (illustrative) -->
+<section class="slide" id="leaderboard">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">07</div>
+  <span class="kicker">The v1 deliverable</span>
+  <h2>A leaderboard labs can't grade for themselves.</h2>
+  <div class="mockbanner">⚠ MOCK DATA — illustrative of the v1 report format · no official IndiBench runs exist yet</div>
+  <div class="lb">
+    <div class="lbhead"><span>model</span><span></span><span>score</span><span>avg cost</span><span>out tok</span><span>ttft</span></div>
+    <div id="lbrows"></div>
+  </div>
+  <p class="footer-note">dual judges from two different labs · published raw logs · maintainer-run (self-reported scores not accepted)</p>
+</section>
+
+<!-- 8 · EFFICIENCY FRONTIER (illustrative) -->
+<section class="slide" id="frontier">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">08</div>
+  <span class="kicker">Score vs cost · per model · per effort level</span>
+  <h2>Not just who wins — who wins per rupee.</h2>
+  <div class="mockbanner">⚠ MOCK DATA — illustrative of the v1 report format · no official IndiBench runs exist yet</div>
+  <div class="scatter"><svg id="sc" viewBox="0 0 900 430" role="img" aria-label="Illustrative score vs cost scatter"></svg></div>
+</section>
+
+<!-- 9 · MOAT -->
+<section class="slide" id="moat">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">09</div>
+  <span class="kicker">Differentiation</span>
+  <h2>What the incumbent structurally cannot copy.</h2>
+  <table class="cmp">
+    <tr><th></th><th>IndQA (OpenAI)</th><th>IndiBench</th></tr>
+    <tr><td>Open data + harness + pipeline</td><td class="n">✗ closed</td><td class="y">✓ MIT / CC-BY-4.0</td></tr>
+    <tr><td>Adversarial filter</td><td class="n">own models only</td><td class="y">cross-lab, 4 providers</td></tr>
+    <tr><td>Grading</td><td class="n">self-graded</td><td class="y">dual judges, two labs, logs published</td></tr>
+    <tr><td>Domains</td><td class="n">culture-only</td><td class="y">culture + law, medicine, finance, STEM</td></tr>
+    <tr><td>Code-mixing</td><td class="n">Hinglish only</td><td class="y">Hinglish + Tanglish (unclaimed)</td></tr>
+    <tr><td>Lifespan</td><td class="n">static</td><td class="y">renewable — regenerated every 6 months</td></tr>
+  </table>
+</section>
+
+<!-- 10 · ROADMAP -->
+<section class="slide" id="roadmap">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">10</div>
+  <span class="kicker">Roadmap · India is a multimodal evaluation problem</span>
+  <h2>Text is the wedge. The suite is the prize.</h2>
+  <div class="road">
+    <div class="ph now"><div class="tag">now</div><div class="k">1</div><h3>IndiBench-Text</h3>
+      <p>~2,500 filtered questions · leaderboard · paper · inspect_evals registration</p></div>
+    <div class="ph"><div class="k">2</div><h3>IndiBench-Speech</h3>
+      <p>STT and TTS both ways · dialect + acoustic diversity · the interface of the next 500M users</p></div>
+    <div class="ph"><div class="k">3</div><h3>IndiBench-Vision</h3>
+      <p>understanding India in images AND generating it with historical accuracy</p></div>
+    <div class="ph"><div class="k">4</div><h3>IndiBench-Agent</h3>
+      <p>agents on Indian rails — UPI, IRCTC, gov portals — deterministic verification</p></div>
+  </div>
+</section>
+
+<!-- 11 · ASK -->
+<section class="slide" id="ask">
+  <div class="brand"><span class="m">इ</span> IndiBench</div><div class="no">11</div>
+  <span class="kicker">The ask</span>
+  <h2>Be the yardstick, not a yardstick.</h2>
+  <ul class="pts">
+    <li><b>Frontier labs:</b> panel + judge API credits — your models grade nothing alone,
+      and every log is published.</li>
+    <li><b>AI4Bharat · BharatGen · IndiaAI:</b> distribution, source corpora, and the
+      Indic LLM-Arena partnership.</li>
+    <li><b>Native-language domain experts:</b> spot-check items, earn co-authorship
+      on the paper.</li>
+    <li><b>Everyone else:</b> <span style="font-family:var(--mono);color:var(--saffron)">
+      git clone github.com/pukrvi/indibench</span> — the whole pipeline runs offline today.</li>
+  </ul>
+  <p class="footer-note">docs/DECISIONS.md — 42 recorded decisions · docs/wiki — full documentation</p>
+</section>
+
+<div class="kbd">←/→ or scroll · 11 slides</div>
+
+<script>
+/* coverage grid: 12 langs x 10 domains; safety dots in medicine/finance cols, historical in history col */
+(function(){
+  const grid = document.getElementById("cov");
+  for (let r = 0; r < 12; r++)
+    for (let c = 0; c < 10; c++){
+      const d = document.createElement("div");
+      d.className = "cell" + ((c===3||c===4) ? " s" : "") + (c===6 ? " h" : "");
+      grid.appendChild(d);
+    }
+})();
+
+/* illustrative leaderboard — MOCK values, banner shown on slide */
+(function(){
+  const rows = [
+    ["frontier-model-A","max",62,4,"$9.40","78k","1.1s","#199e70"],
+    ["frontier-model-B","high",58,5,"$14.20","112k","1.6s","#e07020"],
+    ["frontier-model-C","high",51,3,"$6.10","64k","0.9s","#3987e5"],
+    ["indian-model-D","max",44,4,"$2.30","58k","0.7s","#e05252"],
+    ["frontier-model-E","med",38,3,"$3.80","91k","1.3s","#5a8dd6"],
+    ["open-weights-F","—",29,2,"$1.10","47k","0.6s","#1baf7a"],
+  ];
+  const el = document.getElementById("lbrows");
+  el.innerHTML = rows.map(([m,e,v,pm,c,t,ttft,col]) => `
+    <div class="lbrow">
+      <span class="m">${m}<small>[${e}]</small></span>
+      <span class="track"><span class="fill" style="width:${v}%;background:${col}"></span>
+        <span class="err" style="left:${v-pm}%;width:${2*pm}%"></span></span>
+      <span class="v">${v}% <small style="color:var(--ink3);font-weight:600">±${pm}</small></span>
+      <span class="n">${c}</span><span class="n">${t}</span><span class="n">${ttft}</span>
+    </div>`).join("");
+})();
+
+/* illustrative efficiency frontier — MOCK values, banner shown on slide */
+(function(){
+  const svg = document.getElementById("sc");
+  const W=900,H=430,L=70,R=40,T=34,B=64;
+  const pw=W-L-R, ph=H-T-B;
+  const X = c => L + pw*(1 - c/16);       /* cost axis reversed: $16 → $0 */
+  const Y = s => T + ph*(1 - s/70);       /* score 0–70% */
+  const models = [
+    {n:"frontier-model-A", col:"#199e70", pts:[[2.1,45,"low"],[4.8,55,"high"],[9.4,62,"max"]]},
+    {n:"frontier-model-B", col:"#e07020", pts:[[3.5,42,"med"],[7.9,52,"high"],[14.2,58,"max"]]},
+    {n:"frontier-model-C", col:"#3987e5", pts:[[1.9,38,"med"],[6.1,51,"xhigh"]]},
+    {n:"indian-model-D",   col:"#e05252", pts:[[0.9,31,"high"],[2.3,44,"max"]]},
+    {n:"open-weights-F",   col:"#1baf7a", pts:[[0.5,21,"—"],[1.1,29,"max"]]},
+  ];
+  let s = "";
+  /* grid + axes */
+  for (let c=0; c<=16; c+=4) s += `<line x1="${X(c)}" y1="${T}" x2="${X(c)}" y2="${T+ph}" stroke="#2b2925"/>
+    <text x="${X(c)}" y="${T+ph+22}" fill="#847e72" font-size="12" text-anchor="middle">$${c}</text>`;
+  for (let v=0; v<=70; v+=10) s += `<line x1="${L}" y1="${Y(v)}" x2="${L+pw}" y2="${Y(v)}" stroke="#2b2925"/>
+    <text x="${L-10}" y="${Y(v)+4}" fill="#847e72" font-size="12" text-anchor="end">${v}%</text>`;
+  s += `<text x="${L+pw/2}" y="${H-14}" fill="#bdb7ab" font-size="13" text-anchor="middle">avg cost per run (USD) →  cheaper</text>`;
+  s += `<text x="${L+pw-4}" y="${T+16}" fill="#847e72" font-size="12" text-anchor="end" font-style="italic">most efficient ↗</text>`;
+  s += `<text x="20" y="${T-14}" fill="#bdb7ab" font-size="13">IndiBench score</text>`;
+  /* series */
+  for (const m of models){
+    const p = m.pts.map(([c,v]) => `${X(c)},${Y(v)}`).join(" ");
+    s += `<polyline points="${p}" fill="none" stroke="${m.col}" stroke-width="2.5"/>`;
+    m.pts.forEach(([c,v,e],i) => {
+      s += `<circle cx="${X(c)}" cy="${Y(v)}" r="6.5" fill="${m.col}" stroke="#0f0e0c" stroke-width="2"/>`;
+      s += `<text x="${X(c)}" y="${Y(v)-12}" fill="#847e72" font-size="10.5" text-anchor="middle">${e}</text>`;
+      if (i === m.pts.length-1)
+        s += `<text x="${X(c)+10}" y="${Y(v)+4}" fill="${m.col}" font-size="13" font-weight="700">${m.n}</text>`;
+    });
+  }
+  /* in-chart mock watermark */
+  s += `<text x="${L+14}" y="${T+ph-14}" fill="#e05252" font-size="13" font-weight="800" letter-spacing="1">MOCK DATA · ILLUSTRATIVE</text>`;
+  svg.innerHTML = s;
+})();
+
+/* arrow-key navigation */
+(function(){
+  const slides = [...document.querySelectorAll(".slide")];
+  addEventListener("keydown", e => {
+    if (!["ArrowRight","ArrowLeft","PageDown","PageUp"].includes(e.key)) return;
+    const y = scrollY, idx = slides.findIndex(sl => sl.offsetTop > y+10);
+    const cur = (idx === -1 ? slides.length : idx) - 1;
+    const nxt = (e.key==="ArrowRight"||e.key==="PageDown") ? Math.min(cur+1, slides.length-1)
+                                                           : Math.max(cur-1, 0);
+    slides[nxt].scrollIntoView({behavior:"smooth"});
+    e.preventDefault();
+  });
+})();
+</script>
+</body></html>
