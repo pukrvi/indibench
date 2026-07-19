@@ -327,10 +327,14 @@ def _slim(records: list[dict]) -> list[dict]:
 
 def build_overview(records: list[dict], summary: dict, meta: dict) -> str:
     """Interactive single-file dashboard. All data embedded; no external requests."""
+    from indibench.schema import DOMAIN_NAMES, LANGUAGE_NAMES
     # <-escape EVERY '<': model answers are untrusted, and '<!--<script'
-    # inside script data would otherwise swallow the closing </script> tag
-    payload = json.dumps({"meta": meta, "records": _slim(records)},
-                         ensure_ascii=False).replace("<", "\\u003c")
+    # inside script data would otherwise swallow the closing </script> tag.
+    # names: canonical slugs stay in the records/CSV; humans see proper names.
+    payload = json.dumps(
+        {"meta": meta, "records": _slim(records),
+         "names": {"lang": LANGUAGE_NAMES, "dom": DOMAIN_NAMES}},
+        ensure_ascii=False).replace("<", "\\u003c")
     return _DASHBOARD.replace("__PAYLOAD__", payload)
 
 
@@ -409,7 +413,7 @@ button.reset:hover{color:var(--ink)}
 .empty{color:var(--ink3);font-size:.82rem;padding:14px 0}
 
 .hrow{display:flex;align-items:center;gap:9px;margin:4px 0;min-height:20px}
-.hrow .hl{flex:0 0 92px;text-align:right;color:var(--ink2);font:600 .74rem var(--mono);
+.hrow .hl{flex:0 0 178px;text-align:right;color:var(--ink2);font:600 .78rem var(--sans);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hrow .htrack{flex:1;height:13px;background:var(--track);border-radius:4px;position:relative}
 .hrow .hfill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;min-width:2px}
@@ -561,13 +565,18 @@ function bindTip(el, text){
   el.addEventListener("mouseleave", () => tip.style.opacity = 0);
 }
 
+/* ---------- display names (slugs stay canonical in the data/CSV) ---------- */
+const NAMES = DATA.names || {lang:{}, dom:{}};
+const lname = k => (NAMES.lang && NAMES.lang[k]) || k;
+const dname = k => (NAMES.dom && NAMES.dom[k]) || k;
+
 /* ---------- filters ---------- */
-function fillSelect(sel, values){
+function fillSelect(sel, values, namer){
   sel.innerHTML = "<option value=''>all</option>" +
-    values.map(v=>`<option>${v}</option>`).join("");
+    values.map(v=>`<option value="${v}">${namer(v)}</option>`).join("");
 }
-fillSelect($("f-lang"), [...new Set(R.map(r=>r.lang))].sort());
-fillSelect($("f-dom"),  [...new Set(R.map(r=>r.dom))].sort());
+fillSelect($("f-lang"), [...new Set(R.map(r=>r.lang))].sort((a,b)=>lname(a)<lname(b)?-1:1), lname);
+fillSelect($("f-dom"),  [...new Set(R.map(r=>r.dom))].sort((a,b)=>dname(a)<dname(b)?-1:1), dname);
 ["f-lang","f-dom","f-res"].forEach(id => $(id).addEventListener("change", render));
 $("f-q").addEventListener("input", () => renderTable(current()));
 $("f-reset").addEventListener("click", () => { $("f-lang").value=""; $("f-dom").value="";
@@ -622,15 +631,15 @@ function hbars(el, entries, cssvar, format, tipfmt){
     el.appendChild(row);
   }
 }
-function accEntries(rows, key){
+function accEntries(rows, key, namer){
   return groupBy(rows, key).map(([k, g]) => {
     const judged = g.filter(r=>r.ok!=null);
-    return [k, judged.length ? 100*judged.filter(r=>r.ok).length/judged.length : null, judged.length];
+    return [namer(k), judged.length ? 100*judged.filter(r=>r.ok).length/judged.length : null, judged.length];
   });
 }
-function statEntries(rows, key, fn){
+function statEntries(rows, key, fn, namer){
   return groupBy(rows, key).map(([k, g]) => { const good=g.filter(r=>!r.err);
-    return [k, fn(good), good.length]; });
+    return [namer(k), fn(good), good.length]; });
 }
 
 /* ---------- TTFT histogram ---------- */
@@ -655,8 +664,8 @@ function renderHist(rows){
 /* ---------- table ---------- */
 const COLS = [
   ["id","id",r=>`<td style="font-family:var(--mono);font-size:.72rem">${r.id}</td>`],
-  ["lang","lang",r=>`<td>${r.lang}</td>`],
-  ["dom","domain",r=>`<td>${r.dom}</td>`],
+  ["lang","language",r=>`<td>${lname(r.lang)}</td>`],
+  ["dom","domain",r=>`<td>${dname(r.dom)}</td>`],
   ["ok","result",r=>`<td>${r.err?'<span class="ko">⚠ error</span>':r.ok===true?'<span class="ok">✓ correct</span>':r.ok===false?'<span class="ko">✗ wrong</span>':'<span class="na">—</span>'}</td>`],
   ["conf","conf %",r=>`<td class="num">${r.conf==null?"—":r.conf}</td>`],
   ["ttft","ttft s",r=>`<td class="num">${r.ttft==null?"—":r.ttft.toFixed(2)}</td>`],
@@ -670,7 +679,9 @@ function renderTable(rows){
   const q = $("f-q").value.trim().toLowerCase();
   let view = q ? rows.filter(r => r.id.toLowerCase().includes(q) ||
                                   (r.ans||"").toLowerCase().includes(q)) : rows;
-  view = [...view].sort((a,b)=>{ const x=a[sortKey], y=b[sortKey];
+  const skey = r => sortKey==="lang" ? lname(r.lang)
+                  : sortKey==="dom"  ? dname(r.dom) : r[sortKey];
+  view = [...view].sort((a,b)=>{ const x=skey(a), y=skey(b);
     if (x==null) return 1; if (y==null) return -1;
     return (x<y?-1:x>y?1:0)*sortDir; });
   const head = $("tbl").tHead;
@@ -698,16 +709,16 @@ function render(){
   const rows = current();
   $("f-count").textContent = rows.length + " of " + R.length + " items";
   renderKpis(rows);
-  hbars($("ch-acc-lang"), accEntries(rows,"lang"), "--s-blue", fmt.pct,
+  hbars($("ch-acc-lang"), accEntries(rows,"lang",lname), "--s-blue", fmt.pct,
         (l,v,n)=>v==null?`${l} · not judged`:`${l} · ${fmt.pct(v)} of ${n} judged`);
-  hbars($("ch-acc-dom"), accEntries(rows,"dom"), "--s-blue", fmt.pct,
+  hbars($("ch-acc-dom"), accEntries(rows,"dom",dname), "--s-blue", fmt.pct,
         (l,v,n)=>v==null?`${l} · not judged`:`${l} · ${fmt.pct(v)} of ${n} judged`);
-  hbars($("ch-ttft-lang"), statEntries(rows,"lang", g=>median(g.map(r=>r.ttft).filter(v=>v!=null))),
+  hbars($("ch-ttft-lang"), statEntries(rows,"lang", g=>median(g.map(r=>r.ttft).filter(v=>v!=null)), lname),
         "--s-aqua", fmt.s, (l,v,n)=>`${l} · median ${fmt.s(v)} · ${n} items`);
-  hbars($("ch-tps-lang"), statEntries(rows,"lang", g=>mean(g.map(r=>r.tps).filter(v=>v!=null))),
+  hbars($("ch-tps-lang"), statEntries(rows,"lang", g=>mean(g.map(r=>r.tps).filter(v=>v!=null)), lname),
         "--s-blue", fmt.tps, (l,v,n)=>`${l} · ${fmt.tps(v)} tok/s mean · ${n} items`);
   hbars($("ch-cost-lang"), statEntries(rows,"lang", g=>{const c=g.map(r=>r.cost).filter(v=>v!=null);
-        return c.length?c.reduce((a,b)=>a+b,0):null;}),
+        return c.length?c.reduce((a,b)=>a+b,0):null;}, lname),
         "--s-yellow", fmt.usd, (l,v,n)=>`${l} · ${fmt.usd(v)} total · ${n} items`);
   renderHist(rows);
   renderTable(rows);

@@ -171,6 +171,35 @@ def test_effort_recorded_and_pinned(tmp_path):
     assert any(p.name.startswith("mock-model_low_") for p in tmp_path.iterdir())
 
 
+def test_display_names_presentation_only(tmp_path):
+    """Dashboard shows proper language/domain names; CSV/records keep slugs."""
+    from indibench.schema import DOMAIN_NAMES, LANGUAGE_NAMES, Domain, Language
+    # every enum value must have a display name (future additions can't slip through)
+    assert {m.value for m in Language} <= set(LANGUAGE_NAMES)
+    assert {m.value for m in Domain} <= set(DOMAIN_NAMES)
+
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT), "--mock", "--limit", "40",
+         "--out", str(tmp_path), "--run-name", "names"],
+        capture_output=True, text=True, timeout=180)
+    assert proc.returncode == 0, proc.stderr
+    run_dir = tmp_path / "names"
+
+    html = (run_dir / "overview.html").read_text(encoding="utf-8")
+    assert '"names"' in html                       # name map embedded
+    assert "Bengali" in html and "English (India)" in html   # first 40 items = bn + en-IN
+    assert "Medicine & AYUSH" in html and "Agriculture" in html
+    # internal slugs must NOT be the presented labels in dropdowns/charts:
+    # the raw record still carries them, but the human-facing map replaces them
+
+    # results.csv stays canonical (slugs), never display names
+    rows = list(csv.DictReader((run_dir / "results.csv").open(encoding="utf-8")))
+    langs = {r["language"] for r in rows}
+    assert "bn" in langs and "Bengali" not in langs
+    doms = {r["domain"] for r in rows}
+    assert "medicine_ayush" in doms and "Medicine & AYUSH" not in doms
+
+
 def test_zero_item_run_does_not_crash(tmp_path):
     proc = subprocess.run(
         [sys.executable, str(SCRIPT), "--mock", "--limit", "0",
