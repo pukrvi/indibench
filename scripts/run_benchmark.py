@@ -322,8 +322,10 @@ def _slim(records: list[dict]) -> list[dict]:
 
 def build_overview(records: list[dict], summary: dict, meta: dict) -> str:
     """Interactive single-file dashboard. All data embedded; no external requests."""
+    # <-escape EVERY '<': model answers are untrusted, and '<!--<script'
+    # inside script data would otherwise swallow the closing </script> tag
     payload = json.dumps({"meta": meta, "records": _slim(records)},
-                         ensure_ascii=False).replace("</", "<\\/")
+                         ensure_ascii=False).replace("<", "\\u003c")
     return _DASHBOARD.replace("__PAYLOAD__", payload)
 
 
@@ -498,7 +500,8 @@ const $ = id => document.getElementById(id);
 const skinSel = $("skin");
 let skin;
 try { skin = localStorage.getItem("ib-skin"); } catch(e) {}
-if (!skin) skin = matchMedia("(prefers-color-scheme: dark)").matches ? "slate" : "paper";
+if (!["slate","paper","kesar"].includes(skin))
+  skin = matchMedia("(prefers-color-scheme: dark)").matches ? "slate" : "paper";
 function applySkin(s){
   document.body.dataset.skin = s;
   // mirror onto <html>: a color-scheme mismatch between html and body stops
@@ -686,6 +689,7 @@ function renderTable(rows){
 
 /* ---------- render ---------- */
 function render(){
+  tip.style.opacity = 0;  // hovered node may vanish on re-render; don't strand the tooltip
   const rows = current();
   $("f-count").textContent = rows.length + " of " + R.length + " items";
   renderKpis(rows);
