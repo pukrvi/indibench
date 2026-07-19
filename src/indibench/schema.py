@@ -50,6 +50,28 @@ class Domain(str, Enum):
     SOCIETY_DAILY_LIFE = "society_daily_life"
 
 
+# Human-readable display names for presentation surfaces (dashboards, reports).
+# The enum VALUES stay canonical in data/CSV/JSON; these are for humans only.
+LANGUAGE_NAMES: dict[str, str] = {
+    "hi": "Hindi", "bn": "Bengali", "ta": "Tamil", "te": "Telugu",
+    "mr": "Marathi", "kn": "Kannada", "ml": "Malayalam", "gu": "Gujarati",
+    "pa": "Punjabi", "or": "Odia", "en-IN": "English (India)",
+    "hi-Latn": "Hinglish", "ta-Latn": "Tanglish",
+}
+DOMAIN_NAMES: dict[str, str] = {
+    "law_constitution": "Law & Constitution",
+    "governance_admin": "Governance & Admin",
+    "stem_india": "STEM (India)",
+    "medicine_ayush": "Medicine & AYUSH",
+    "finance_tax": "Finance & Taxation",
+    "agriculture": "Agriculture",
+    "history_heritage": "History & Heritage",
+    "literature_arts": "Literature & Arts",
+    "geography_environment": "Geography & Environment",
+    "society_daily_life": "Society & Daily Life",
+}
+
+
 class Tag(str, Enum):
     """Cross-cutting reportable slices (D-027 historical, D-038 safety)."""
 
