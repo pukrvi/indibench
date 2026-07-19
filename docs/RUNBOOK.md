@@ -63,7 +63,7 @@ an OpenAI-compatible gateway; the Inspect harness needs no gateway
 
 ## Evaluating a model
 
-- **One-command runner (recommended):** `python scripts/run_benchmark.py --model <id> --judge <id> [--base-url <local>] [--input-cost X --output-cost Y]`
+- **One-command runner (recommended):** `python scripts/run_benchmark.py --model <id> --judge <id> [--effort <level>] [--base-url <local>] [--input-cost X --output-cost Y]`
   → writes `results/<run-name>/` with `results.csv` (per-item correctness,
   TTFT, tokens/sec, tokens, cost), `summary.csv`/`summary.json`, and a visual
   `overview.html`. `--mock` dry-runs the whole thing offline. Full
