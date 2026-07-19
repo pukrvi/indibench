@@ -88,8 +88,17 @@ def test_mock_run_end_to_end(tmp_path):
 
     html = (run_dir / "overview.html").read_text(encoding="utf-8")
     assert "not official IndiBench scores" in html  # unfiltered-pool caveat
-    assert "Median TTFT" in html and "tok/s" in html and "Total cost" in html
+    assert "Median TTFT" in html and "tok/s" in html
     assert "http://" not in html and "https://" not in html  # self-contained
+    # dashboard: theme dropdown with exactly the three skins, data embedded
+    assert '<select id="skin"' in html
+    for skin in ("slate", "paper", "kesar"):
+        assert f'value="{skin}"' in html
+    assert "__PAYLOAD__" not in html and '"records":' in html
+    # interactivity hooks: filters + sortable table + tooltip layer
+    for hook in ('id="f-lang"', 'id="f-dom"', 'id="f-res"', 'id="f-q"',
+                 'id="tbl"', 'id="tip"', 'id="kpis"'):
+        assert hook in html, hook
 
     # resume: rerun with the SAME flags touches nothing new
     same_flags = [sys.executable, str(SCRIPT), "--mock", "--limit", "25",
@@ -109,6 +118,24 @@ def test_mock_run_end_to_end(tmp_path):
     proc4 = subprocess.run(same_flags, capture_output=True, text=True, timeout=180)
     assert proc4.returncode == 0, proc4.stderr
     assert "truncated line" in proc4.stdout
+
+
+def test_hostile_model_answer_cannot_break_the_payload():
+    """A '<!--<script' in a model answer must never escape the JSON payload."""
+    hostile = {"id": "ibc-hi-agriculture-x", "language": "hi", "domain": "agriculture",
+               "answer_type": "exactMatch", "correct": False, "confidence": 50.0,
+               "ttft_s": 1.0, "generation_time_s": 1.0, "total_time_s": 2.0,
+               "input_tokens": 10, "output_tokens": 10, "tokens_per_sec": 10.0,
+               "cost_usd": 0.0, "model_answer": '</script><!--<script>alert(1)',
+               "response": "x"}
+    summary = rb.aggregate([hostile])
+    html = rb.build_overview([hostile], summary,
+                             {"model": "m", "judge": None, "data": "d", "timestamp": "t",
+                              "mock": True, "unfiltered_pool": True, "priced": False})
+    start = html.index("const DATA = ") + len("const DATA = ")
+    payload = html[start:html.index(";\n", start)]
+    assert "<" not in payload            # every '<' is <-escaped
+    assert json.loads(payload)["records"][0]["ans"].startswith("</script>")
 
 
 def test_zero_item_run_does_not_crash(tmp_path):
