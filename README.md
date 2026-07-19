@@ -23,6 +23,15 @@ IndiBench adds India to the frontier suite: benchmarks hard enough that
 today's best models fail them, in Indian languages, on Indian use cases,
 fully open — data, harness, and the pipeline that generates it.
 
+<p align="center">
+  <img src="docs/assets/deck-coverage.png" alt="12 language tracks × 10 domains coverage grid" width="49%">
+  <img src="docs/assets/deck-pipeline.png" alt="The S0–S5 generation pipeline" width="49%">
+</p>
+
+> 📊 The full **pitch deck** lives at [docs/pitch/deck.html](docs/pitch/deck.html)
+> (open locally — arrow keys to navigate) and the **project wiki** at
+> [docs/wiki/index.html](docs/wiki/index.html).
+
 ### The thesis: India is a multimodal evaluation problem
 
 Text-only evaluation structurally under-measures what matters in India
@@ -155,6 +164,21 @@ Every run writes `results/<run-name>/`:
 | `summary.json` | run metadata + the same aggregates, machine-readable |
 | `overview.html` | **open in any browser** — tiles for accuracy, median TTFT, mean tokens/sec, tokens generated, total cost, calibration error, plus per-language/per-domain charts |
 | `raw.jsonl` | full per-item records incl. complete responses (the resume cache) |
+
+The `overview.html` report is a full interactive dashboard — live language/domain
+filters, sortable per-item table, and three selectable themes:
+
+<p align="center">
+  <img src="docs/assets/dashboard.png" alt="IndiBench run dashboard — KPIs, accuracy/TTFT/speed/cost charts, filters" width="90%">
+</p>
+
+And the v1 leaderboard will report score **and** efficiency, per model, per
+reasoning-effort level (`--effort`) — mock previews of the report format:
+
+<p align="center">
+  <img src="docs/assets/deck-leaderboard.png" alt="Illustrative leaderboard format (mock data)" width="49%">
+  <img src="docs/assets/deck-frontier.png" alt="Illustrative score-vs-cost efficiency frontier (mock data)" width="49%">
+</p>
 
 Metric definitions: TTFT = time from request to first streamed content token;
 tokens/sec = output tokens ÷ generation time after the first token; cost =

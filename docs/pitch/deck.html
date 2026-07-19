@@ -385,13 +385,26 @@ table.cmp{border-collapse:collapse;margin-top:24px;font-size:.92rem;max-width:90
     m.pts.forEach(([c,v,e],i) => {
       s += `<circle cx="${X(c)}" cy="${Y(v)}" r="6.5" fill="${m.col}" stroke="#0f0e0c" stroke-width="2"/>`;
       s += `<text x="${X(c)}" y="${Y(v)-12}" fill="#847e72" font-size="10.5" text-anchor="middle">${e}</text>`;
-      if (i === m.pts.length-1)
-        s += `<text x="${X(c)+10}" y="${Y(v)+4}" fill="${m.col}" font-size="13" font-weight="700">${m.n}</text>`;
+      if (i === m.pts.length-1){
+        const flip = X(c) > W - 170;  // keep end-of-series labels inside the plot
+        s += `<text x="${X(c) + (flip ? -12 : 10)}" y="${Y(v)+4}" fill="${m.col}"
+          font-size="13" font-weight="700" text-anchor="${flip ? "end" : "start"}">${m.n}</text>`;
+      }
     });
   }
   /* in-chart mock watermark */
   s += `<text x="${L+14}" y="${T+ph-14}" fill="#e05252" font-size="13" font-weight="800" letter-spacing="1">MOCK DATA · ILLUSTRATIVE</text>`;
   svg.innerHTML = s;
+})();
+
+/* export mode: ?only=<slide-id> shows a single slide (used to render the
+   README PNGs headlessly) */
+(function(){
+  const only = new URLSearchParams(location.search).get("only");
+  if (!only || !document.getElementById(only)) return;
+  document.querySelectorAll(".slide").forEach(s => { if (s.id !== only) s.style.display = "none"; });
+  document.querySelector(".kbd").style.display = "none";
+  document.documentElement.style.scrollSnapType = "none";
 })();
 
 /* arrow-key navigation */
